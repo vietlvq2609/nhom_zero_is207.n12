@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,12 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', [Controller::class, 'index']);
 
 Route::get('/about', function () {
     return view('about');
+});
+
+Route::get('/contact', function () {
+    return view('contact');
 });
 
 Route::get('/products/{id}', function () {
@@ -29,9 +33,18 @@ Route::get('/products', function () {
     return view('products.index');
 });
 
+
+// User route
 Route::get('/login', function () {
     return view('users.login');
 });
-Route::get('/register', function () {
-    return view('users.register');
+Route::post('/login', function () {
+    return view('users.login');
 });
+Route::post("/logout", [UserController::class, "logout"]);
+
+Route::get('/register', [UserController::class, "create"]);
+Route::post('/register', [UserController::class, "store"]);
+
+Route::get('/user', [UserController::class, "edit"]);
+// 

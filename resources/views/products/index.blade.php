@@ -378,3 +378,17 @@
     </div>
     <!-- ./shop wrapper -->
 </x-layout>
+<form action="/products" method="post" class="">
+    @csrf
+
+    <input type="text" name="name" value="{{old('name')}}">
+    @error('name')
+    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+    @enderror
+    <input type="text" name="price" value="{{old('price')}}">
+    @error('price')
+    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+    @enderror
+    <button type="submit">submit</button>
+</form>
+

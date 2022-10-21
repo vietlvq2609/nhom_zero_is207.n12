@@ -9,6 +9,7 @@
 
     <link rel="shortcut icon" href="assets/images/favicon/favicon.ico" type="image/x-icon">
 
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="assets/css/main.css">
 
     <!-- Google Fonts -->
@@ -18,7 +19,6 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="//unpkg.com/alpinejs" defer></script>
-    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -51,21 +51,13 @@
             <div class="flex items-center space-x-4">
                 <a href="#" class="text-center text-gray-700 hover:text-primary transition relative">
                     <div class="text-2xl">
-                        <i class="fa-regular fa-heart"></i>
-                    </div>
-                    <div class="text-xs leading-3">Wishlist</div>
-                    <div class="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
-                        8</div>
-                </a>
-                <a href="#" class="text-center text-gray-700 hover:text-primary transition relative">
-                    <div class="text-2xl">
                         <i class="fa-solid fa-bag-shopping"></i>
                     </div>
                     <div class="text-xs leading-3">Cart</div>
                     <div class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
                         2</div>
                 </a>
-                <a href="#" class="text-center text-gray-700 hover:text-primary transition relative">
+                <a href="/user" class="text-center text-gray-700 hover:text-primary transition relative">
                     <div class="text-2xl">
                         <i class="fa-regular fa-user"></i>
                     </div>
@@ -121,7 +113,16 @@
                     <a href="/about" class="text-gray-200 hover:text-white transition">About us</a>
                     <a href="/contact" class="text-gray-200 hover:text-white transition">Contact us</a>
                 </div>
+                @auth
+                <form class="inline" method="POST" action="/logout">
+                    @csrf
+                    <button type="submit" class="text-gray-200 hover:text-white transition">
+                        <i class="fa-solid fa-door-closed"></i> Logout
+                    </button>
+                </form>
+                @else
                 <a href="/login" class="text-gray-200 hover:text-white transition">Login</a>
+                @endauth
             </div>
         </div>
     </nav>
@@ -207,6 +208,7 @@
         </div>
     </div>
     <!-- ./copyright -->
+    <x-flash-message />
 </body>
 
 </html>
