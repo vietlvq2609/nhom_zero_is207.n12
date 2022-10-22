@@ -7,21 +7,27 @@ use Illuminate\Database\Eloquent\Model;
 
 class user_payment_method extends Model
 {
+    protected $fillable = [
+        'provider',
+        'account_number',
+        'expiry_date',
+        'is_default',
+    ];
     use HasFactory;
 
     // Relationship with shop_order
-    public function shop_order()
+    public function Shop_order()
     {
-        return $this->belongsTo(shop_order::class, 'id');
+        return $this->belongsTo(Shop_order::class, 'id');
     }
     // Relationship with user
-    public function user()
+    public function User()
     {
-        return $this->belongsTo(user::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
     // Relationship with payment_type
-    public function payment_type()
+    public function Payment_type()
     {
-        return $this->belongsTo(payment_type::class, 'payment_type_id');
+        return $this->belongsTo(Payment_type::class, 'payment_type_id');
     }
 }
