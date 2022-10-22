@@ -9,6 +9,7 @@
 
     <link rel="shortcut icon" href="assets/images/favicon/favicon.ico" type="image/x-icon">
 
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="assets/css/main.css">
 
@@ -17,7 +18,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Alpine JS -->
     <script src="//unpkg.com/alpinejs" defer></script>
     <script>
         tailwind.config = {
@@ -44,8 +47,10 @@
                 <span class="absolute left-4 top-3 text-lg text-gray-400">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </span>
-                <input type="text" name="search" id="search" class="w-full border border-primary border-r-0 pl-12 py-3 pr-3 rounded-l-md focus:outline-none" placeholder="search">
-                <button class="bg-primary border border-primary text-white px-8 rounded-r-md hover:bg-transparent hover:text-primary transition">Search</button>
+                <input type="text" name="search" id="search" class="w-full border border-primary border-r-0 pl-12 py-3 pr-3 rounded-l-md focus:outline-none" autocomplete="off" placeholder="Tìm kiếm sản phẩm">
+                <button class="bg-primary border border-primary text-white px-8 rounded-r-md hover:bg-transparent hover:text-primary transition">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
             </div>
 
             <div class="flex items-center space-x-4">
@@ -53,15 +58,15 @@
                     <div class="text-2xl">
                         <i class="fa-solid fa-bag-shopping"></i>
                     </div>
-                    <div class="text-xs leading-3">Cart</div>
-                    <div class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
+                    <div class="text-xs leading-3">Giỏ hàng</div>
+                    <div class="absolute right-0 top-0 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
                         2</div>
                 </a>
                 <a href="/user" class="text-center text-gray-700 hover:text-primary transition relative">
                     <div class="text-2xl">
                         <i class="fa-regular fa-user"></i>
                     </div>
-                    <div class="text-xs leading-3">Account</div>
+                    <div class="text-xs leading-3">Tài khoản</div>
                 </a>
             </div>
         </div>
@@ -75,7 +80,7 @@
                 <span class="text-white">
                     <i class="fa-solid fa-bars"></i>
                 </span>
-                <span class="capitalize ml-2 text-white">All Categories</span>
+                <span class="capitalize ml-2 text-white">Dòng sản phẩm</span>
 
                 <!-- dropdown -->
                 <div class="absolute w-full left-0 top-full bg-white shadow-md py-3 divide-y divide-gray-300 divide-dashed opacity-0 group-hover:opacity-100 transition duration-300 invisible group-hover:visible">
@@ -108,20 +113,30 @@
 
             <div class="flex items-center justify-between flex-grow pl-12">
                 <div class="flex items-center space-x-6 capitalize">
-                    <a href="/" class="text-gray-200 hover:text-white transition">Home</a>
+                    <a href="/" class="text-gray-200 hover:text-white transition">Trang chủ</a>
                     <a href="/products" class="text-gray-200 hover:text-white transition">Shop</a>
-                    <a href="/about" class="text-gray-200 hover:text-white transition">About us</a>
-                    <a href="/contact" class="text-gray-200 hover:text-white transition">Contact us</a>
+                    <a href="/about" class="text-gray-200 hover:text-white transition">Về chúng tôi</a>
+                    <a href="/contact" class="text-gray-200 hover:text-white transition">Liên hệ</a>
                 </div>
                 @auth
                 <form class="inline" method="POST" action="/logout">
                     @csrf
                     <button type="submit" class="text-gray-200 hover:text-white transition">
-                        <i class="fa-solid fa-door-closed"></i> Logout
+                        <i class="fa-solid fa-door-closed"></i>
+                        <span>Đăng xuất</span>
                     </button>
                 </form>
                 @else
-                <a href="/login" class="text-gray-200 hover:text-white transition">Login</a>
+                <div>
+                    <a href="/login" class="inline-block bg-primary rounded py-1 px-2 text-gray-200 hover:brightness-95 text-sm transition">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        <span>Đăng nhập</span>
+                    </a>
+                    <a href="/register" class="inline-block bg-emerald-600 rounded py-1 px-2 text-white hover:brightness-95 text-sm transition">
+                        <i class="fa-solid fa-user"></i>
+                        <span>Đăng ký</span>
+                    </a>
+                </div>
                 @endauth
             </div>
         </div>
@@ -137,7 +152,7 @@
                 <img src="assets/images/logo.svg" alt="logo" class="w-30">
                 <div class="mr-2">
                     <p class="text-gray-500">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, hic?
+                        Zero - Đồ án cuối kỳ môn Nhập môn phát triển ứng dụng web
                     </p>
                 </div>
                 <div class="flex space-x-6">

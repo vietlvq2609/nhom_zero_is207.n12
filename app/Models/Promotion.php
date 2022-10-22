@@ -5,19 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Promotion extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'name',
         'description',
-        'product_image'
+        'discount_rate',
+        'start_date',
+        'end_date'
     ];
 
-    // Relationship with Product_category
-    public function product_category()
-    {
-        return $this->belongsTo(Product_category::class, 'category_id');
+    public function promotion_category() {
+        return $this->hasMany(Promotion_category::class, "promotion_id");
     }
 }

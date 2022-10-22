@@ -5,18 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Address extends Model
+class Product_item extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'address_line',
-        'city'
+        'SKU',
+        'qty_in_stock',
+        'product_image',
+        'price'
     ];
 
     // Relationships
-    public function user_address()
+    public function product()
     {
-        return $this->hasMany(User_Address::class, 'address_id');
+        return $this->belongsTo(Product::class, "product_id");
     }
 }
