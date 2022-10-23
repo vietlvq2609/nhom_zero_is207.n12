@@ -5,20 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Shopping_cart_item extends Model
+class Order_line extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'qty'
+        'qty',
+        'price'
     ];
 
-    // Relationships
-    public function shopping_cart() {
-        return $this->belongsTo(Shopping_cart::class, 'cart_id');
+    public function user_review()
+    {
+        return $this->hasMany(User_review::class, 'ordered_product_id');
     }
     public function product_item()
     {
         return $this->belongsTo(Product_item::class, 'product_item_id');
+    }
+    public function shop_order()
+    {
+        return $this->belongsTo(Shop_order::class, 'order_id');
     }
 }

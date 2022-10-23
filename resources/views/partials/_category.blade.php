@@ -1,6 +1,6 @@
     <!-- categories -->
     <div class="container py-16">
-        <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">shop by category</h2>
+        <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">Danh mục sản phẩm</h2>
         <div class="grid grid-cols-3 gap-3">
             <div class="relative rounded-sm overflow-hidden group">
                 <img src="assets/images/category/category-1.jpg" alt="category 1" class="w-full">

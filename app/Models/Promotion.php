@@ -17,7 +17,8 @@ class Promotion extends Model
         'end_date'
     ];
 
-    public function promotion_category() {
+    public function promotion_category()
+    {
         return $this->hasMany(Promotion_category::class, "promotion_id");
     }
 }

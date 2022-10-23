@@ -7,7 +7,7 @@
         <div class="col-span-1 bg-white px-4 pb-6 shadow rounded overflow-hidden">
             <div class="divide-y divide-gray-200 space-y-5">
                 <div>
-                    <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Categories</h3>
+                    <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Danh mục</h3>
                     <div class="space-y-2">
                         <div class="flex items-center">
                             <input type="checkbox" name="cat-1" id="cat-1" class="text-primary focus:ring-0 rounded-sm cursor-pointer">
@@ -33,38 +33,7 @@
                 </div>
 
                 <div class="pt-4">
-                    <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Brands</h3>
-                    <div class="space-y-2">
-                        <div class="flex items-center">
-                            <input type="checkbox" name="brand-1" id="brand-1" class="text-primary focus:ring-0 rounded-sm cursor-pointer">
-                            <label for="brand-1" class="text-gray-600 ml-3 cusror-pointer">Cooking Color</label>
-                            <div class="ml-auto text-gray-600 text-sm">(15)</div>
-                        </div>
-                        <div class="flex items-center">
-                            <input type="checkbox" name="brand-2" id="brand-2" class="text-primary focus:ring-0 rounded-sm cursor-pointer">
-                            <label for="brand-2" class="text-gray-600 ml-3 cusror-pointer">Magniflex</label>
-                            <div class="ml-auto text-gray-600 text-sm">(9)</div>
-                        </div>
-                        <div class="flex items-center">
-                            <input type="checkbox" name="brand-3" id="brand-3" class="text-primary focus:ring-0 rounded-sm cursor-pointer">
-                            <label for="brand-3" class="text-gray-600 ml-3 cusror-pointer">Ashley</label>
-                            <div class="ml-auto text-gray-600 text-sm">(21)</div>
-                        </div>
-                        <div class="flex items-center">
-                            <input type="checkbox" name="brand-4" id="brand-4" class="text-primary focus:ring-0 rounded-sm cursor-pointer">
-                            <label for="brand-4" class="text-gray-600 ml-3 cusror-pointer">M&D</label>
-                            <div class="ml-auto text-gray-600 text-sm">(10)</div>
-                        </div>
-                        <div class="flex items-center">
-                            <input type="checkbox" name="brand-5" id="brand-5" class="text-primary focus:ring-0 rounded-sm cursor-pointer">
-                            <label for="brand-5" class="text-gray-600 ml-3 cusror-pointer">Olympic</label>
-                            <div class="ml-auto text-gray-600 text-sm">(10)</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="pt-4">
-                    <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Price</h3>
+                    <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Mức giá</h3>
                     <div class="mt-4 flex items-center">
                         <input type="text" name="min" id="min" class="w-full border-gray-300 focus:border-primary rounded focus:ring-0 px-3 py-1 text-gray-600 shadow-sm" placeholder="min">
                         <span class="mx-3 text-gray-500">-</span>
@@ -369,26 +338,10 @@
                     <a href="#" class="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition">Add
                         to cart</a>
                 </div>
-
-
-
             </div>
         </div>
         <!-- ./products -->
     </div>
     <!-- ./shop wrapper -->
 </x-layout>
-<form action="/products" method="post" class="">
-    @csrf
-
-    <input type="text" name="name" value="{{old('name')}}">
-    @error('name')
-    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-    @enderror
-    <input type="text" name="price" value="{{old('price')}}">
-    @error('price')
-    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-    @enderror
-    <button type="submit">submit</button>
-</form>
 
