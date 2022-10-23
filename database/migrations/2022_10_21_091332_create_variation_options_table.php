@@ -13,11 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('variation_options', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('variation_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('variation_options')) {
+            Schema::create('variation_options', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('variation_id')->constrained()->onDelete('cascade');
+                $table->string('value');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

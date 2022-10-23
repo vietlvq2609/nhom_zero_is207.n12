@@ -13,10 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('user_addresses')) {
-            Schema::create('user_addresses', function (Blueprint $table) {
+        if (!Schema::hasTable('user_payment_methods')) {
+            Schema::create('user_payment_methods', function (Blueprint $table) {
+                $table->id();
                 $table->foreignId('user_id')->constrained()->onDelete('cascade');
-                $table->foreignId('address_id')->constrained()->onDelete('cascade');
+                $table->foreignId('payment_type_id')->constrained()->onDelete('cascade');
+                $table->string('provider');
+                $table->string('account_number');
+                $table->boolean('is_default');
+                $table->date('expiry_date');
                 $table->timestamps();
             });
         }
@@ -29,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_addresses');
+        Schema::dropIfExists('user_payment_methods');
     }
 };

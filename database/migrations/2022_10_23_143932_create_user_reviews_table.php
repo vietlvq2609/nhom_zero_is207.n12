@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('products')) {
-            Schema::create('products', function (Blueprint $table) {
+        if (!Schema::hasTable('user_reviews')) {
+            Schema::create('user_reviews', function (Blueprint $table) {
                 $table->id();
-                $table->foreignId('category_id')->unsigned()->constrained()->onDelete('cascade');
-                $table->string('name');
-                $table->string('description')->nullable();
-                $table->string('product_image');
+                $table->foreignId('user_id')->constrained()->onDelete('cascade');
+                $table->foreignId('ordered_product_id')->constrained()->onDelete('cascade');
+                $table->string('rating_value');
+                $table->string('comment');
                 $table->timestamps();
             });
         }
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('user_reviews');
     }
 };

@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('products')) {
-            Schema::create('products', function (Blueprint $table) {
+        if (!Schema::hasTable('countries')) {
+            Schema::create('countries', function (Blueprint $table) {
                 $table->id();
-                $table->foreignId('category_id')->unsigned()->constrained()->onDelete('cascade');
-                $table->string('name');
-                $table->string('description')->nullable();
-                $table->string('product_image');
                 $table->timestamps();
             });
         }
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('countries');
     }
 };

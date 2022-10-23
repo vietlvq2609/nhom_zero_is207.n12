@@ -13,13 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('products')) {
-            Schema::create('products', function (Blueprint $table) {
+        if (!Schema::hasTable('promotions')) {
+            Schema::create('promotions', function (Blueprint $table) {
                 $table->id();
-                $table->foreignId('category_id')->unsigned()->constrained()->onDelete('cascade');
                 $table->string('name');
-                $table->string('description')->nullable();
-                $table->string('product_image');
+                $table->text('description');
+                $table->tinyInteger('discount_rate');
+                $table->date('start_date');
+                $table->date('end_date');
                 $table->timestamps();
             });
         }
@@ -32,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('promotions');
     }
 };

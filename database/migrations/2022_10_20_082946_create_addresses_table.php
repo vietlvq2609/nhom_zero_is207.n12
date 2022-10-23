@@ -13,12 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('addresses', function (Blueprint $table) {
-            $table->id();
-            $table->string('address_line');
-            $table->string('city');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('addresses')) {
+            Schema::create('addresses', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('country_id')->constrained()->onDelete('cascade');
+                $table->string('unit_number');
+                $table->string('street_number');
+                $table->string('address_line1');
+                $table->string('address_line2');
+                $table->string('city');
+                $table->string('region');
+                $table->string('postal_code');
+                $table->timestamps();
+            });
+        }
     }
 
     /**
