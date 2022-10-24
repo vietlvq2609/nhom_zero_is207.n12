@@ -65,3 +65,10 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 # nhom_zero_is207.n12
+
+
+1. <code>git pull</code>
+2. <code>php artisan migrate</code> cho đến khi tạo thành công tất cả table (chưa fix lỗi)
+3. <code>php artisan db:seed</code> thêm dữ liệu cho database (còn thiếu)
+4. <code>php artisan serve</code> 
+5. Mở browser truy cập <code/>localhost:8000</code>
