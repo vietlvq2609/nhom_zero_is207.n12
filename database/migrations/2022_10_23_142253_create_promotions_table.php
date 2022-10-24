@@ -19,8 +19,8 @@ return new class extends Migration
                 $table->string('name');
                 $table->text('description');
                 $table->tinyInteger('discount_rate');
-                $table->date('start_date');
-                $table->date('end_date');
+                $table->string('start_date');
+                $table->string('end_date');
                 $table->timestamps();
             });
         }

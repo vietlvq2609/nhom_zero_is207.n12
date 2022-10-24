@@ -10,9 +10,7 @@ class Product_item extends Model
     use HasFactory;
 
     protected $fillable = [
-        'SKU',
         'qty_in_stock',
-        'product_image',
         'price'
     ];
 

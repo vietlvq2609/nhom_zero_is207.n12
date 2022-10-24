@@ -1,13 +1,14 @@
-<x-layout>
+<x-layout :categories="$categories">
     <!-- login -->
     <div class="contain py-16">
         <div class="max-w-lg mx-auto shadow border px-6 py-7 rounded overflow-hidden bg-amber-100">
             <h2 class="text-2xl uppercase font-medium mb-1">Đăng nhập</h2>
-            <form action="#" method="post" autocomplete="off">
+            <form action="/user/authenticate" method="post" autocomplete="off">
+                @csrf
                 <div class="space-y-2">
                     <div>
-                        <label for="email" class="text-gray-600 mb-2 block">Địa chỉ email</label>
-                        <input type="email" name="email" id="email" class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400" placeholder="youremail.@domain.com">
+                        <label for="email_address" class="text-gray-600 mb-2 block">Địa chỉ email</label>
+                        <input type="email" name="email_address" id="email" class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400" placeholder="youremail.@domain.com">
                     </div>
                     <div>
                         <label for="password" class="text-gray-600 mb-2 block">Mật khẩu</label>

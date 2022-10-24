@@ -1,3 +1,5 @@
+@props(['categories']);
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,9 +7,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zero - Food Server</title>
+    <title>ZeroFood - Ăn ngon mặc đẹp</title>
 
-    <link rel="shortcut icon" href="assets/images/favicon/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/assets/images/favicon/favicon.ico" type="image/x-icon">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -32,7 +34,7 @@
             },
         }
     </script>
-    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
 </head>
 
 <!-- primary color bg-amber-500 -->
@@ -42,7 +44,7 @@
     <header class="py-4 shadow-sm bg-white">
         <div class="container flex items-center justify-between">
             <a href="/">
-                <img src="assets/images/logo.svg" alt="Logo" class="w-32">
+                <img src="/assets/images/logo.svg" alt="Logo" class="w-32">
             </a>
 
             <div class="w-full max-w-xl relative flex">
@@ -56,6 +58,7 @@
             </div>
 
             <div class="flex items-center space-x-4">
+                @auth
                 <a href="#" class="text-center text-gray-700 hover:text-primary transition relative">
                     <div class="text-2xl">
                         <i class="fa-solid fa-bag-shopping"></i>
@@ -70,6 +73,16 @@
                     </div>
                     <div class="text-xs leading-3">Tài khoản</div>
                 </a>
+                @else
+                <a href="#" class="text-center text-gray-700 hover:text-primary transition relative">
+                    <div class="text-2xl">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                    </div>
+                    <div class="text-xs leading-3">Giỏ hàng</div>
+                    <div class="absolute right-0 top-0 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
+                        0</div>
+                </a>
+                @endauth
             </div>
         </div>
     </header>
@@ -82,34 +95,15 @@
                 <span class="text-white">
                     <i class="fa-solid fa-bars"></i>
                 </span>
-                <span class="capitalize ml-2 text-white">Dòng sản phẩm</span>
+                <span class="capitalize ml-2 text-white">Order ngay</span>
 
                 <!-- dropdown -->
                 <div class="absolute w-full left-0 top-full bg-white shadow-md py-3 divide-y divide-gray-300 divide-dashed opacity-0 group-hover:opacity-100 transition duration-300 invisible group-hover:visible">
-                    <a href="#" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
-                        <img src="assets/images/icons/sofa.svg" alt="sofa" class="w-5 h-5 object-contain">
-                        <span class="ml-6 text-gray-600 text-sm">Sofa</span>
+                    @foreach($categories as $category)
+                    <a href="/products?category={{$category->id}}" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
+                        <span class="ml-6 text-gray-600 text-sm">{{$category->category_name}}</span>
                     </a>
-                    <a href="#" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
-                        <img src="assets/images/icons/terrace.svg" alt="terrace" class="w-5 h-5 object-contain">
-                        <span class="ml-6 text-gray-600 text-sm">Terarce</span>
-                    </a>
-                    <a href="#" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
-                        <img src="assets/images/icons/bed.svg" alt="bed" class="w-5 h-5 object-contain">
-                        <span class="ml-6 text-gray-600 text-sm">Bed</span>
-                    </a>
-                    <a href="#" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
-                        <img src="assets/images/icons/office.svg" alt="office" class="w-5 h-5 object-contain">
-                        <span class="ml-6 text-gray-600 text-sm">office</span>
-                    </a>
-                    <a href="#" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
-                        <img src="assets/images/icons/outdoor-cafe.svg" alt="outdoor" class="w-5 h-5 object-contain">
-                        <span class="ml-6 text-gray-600 text-sm">Outdoor</span>
-                    </a>
-                    <a href="#" class="flex items-center px-6 py-3 hover:bg-gray-100 transition">
-                        <img src="assets/images/icons/bed-2.svg" alt="Mattress" class="w-5 h-5 object-contain">
-                        <span class="ml-6 text-gray-600 text-sm">Mattress</span>
-                    </a>
+                    @endforeach
                 </div>
             </div>
 
@@ -151,7 +145,7 @@
     <footer class="bg-white pt-10 pb-7 border-t border-gray-100">
         <div class="container grid grid-cols-2">
             <div class="col-span-1 space-y-8">
-                <img src="assets/images/logo.svg" alt="logo" class="w-30">
+                <img src="/assets/images/logo.svg" alt="logo" class="w-30">
                 <div class="mr-2">
                     <p class="text-gray-500">
                         Đồ án cuối kỳ môn Nhập môn phát triển ứng dụng web
@@ -164,10 +158,10 @@
 
             <div class="col-span-1 grid justify-end items-center">
                 <div class="flex space-x-6">
-                    <a href="#" class="text-gray-400 hover:text-gray-500"><i class="text-3xl fa-brands fa-facebook-square"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-gray-500"><i class="text-3xl fa-brands fa-instagram-square"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-gray-500"><i class="text-3xl fa-brands fa-twitter-square"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-gray-500"><i class="text-3xl fa-brands fa-github-square"></i></a>
+                    <a href="facebook.com" target="_blank" class="text-gray-400 hover:text-gray-500"><i class="text-3xl fa-brands fa-facebook-square"></i></a>
+                    <a href="instagram.com" target="_blank" class="text-gray-400 hover:text-gray-500"><i class="text-3xl fa-brands fa-instagram-square"></i></a>
+                    <a href="twitter.com" target="_blank" class="text-gray-400 hover:text-gray-500"><i class="text-3xl fa-brands fa-twitter-square"></i></a>
+                    <a href="github.com" target="_blank" class="text-gray-400 hover:text-gray-500"><i class="text-3xl fa-brands fa-github-square"></i></a>
                 </div>
             </div>
         </div>

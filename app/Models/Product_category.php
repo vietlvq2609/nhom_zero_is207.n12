@@ -4,14 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+
 
 class Product_category extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        "category_name"
+        "category_name",
+        'category_image'
     ];
+
 
     // Relationship
     public function product()

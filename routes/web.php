@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,36 +16,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [Controller::class, 'index']);
 
-Route::get('/about', function () {
-    return view('about');
-});
-
-Route::get('/contact', function () {
-    return view('contact');
-});
-
-Route::get('/products/{id}', function () {
-    return view('products.show');
-});
-
-Route::get('/products', function () {
-    return view('products.index');
-});
+// Main routes
+Route::get('/', [Controller::class, 'home']);
+Route::get('/about', [Controller::class, 'about']);
+Route::get('/contact', [Controller::class, 'contact']);
 
 
-// User route
-Route::get('/login', function () {
-    return view('users.login');
-});
-Route::post('/login', function () {
-    return view('users.login');
-});
-Route::post("/logout", [UserController::class, "logout"]);
+// Product routes
+Route::get('/products', [ProductController::class, 'index']);
+Route::get('/products/{product}', [ProductController::class, 'show']);
 
+
+// User routes
+Route::get('/login', [UserController::class, "login"]);
 Route::get('/register', [UserController::class, "create"]);
+Route::get('/user', [UserController::class, "edit"]);
+
+Route::post('/user/authenticate', [UserController::class, "authenticate"]);
+Route::post("/logout", [UserController::class, "logout"]);
 Route::post('/register', [UserController::class, "store"]);
 
-Route::get('/user', [UserController::class, "edit"]);
 // 

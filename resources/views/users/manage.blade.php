@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout :categories="$categories">
     <!-- account wrapper -->
     <div class="container grid grid-cols-12 items-start gap-6 pt-4 pb-16">
 

@@ -1,6 +1,6 @@
-<x-layout>
+<x-layout :categories="$categories">
     @include('partials._banner');
     @include('partials._features');
-    @include('partials._category');
-    @include('partials._products');
+    <x-category :categories="$categories" />
+    <x-products />
 </x-layout>

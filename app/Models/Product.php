@@ -15,6 +15,12 @@ class Product extends Model
         'product_image'
     ];
 
+    public function scopeFilter($query, array $filter) {
+        if ($filter['category'] ?? false) {
+            return $query->where('category_id' , request('category'));
+        }
+    }
+
     // Relationship with Product_category
     public function product_category()
     {

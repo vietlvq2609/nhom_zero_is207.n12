@@ -21,7 +21,7 @@ return new class extends Migration
                 $table->foreignId('shipping_address')->constrained()->onDelete('cascade');
                 $table->foreignId('shipping_method')->constrained()->onDelete('cascade');
                 $table->foreignId('order_status')->constrained()->onDelete('cascade');
-                $table->date('order_date');
+                $table->string('order_date');
                 $table->integer('order_total');
                 $table->timestamps();
             });

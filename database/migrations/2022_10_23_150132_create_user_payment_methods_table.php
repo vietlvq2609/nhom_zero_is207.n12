@@ -21,7 +21,7 @@ return new class extends Migration
                 $table->string('provider');
                 $table->string('account_number');
                 $table->boolean('is_default');
-                $table->date('expiry_date');
+                $table->string('expiry_date');
                 $table->timestamps();
             });
         }

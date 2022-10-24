@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\User_role;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -30,15 +31,37 @@ class UserController extends Controller
         // Create new user
         $user = User::create($formFields);
 
+        // Add role "user" for user
+        User_role::create([
+            'user_id' => $user->id,
+            'role_id' => 2
+        ]);
+
         //Login 
         auth()->login($user);
 
         return redirect('/')->with('message', "Đăng ký tài khoản mới thành công");
     }
 
-    public function login(Request $request) {
-        
-        return redirect('/')->with('message', 'Bạn đã đăng nhập thành công');
+    public function login()
+    {
+        return view('users.login');
+    }
+
+    public function authenticate(Request $request)
+    {
+        $formFields = $request->validate([
+            'email_address' => ['required', 'email'],
+            'password' => 'required'
+        ]);
+
+        if (auth()->attempt($formFields)) {
+            $request->session()->regenerate();
+
+            return redirect('/')->with('message', 'You are now logged in!');
+        }
+
+        return back()->withErrors(['email' => 'Invalid Credentials'])->onlyInput('email');
     }
 
     public function logout(Request $request)

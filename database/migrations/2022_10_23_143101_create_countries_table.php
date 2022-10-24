@@ -16,6 +16,7 @@ return new class extends Migration
         if (!Schema::hasTable('countries')) {
             Schema::create('countries', function (Blueprint $table) {
                 $table->id();
+                $table->string('country_name');
                 $table->timestamps();
             });
         }

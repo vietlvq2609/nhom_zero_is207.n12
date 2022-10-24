@@ -16,10 +16,8 @@ class CountrySeeder extends Seeder
     public function run()
     {
         DB::table('countries')->insert([
-            'country_name' => 'Việt Nam'
-        ]);
-        DB::table('countries')->insert([
-            'country_name' => 'Trung Quốc'
+            ['country_name' => 'Việt Nam'],
+            ['country_name' => 'Trung Quốc']
         ]);
     }
 }

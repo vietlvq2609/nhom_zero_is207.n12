@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Product_category;
+use App\Models\Variation;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,7 +20,16 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleSeeder::class,
             OrderStatusSeeder::class,
-            CountrySeeder::class
+            ShippingMethodSeeder::class,
+            PromotionSeeder::class,
+            CountrySeeder::class,
+            CategorySeeder::class,
+            ProductSeeder::class,
+            ProductItemSeeder::class,
+            VariationSeeder::class,
+            VariationOptionSeeder::class,
+            ProductConfigurationSeeder::class,
+            AdminSeeder::class
         ]);
     }
 }
