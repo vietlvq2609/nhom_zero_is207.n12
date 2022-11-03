@@ -1,4 +1,4 @@
-@props(['categories']);
+@props(['categories'])
 
 <!DOCTYPE html>
 <html lang="en">
@@ -44,7 +44,7 @@
     <header class="py-4 shadow-sm bg-white">
         <div class="container flex items-center justify-between">
             <a href="/">
-                <img src="/assets/images/logo.svg" alt="Logo" class="w-32">
+                <img src="/assets/images/Zerofood.png" alt="Logo" class="w-32">
             </a>
 
             <div class="w-full max-w-xl relative flex">
@@ -74,11 +74,11 @@
                     <div class="text-xs leading-3">Tài khoản</div>
                 </a>
                 @else
-                <a href="#" class="text-center text-gray-700 hover:text-primary transition relative">
+                <a href="/cart" class="text-center text-gray-700 hover:text-primary transition relative">
                     <div class="text-2xl">
                         <i class="fa-solid fa-bag-shopping"></i>
                     </div>
-                    <div class="text-xs leading-3">Giỏ hàng</div>
+                    <div class="text-xs leading-3">Giỏ hàng</div>
                     <div class="absolute right-0 top-0 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
                         0</div>
                 </a>
@@ -138,14 +138,14 @@
         </div>
     </nav>
     <!-- ./navbar -->
-    <main>
+    <main class="min-h-[40vh]">
         {{$slot}}
     </main>
     <!-- footer -->
     <footer class="bg-white pt-10 pb-7 border-t border-gray-100">
         <div class="container grid grid-cols-2">
             <div class="col-span-1 space-y-8">
-                <img src="/assets/images/logo.svg" alt="logo" class="w-30">
+                <img src="/assets/images/Zerofood.png" alt="logo" class="w-32">
                 <div class="mr-2">
                     <p class="text-gray-500">
                         Đồ án cuối kỳ môn Nhập môn phát triển ứng dụng web

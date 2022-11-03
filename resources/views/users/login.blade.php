@@ -3,17 +3,23 @@
     <div class="contain py-16">
         <div class="max-w-lg mx-auto shadow border px-6 py-7 rounded overflow-hidden bg-amber-100">
             <h2 class="text-2xl uppercase font-medium mb-1">Đăng nhập</h2>
-            <form action="/user/authenticate" method="post" autocomplete="off">
+            <form action="/user/authenticate" method="POST" autocomplete="off">
                 @csrf
                 <div class="space-y-2">
                     <div>
                         <label for="email_address" class="text-gray-600 mb-2 block">Địa chỉ email</label>
-                        <input type="email" name="email_address" id="email" class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400" placeholder="youremail.@domain.com">
+                        <input type="email" name="email_address" id="email" value="{{old('name')}}" class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400" placeholder="youremail@domain.com">
                     </div>
+                    @error('email_address')
+                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                    @enderror
                     <div>
                         <label for="password" class="text-gray-600 mb-2 block">Mật khẩu</label>
                         <input type="password" name="password" id="password" class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400" placeholder="*******">
                     </div>
+                    @error('password')
+                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                    @enderror
                 </div>
                 <div class="flex items-center justify-between mt-6">
                     <div class="flex items-center">

@@ -9,6 +9,10 @@ class Shopping_cart extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id'
+    ];
+
     // Relationships 
     public function user() {
         return $this->belongsTo(User::class, 'user_id');

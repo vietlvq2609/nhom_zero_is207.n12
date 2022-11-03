@@ -6,13 +6,14 @@ use App\Models\User;
 use App\Models\User_role;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Models\Product_category;
 
 class UserController extends Controller
 {
     // Show Register Form
     public function create()
     {
-        return view('users.register');
+        return view('users.register', ['categories' => Product_category::get()]);
     }
 
     // Create new user
@@ -31,6 +32,7 @@ class UserController extends Controller
         // Create new user
         $user = User::create($formFields);
 
+
         // Add role "user" for user
         User_role::create([
             'user_id' => $user->id,
@@ -45,7 +47,7 @@ class UserController extends Controller
 
     public function login()
     {
-        return view('users.login');
+        return view('users.login', ['categories' => Product_category::get()]);
     }
 
     public function authenticate(Request $request)
@@ -61,7 +63,7 @@ class UserController extends Controller
             return redirect('/')->with('message', 'You are now logged in!');
         }
 
-        return back()->withErrors(['email' => 'Invalid Credentials'])->onlyInput('email');
+        return back()->withErrors(['email_addrress' => 'Invalid Credentials'])->onlyInput('email');
     }
 
     public function logout(Request $request)
