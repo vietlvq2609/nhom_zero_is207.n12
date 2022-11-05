@@ -15,13 +15,13 @@ class Product extends Model
         'product_image'
     ];
 
-    public function scopeFilter($query, array $filter) {
+    public function scopeFilter($query, array $filter)
+    {    
         if ($filter['category'] ?? false) {
-            return $query->where('category_id' , request('category'));
+            return $query->whereIn('category_id', explode(',', request('category')));
         }
     }
 
-    // Relationship with Product_category
     public function product_category()
     {
         return $this->belongsTo(Product_category::class, 'category_id');

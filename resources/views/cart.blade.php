@@ -1,4 +1,4 @@
-<x-layout :categories="$categories">
+<x-layout>
     <div class="container w-3/5">
         <h1 class="text-primary text-2xl font-semibold py-4">Giỏ hàng</h1>
         <div class="divide-y-4 divide-white">

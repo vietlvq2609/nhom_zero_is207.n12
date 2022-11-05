@@ -23,12 +23,12 @@ class Controller extends BaseController
     // Show about
     public function about()
     {
-        return view('about', ['categories' => Product_category::get()]);
+        return view('about');
     }
 
     // Show contact
     public function contact()
     {
-        return view('contact', ['categories' => Product_category::get()]);
+        return view('contact');
     }
 }

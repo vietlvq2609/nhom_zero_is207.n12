@@ -1,4 +1,4 @@
-<x-layout :categories="$categories">
+<x-layout>
     <!-- breadcrumb -->
     <div class="container py-4 flex items-center gap-3">
         <a href="../index.html" class="text-primary text-base">
@@ -67,9 +67,10 @@
 
                 <div class="mt-4">
                     <h3 class="text-sm text-gray-800 uppercase mb-1 font-bold">Số lượng</h3>
-                    <div class="flex border border-gray-300 text-gray-600 w-max">
+                    <livewire:counter />
+                    {{-- <div class="flex border border-gray-300 text-gray-600 w-max">
                         <input type="number" name="qty" min="1" class="w-16 text-center">
-                    </div>
+                    </div> --}}
                 </div>
 
                 <div class="mt-6 flex gap-3 border-b border-gray-200 pb-5 pt-5">

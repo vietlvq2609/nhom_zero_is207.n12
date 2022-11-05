@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Support\Facades\DB;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ProductSeeder extends Seeder
 {
@@ -48,6 +49,12 @@ class ProductSeeder extends Seeder
             ],
             [
                 'name' => 'Mỳ Ý Tôm Sốt Kem Cà Chua',
+                'category_id' => 5,
+                'description' => 'Sự tươi ngon của tôm kết hợp với sốt kem cà chua',
+                'product_image' => 'https://cdn.tgdd.vn/2020/10/CookRecipe/Avatar/cach-lam-mi-y-tom-sot-kem-oc-cho-thumbnail.jpg',
+            ],
+            [
+                'name' => 'Mỳ Ý Thái Lan',
                 'category_id' => 5,
                 'description' => 'Sự tươi ngon của tôm kết hợp với sốt kem cà chua',
                 'product_image' => 'https://cdn.tgdd.vn/2020/10/CookRecipe/Avatar/cach-lam-mi-y-tom-sot-kem-oc-cho-thumbnail.jpg',

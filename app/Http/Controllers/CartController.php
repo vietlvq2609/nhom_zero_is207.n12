@@ -18,6 +18,7 @@ class CartController extends Controller
     // add new cart
     public function store(Request $request)
     {
+        dd($request);
         $cart = DB::table('shopping_carts')
             ->where('user_id', auth()->id())
             ->get()->first();
