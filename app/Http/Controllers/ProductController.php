@@ -15,7 +15,12 @@ class ProductController extends Controller
         return view(
             'products.index',
             [
-                'products' => Product::latest()->filter(request(['category', 'price']))->paginate(6)
+                'products' => Product::latest()
+                    ->category(request(['category']))
+                    ->minprice(request(['min_price']))
+                    ->maxprice(request(['max_price']))
+                    ->search(request(['search']))
+                    ->paginate(6)
             ]
         );
     }

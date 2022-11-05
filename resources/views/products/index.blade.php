@@ -9,24 +9,13 @@
 
         <!-- products -->
         <div class="col-span-3">
-            <div class="flex items-center mb-4">
+            <div class="flex justify-end items-center mb-4">
                 <select name="sort" id="sort"
                     class="w-44 text-sm text-gray-600 py-3 px-4 border-gray-300 shadow-sm rounded focus:ring-primary focus:border-primary">
                     <option value="latest">Mới nhất</option>
                     <option value="price-low-to-high">Giá thấp đến cao</option>
                     <option value="price-high-to-low">Giá cao đến thấp</option>
                 </select>
-
-                <div class="flex gap-2 ml-auto">
-                    <div
-                        class="border border-primary w-10 h-9 flex items-center justify-center text-white bg-primary rounded cursor-pointer">
-                        <i class="fa-solid fa-grip-vertical"></i>
-                    </div>
-                    <div
-                        class="border border-gray-300 w-10 h-9 flex items-center justify-center text-gray-600 rounded cursor-pointer">
-                        <i class="fa-solid fa-list"></i>
-                    </div>
-                </div>
             </div>
 
             @unless(count($products) == 0)
@@ -34,6 +23,9 @@
                     @foreach ($products as $product)
                         <x-product-card :product="$product" />
                     @endforeach
+                </div>
+                <div class="mt-8">
+                    {{ $products->links() }}
                 </div>
             @else
                 <div class="flex justify-center items-center flex-col">

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Product extends Model
 {
@@ -15,10 +16,34 @@ class Product extends Model
         'product_image'
     ];
 
-    public function scopeFilter($query, array $filter)
-    {    
-        if ($filter['category'] ?? false) {
-            return $query->whereIn('category_id', explode(',', request('category')));
+    public function scopeCategory($query, array $filters)
+    {
+        if ($filters['category'] ?? false) {
+            $query->whereIn('category_id', explode(',', request('category')));
+        }
+    }
+    public function scopeMinPrice($query, array $filters)
+    {
+        if ($filters['min_price'] ?? false) {
+            $query->whereHas('product_item', function (Builder $query) {
+                $query->where('price', '>=', request('min_price'));
+            });
+        }
+    }
+    public function scopeMaxPrice($query, array $filters)
+    {
+        if ($filters['max_price'] ?? false) {
+            $query->whereHas('product_item', function (Builder $query) {
+                $query->where('price', '<=', request('max_price'));
+            });
+        }
+    }
+
+    public function scopeSearch($query, array $filters)
+    {
+        if ($filters['search'] ?? false) {
+            $query->where('name', 'like', '%' . request("search") . '%')
+                ->orWhere('description', 'like', '%' . request("search") . '%');
         }
     }
 

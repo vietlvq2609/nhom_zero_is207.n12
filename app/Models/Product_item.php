@@ -13,7 +13,7 @@ class Product_item extends Model
         'qty_in_stock',
         'price'
     ];
-
+    
     // Relationships
     public function product()
     {

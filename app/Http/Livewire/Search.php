@@ -10,12 +10,23 @@ use Livewire\Component;
 
 class Search extends Component
 {
-    public $search = [];
+    public $search_category = [];
+    public $min_price;
+    public $max_price;
 
     public function filter()
-    {  
-        $str = "/products?category=" .implode(',', $this->search);
-        return redirect($str);
+    {
+        $url = "/products?category=";
+        if (count($this->search_category) ?? 0) {
+            $url .= implode(',', $this->search_category);
+        }
+        if ($this->min_price ?? false) {
+            $url .= "&min_price=" .$this->min_price;
+        }
+        if ($this->max_price ?? false) {
+            $url .= "&max_price=" . $this->max_price;
+        }
+        return redirect($url);
     }
 
     public function render()
