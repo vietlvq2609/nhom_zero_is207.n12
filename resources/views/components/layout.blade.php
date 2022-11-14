@@ -54,7 +54,7 @@
 
             <div class="flex items-center space-x-4">
                 @auth
-                    <a href="#" class="text-center text-gray-700 hover:text-primary transition relative">
+                    <a href="/cart" class="text-center text-gray-700 hover:text-primary transition relative">
                         <div class="text-2xl">
                             <i class="fa-solid fa-bag-shopping"></i>
                         </div>
@@ -70,15 +70,18 @@
                         <div class="text-xs leading-3">Tài khoản</div>
                     </a>
                 @else
-                    <a href="/cart" class="text-center text-gray-700 hover:text-primary transition relative">
-                        <div class="text-2xl">
-                            <i class="fa-solid fa-bag-shopping"></i>
-                        </div>
-                        <div class="text-xs leading-3">Giỏ hàng</div>
-                        <div
-                            class="absolute right-0 top-0 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
-                            0</div>
-                    </a>
+                    <div>
+                        <a href="/register"
+                            class="inline-block bg-emerald-600 rounded py-1 px-2 text-white hover:brightness-95 text-sm transition">
+                            <i class="fa-solid fa-user"></i>
+                            <span>Đăng ký</span>
+                        </a>
+                        <a href="/login"
+                            class="inline-block bg-primary rounded py-1 px-2 text-gray-200 hover:brightness-95 text-sm transition">
+                            <i class="fa-solid fa-right-to-bracket"></i>
+                            <span>Đăng nhập</span>
+                        </a> 
+                    </div>
                 @endauth
             </div>
         </div>
@@ -113,19 +116,6 @@
                             <span>Đăng xuất</span>
                         </button>
                     </form>
-                @else
-                    <div>
-                        <a href="/login"
-                            class="inline-block bg-primary rounded py-1 px-2 text-gray-200 hover:brightness-95 text-sm transition">
-                            <i class="fa-solid fa-right-to-bracket"></i>
-                            <span>Đăng nhập</span>
-                        </a>
-                        <a href="/register"
-                            class="inline-block bg-emerald-600 rounded py-1 px-2 text-white hover:brightness-95 text-sm transition">
-                            <i class="fa-solid fa-user"></i>
-                            <span>Đăng ký</span>
-                        </a>
-                    </div>
                 @endauth
             </div>
         </div>

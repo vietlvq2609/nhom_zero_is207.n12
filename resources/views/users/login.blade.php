@@ -1,4 +1,4 @@
-<x-layout :categories="$categories">
+<x-layout>
     <!-- login -->
     <div class="contain py-16">
         <div class="max-w-lg mx-auto shadow border px-6 py-7 rounded overflow-hidden bg-amber-100">

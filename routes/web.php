@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
@@ -39,5 +40,9 @@ Route::post("/logout", [UserController::class, "logout"]);
 Route::post('/register', [UserController::class, "store"]);
 
 // Cart routes
+Route::post('/cart/delete/{id}', [CartController::class, 'destroy']);
 Route::get('/cart', [CartController::class, 'index']);
 Route::post('/cart', [CartController::class, 'store']);
+
+// Admin routes
+Route::get('/admin', [AdminController::class, 'index']);

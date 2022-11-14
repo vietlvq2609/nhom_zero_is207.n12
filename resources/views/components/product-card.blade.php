@@ -34,7 +34,6 @@
             <div class="text-xs text-gray-500 ml-3">(150)</div>
         </div>
     </div>
-    <a href="/carts"
-        class="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition">Thêm
-        vào giỏ hàng</a>
+    <a href="/products/{{ $product->id }}"
+        class="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition">Xem sản phẩm</a>
 </div>

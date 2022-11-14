@@ -1,4 +1,4 @@
-<x-layout :categories="$categories">
+<x-layout>
     <!-- account wrapper -->
     <div class="container grid grid-cols-12 items-start gap-6 pt-4 pb-16">
 
@@ -6,7 +6,8 @@
         <div class="col-span-3">
             <div class="px-4 py-3 shadow flex items-center gap-4">
                 <div class="flex-shrink-0">
-                    <img src="../assets/images/avatar.png" alt="profile" class="rounded-full w-14 h-14 border border-gray-200 p-1 object-cover">
+                    <img src="../assets/images/avatar.png" alt="profile"
+                        class="rounded-full w-14 h-14 border border-gray-200 p-1 object-cover">
                 </div>
                 <div class="flex-grow">
                     <p class="text-gray-600">Hello,</p>
@@ -51,35 +52,16 @@
                     </a>
                 </div>
 
-                <div class="space-y-1 pl-8 pt-4">
-                    <a href="#" class="relative hover:text-primary block font-medium capitalize transition">
-                        <span class="absolute -left-8 top-0 text-base">
-                            <i class="fa-regular fa-credit-card"></i>
-                        </span>
-                        Payment methods
-                    </a>
-                    <a href="#" class="relative hover:text-primary block capitalize transition">
-                        voucher
-                    </a>
-                </div>
 
-                <div class="space-y-1 pl-8 pt-4">
-                    <a href="#" class="relative hover:text-primary block font-medium capitalize transition">
-                        <span class="absolute -left-8 top-0 text-base">
-                            <i class="fa-regular fa-heart"></i>
-                        </span>
-                        My wishlist
-                    </a>
-                </div>
-
-                <div class="space-y-1 pl-8 pt-4">
-                    <a href="#" class="relative hover:text-primary block font-medium capitalize transition">
+                <form method="POST" action="/logout" class="space-y-1 pl-8 pt-4">
+                    @csrf
+                    <button class="relative hover:text-primary block font-medium capitalize transition">
                         <span class="absolute -left-8 top-0 text-base">
                             <i class="fa-regular fa-arrow-right-from-bracket"></i>
                         </span>
-                        Logout
-                    </a>
-                </div>
+                        Đăng xuất
+                    </button>
+                </form>
 
             </div>
         </div>

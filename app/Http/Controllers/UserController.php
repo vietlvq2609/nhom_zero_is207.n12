@@ -7,13 +7,15 @@ use App\Models\User_role;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\Product_category;
+use App\Models\Shopping_cart;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     // Show Register Form
     public function create()
     {
-        return view('users.register', ['categories' => Product_category::get()]);
+        return view('users.register');
     }
 
     // Create new user
@@ -38,6 +40,10 @@ class UserController extends Controller
             'user_id' => $user->id,
             'role_id' => 2
         ]);
+        // Add cart for user
+        Shopping_cart::create([
+            'user_id' => $user->id
+        ]);
 
         //Login 
         auth()->login($user);
@@ -47,7 +53,7 @@ class UserController extends Controller
 
     public function login()
     {
-        return view('users.login', ['categories' => Product_category::get()]);
+        return view('users.login');
     }
 
     public function authenticate(Request $request)
@@ -60,10 +66,10 @@ class UserController extends Controller
         if (auth()->attempt($formFields)) {
             $request->session()->regenerate();
 
-            return redirect('/')->with('message', 'You are now logged in!');
+            return redirect('/')->with('message', 'Bạn đã đăng nhập thành công !!');
         }
 
-        return back()->withErrors(['email_addrress' => 'Invalid Credentials'])->onlyInput('email');
+        return back()->with('message', 'Sai tài khoản hoặc mật khẩu!');
     }
 
     public function logout(Request $request)
@@ -73,12 +79,17 @@ class UserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/')->with('message', 'You have been logged out!');
+        return redirect('/')->with('message', 'Bạn đã đăng xuất!');
     }
 
     // Show edit user view
     public function edit()
     {
-        return view('users.manage');
+        if (Auth::user() ?? null) {
+            return view('users.manage', [
+    
+            ]);
+        }
+        return redirect('users.login');
     }
 }
