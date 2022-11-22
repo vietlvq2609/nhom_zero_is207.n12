@@ -94,5 +94,4 @@
         </div>
     </div>
     <!-- ./description -->
-
 </x-layout>

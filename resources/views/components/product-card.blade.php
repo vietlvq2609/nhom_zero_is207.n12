@@ -1,4 +1,5 @@
 @props(['product'])
+@props(['product_price'])
 
 <div class="bg-white shadow border rounded overflow-hidden group flex flex-col">
     <div class="relative h-[130px] overflow-hidden">
@@ -20,8 +21,30 @@
             </h4>
         </a>
         <div class="flex items-baseline mb-1 space-x-2">
-            <p class="text-xl text-primary font-semibold">$45.00</p>
-            <p class="text-sm text-gray-400 line-through">{{ $product->price }}</p>
+            <?php
+                $min_price= 0;
+                $max_price= 0;
+                foreach ($product_price as $price)
+                {
+                    if($product->id == $price->id) {
+                        $min_price= $price->value;
+                        $max_price = $price->value;
+                    }
+                }
+                foreach ($product_price as $price)
+                {
+                    if($product->id == $price->id and $price->value < $min_price) {
+                        $min_price= $price->value;
+                    }
+                    if($product->id == $price->id and $price->value > $max_price) {
+                        $max_price = $price->value;
+                    }
+                }
+            ?>
+            <p class="text-xl text-primary font-semibold">{{ $min_price }}</p>
+            <p class="text-xl text-primary font-semibold"> đến</p>
+            <p class="text-xl text-primary font-semibold">{{ $max_price }}</p>
+            <p class="text-sm text-gray-400 line-through">$45</p>
         </div>
         <div class="flex items-center">
             <div class="flex gap-1 text-sm text-yellow-400">

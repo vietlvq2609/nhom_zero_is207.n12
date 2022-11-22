@@ -18,16 +18,19 @@
                 </select>
             </div>
 
+            <!-- hiện danh sách các product -->
             @unless(count($products) == 0)
                 <div class="grid grid-cols-3 gap-6">
                     @foreach ($products as $product)
-                        <x-product-card :product="$product" />
+                        <x-product-card :product="$product" :product_price="$product_price" />
                     @endforeach
                 </div>
                 <div class="mt-8">
                     {{ $products->links() }}
                 </div>
+                
             @else
+            <!-- báo lỗi khi không tìm thấy sản phẩm nào -->
                 <div class="flex justify-center items-center flex-col">
                     <img src="https://taphoa.cz/static/media/cart-empty-img.8b677cb3.png">
                     <p>Không tìm thấy sản phẩm</p>

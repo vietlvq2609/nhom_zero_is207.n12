@@ -19,6 +19,10 @@ class Product_item extends Model
     {
         return $this->belongsTo(Product::class, "product_id");
     }
+    public function shopping_cart_item()
+    {
+        return $this->hasMany(Shopping_cart_item::class, "product_item_id");
+    }
     public function product_configuration()
     {
         return $this->hasMany(Product_configuration::class, "product_item_id");

@@ -11,7 +11,8 @@
                 </div>
                 <div class="flex-grow">
                     <p class="text-gray-600">Hello,</p>
-                    <h4 class="text-gray-800 font-medium">John Doe</h4>
+                    <!-- <h4 class="text-gray-800 font-medium">John Doe</h4> -->
+                    <h4 class="text-gray-800 font-medium">{{ auth()->user()->name }}</h4>
                 </div>
             </div>
 
@@ -76,9 +77,9 @@
                     <a href="#" class="text-primary">Edit</a>
                 </div>
                 <div class="space-y-1">
-                    <h4 class="text-gray-700 font-medium">John Doe</h4>
-                    <p class="text-gray-800">example@mail.com</p>
-                    <p class="text-gray-800">0811 8877 988</p>
+                    <h4 class="text-gray-700 font-medium">{{ auth()->user()->name }}</h4>
+                    <p class="text-gray-800">{{ auth()->user()->email_address }}</p>
+                    <p class="text-gray-800">{{ auth()->user()->phone_number }}</p>
                 </div>
             </div>
 
@@ -88,10 +89,10 @@
                     <a href="#" class="text-primary">Edit</a>
                 </div>
                 <div class="space-y-1">
-                    <h4 class="text-gray-700 font-medium">John Doe</h4>
+                    <h4 class="text-gray-700 font-medium">{{ auth()->user()->name }}</h4>
                     <p class="text-gray-800">Medan, North Sumatera</p>
                     <p class="text-gray-800">20371</p>
-                    <p class="text-gray-800">0811 8877 988</p>
+                    <p class="text-gray-800">{{ auth()->user()->phone_number }}</p>
                 </div>
             </div>
 
@@ -101,10 +102,10 @@
                     <a href="#" class="text-primary">Edit</a>
                 </div>
                 <div class="space-y-1">
-                    <h4 class="text-gray-700 font-medium">John Doe</h4>
+                    <h4 class="text-gray-700 font-medium">{{ auth()->user()->name }}</h4>
                     <p class="text-gray-800">Medan, North Sumatera</p>
                     <p class="text-gray-800">20317</p>
-                    <p class="text-gray-800">0811 8877 988</p>
+                    <p class="text-gray-800">{{ auth()->user()->phone_number }}</p>
                 </div>
             </div>
 
