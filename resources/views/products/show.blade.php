@@ -45,8 +45,9 @@
                     </p>
                 </div>
                 <div class="flex items-baseline mb-1 space-x-2 font-roboto mt-4">
-                    <p class="text-xl text-primary font-semibold">90.000 đ</p>
-                    <p class="text-base text-gray-400 line-through">100.000 đ</p>
+                    <!-- <p name="new_price" class="text-xl text-primary font-semibold">90.000 đ</p> -->
+                    <p name="new_price" class="text-xl text-primary font-semibold">{{ $product_options->first()->price }} đ</p>
+                    <p name="price" class="text-base text-gray-400 line-through">100.000 đ</p>
                 </div>
 
                 <p class="mt-4 text-gray-600">{{ $product_description }}</p>
@@ -56,7 +57,9 @@
                     <div class="flex items-center gap-2">
                         @foreach ($product_options as $option)
                             <div class="size-selector relative">
-                                <input type="radio" name="product_item_id" class="checked:hidden absolute bg-transparent border-none w-full h-full cursor-pointer"  value="{{ $option->id }}">
+                                <input type="radio" name="product_item_id" class="checked:hidden absolute bg-transparent border-none w-full h-full cursor-pointer"  
+                                    value="{{ $option->id }}" 
+                                    onclick="document.getElementsByName('new_price')[0].innerHTML= `{{ $option->price }} đ`">
                                 <label
                                     class="px-2 text-sm border border-gray-200 rounded-sm h-6 flex items-center justify-center shadow-sm text-gray-600">{{ $option->value }}</label>
                             </div>
@@ -95,7 +98,7 @@
 
     <script>
         // làm cho lựa chọn đầu tiên ở mục SIZE luôn được check
-        var size = document.getElementsByName('product_item_id')[0]
-        size.toggleAttribute('checked')
+        var CheckfirstInput = document.getElementsByName('product_item_id')[0]
+        CheckfirstInput.toggleAttribute('checked')
     </script>
 </x-layout>
