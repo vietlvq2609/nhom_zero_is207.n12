@@ -5,10 +5,22 @@
             $total = 0;
         @endphp
         <div class="divide-y-4 divide-white">
+            <div class="flex bg-amber-100 items-center py-3 px-5 w-full rounded text-sm text-gray-800">
+                <div class="flex w-3/5 items-center w-3/5">
+                    <p class="p-2">Sản phẩm</p>
+                </div>
+                <div class="flex justify-between items-center flex-1">
+                    <div class="font-semibold">Đơn giá</div>
+                    <div class="font-semibold">Số lượng</div>
+                    <div class="font-semibold">Số tiền</div>
+                    <div class="font-semibold">Thao tác</div>
+                </div>
+            </div>
+
             @foreach ($items as $item)
                 <x-cart-item :item="$item" />
                 @php
-                    $total += $item->price;
+                    $total += $item->price * $item->qty;
                 @endphp
             @endforeach
         </div>

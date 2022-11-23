@@ -68,9 +68,6 @@
                 <div class="mt-4">
                     <h3 class="text-sm text-gray-800 uppercase mb-1 font-bold">Số lượng</h3>
                     <livewire:counter />
-                    {{-- <div class="flex border border-gray-300 text-gray-600 w-max">
-                        <input type="number" name="qty" min="1" class="w-16 text-center">
-                    </div> --}}
                 </div>
 
                 <div class="mt-6 flex gap-3 border-b border-gray-200 pb-5 pt-5">
@@ -94,4 +91,11 @@
         </div>
     </div>
     <!-- ./description -->
+
+
+    <script>
+        // làm cho lựa chọn đầu tiên ở mục SIZE luôn được check
+        var size = document.getElementsByName('product_item_id')[0]
+        size.toggleAttribute('checked')
+    </script>
 </x-layout>
