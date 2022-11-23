@@ -26,7 +26,7 @@
                         <input type="checkbox" name="remember" id="remember" class="text-primary focus:ring-0 rounded-sm cursor-pointer">
                         <label for="remember" class="text-gray-600 ml-3 cursor-pointer">Ghi nhớ mật khẩu</label>
                     </div>
-                    <a href="#" class="text-primary">Quên mật khẩu</a>
+                    <a href="{{route('password.request')}}" class="text-primary">Quên mật khẩu</a>
                 </div>
                 <div class="mt-4">
                     <!--   -->

@@ -39,6 +39,12 @@ Route::post('/user/authenticate', [UserController::class, "authenticate"]);
 Route::post("/logout", [UserController::class, "logout"]);
 Route::post('/register', [UserController::class, "store"]);
 
+Route::get('/forgot-password', [UserController::class, "fogotPassword"])->name('password.request');
+Route::post('/forgot-password', [UserController::class, "postFogotPassword"])->name('password.email');
+
+Route::get('/reset-password/{token}', [UserController::class, "resetPassword"])->name('password.reset');
+Route::post('/reset-password', [UserController::class, "postResetPassword"])->name('password.update');
+
 // Cart routes
 Route::post('/cart/delete/{id}', [CartController::class, 'destroy']);
 Route::get('/cart', [CartController::class, 'index']);
