@@ -49,8 +49,7 @@ Route::get('/user/address', [UserController::class, "editAddress"])->name('user.
 Route::get('/user/address/add-new-address', [UserController::class, "addAddressPage"])->name('user.new-address');
 Route::post('/user/address/add-new-address', [UserController::class, "addAddress"])->name('user.new-address-post');
 
-Route::post('/delete', [UserController::class, "deleteAddress"])->name('user.deleteAddress');
-
+Route::post('/user/address', [UserController::class, "deleteAddress"])->name('user.deleteAddress');
 
 // Cart routes
 Route::post('/cart/delete/{id}', [CartController::class, 'destroy']);

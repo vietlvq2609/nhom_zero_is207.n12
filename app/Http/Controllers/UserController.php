@@ -202,8 +202,7 @@ class UserController extends Controller
 
     public function deleteAddress(Request $request)
     {
-        $id = $request->validate(['address_id'=> ['required']]);
-        Address::find($id->address_id)->delete();
-        return view('users.manage-address')->with('message', 'Đã xóa địa chỉ khỏi giỏ hàng');
+        $deleted = DB::table('addresses')->where('id', '=', $request->address_id)->delete();
+        return UserController::editAddress();
     }
 }

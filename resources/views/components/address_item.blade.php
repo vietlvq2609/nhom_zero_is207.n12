@@ -12,8 +12,9 @@
         <div class="font-semibold">{{ $address->city}}</div>
         
         <div name="product_tatal_price" class="font-semibold">{{ $address->country_name}}</div>
-        <form action="/delete" method="POST">
-            <input name="address_id" type="text" value="{{ $address->id }}" hidden>
+        <form action="{{ route('user.deleteAddress') }}" method="POST">
+        @csrf 
+            <input name="address_id" type="hidden" value="{{ $address->id }}">
             <button class="ml-6 text-red-500 text-lg underline rounded p-1 hover:scale-105">Xoá</button>
         </form>
         <form action="" method="POST">

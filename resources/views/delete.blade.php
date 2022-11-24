@@ -1,2 +1,0 @@
-<x-layout>
-</x-layout> 
