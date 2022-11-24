@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Address;
+use App\Models\User_address;
+use App\Models\Country;
 use App\Models\User_role;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -13,6 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -146,5 +150,60 @@ class UserController extends Controller
         return $status === Password::PASSWORD_RESET
                     ? redirect()->route('login')->with('status', __($status))
                     : back()->withErrors(['email_address' => [__($status)]]);
+    }
+
+    //Edit Address
+    public function editAddress()
+    {
+        $addresses = DB::table('addresses')
+            ->where('users.id', auth()->id())
+            ->join('user_addresses','user_addresses.address_id','=','addresses.id')
+            ->join('users','user_addresses.user_id','=','users.id')
+            ->join('countries','countries.id', '=','addresses.country_id')
+            ->select('addresses.id as id', 'unit_number', 
+                    'street_number', 'address_line1', 'address_line2', 
+                    'city', 'region','is_default', 'country_name' )
+            ->get();
+        return view('users.manage-address',[
+            'addresses' => $addresses
+        ]);
+    }
+
+    public function addAddressPage()
+    {
+        return view('users.add-new-address');
+    }
+
+    public function addAddress(Request $request)
+    {
+        $formFields = $request->validate([
+            'unit_number' => ['nullable'],
+            'street_number' => ['nullable'],
+            'address_line1' => ['required', 'min:1'],
+            'address_line2' => ['required', 'min:1'],
+            'city' => ['required', 'min:1'],
+            'region' => ['required', 'min:1'],
+            'postal_code'=> ['nullable'],
+            'country_id' => ['required'],
+        ]);
+
+        //create a row that contain infomations in $formFields into Address table
+        $address = Address::create($formFields);
+
+        //add infomations into user_address table
+        User_address::create([
+            'user_id' => auth()->id(),
+            'address_id' => $address->id,
+            'is_default' => false
+        ]);
+
+       return redirect('/user/address')->with('message', "Thêm địa chỉ mới thành công");
+    }
+
+    public function deleteAddress(Request $request)
+    {
+        $id = $request->validate(['address_id'=> ['required']]);
+        Address::find($id->address_id)->delete();
+        return view('users.manage-address')->with('message', 'Đã xóa địa chỉ khỏi giỏ hàng');
     }
 }

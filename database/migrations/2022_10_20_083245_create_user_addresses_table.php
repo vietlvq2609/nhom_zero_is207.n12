@@ -17,6 +17,7 @@ return new class extends Migration
             Schema::create('user_addresses', function (Blueprint $table) {
                 $table->foreignId('user_id')->constrained()->onDelete('cascade');
                 $table->foreignId('address_id')->constrained()->onDelete('cascade');
+                $table->boolean('is_default')->default(false);
                 $table->timestamps();
             });
         }

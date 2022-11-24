@@ -45,6 +45,13 @@ Route::post('/forgot-password', [UserController::class, "postFogotPassword"])->n
 Route::get('/reset-password/{token}', [UserController::class, "resetPassword"])->name('password.reset');
 Route::post('/reset-password', [UserController::class, "postResetPassword"])->name('password.update');
 
+Route::get('/user/address', [UserController::class, "editAddress"])->name('user.address');
+Route::get('/user/address/add-new-address', [UserController::class, "addAddressPage"])->name('user.new-address');
+Route::post('/user/address/add-new-address', [UserController::class, "addAddress"])->name('user.new-address-post');
+
+Route::post('/delete', [UserController::class, "deleteAddress"])->name('user.deleteAddress');
+
+
 // Cart routes
 Route::post('/cart/delete/{id}', [CartController::class, 'destroy']);
 Route::get('/cart', [CartController::class, 'index']);

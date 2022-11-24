@@ -17,7 +17,7 @@ class AdminSeeder extends Seeder
     {
         DB::table('users')->insert([
             'name' => "ZeroFood Admin",
-            'email_address' => 'admin@gmail',
+            'email_address' => 'admin@gmail.com',
             "phone_number" => '123456789',
             'password' => '123456789'
         ]);

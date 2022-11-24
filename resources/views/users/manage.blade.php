@@ -27,7 +27,7 @@
                     <a href="#" class="relative hover:text-primary block capitalize transition">
                         Profile information
                     </a>
-                    <a href="#" class="relative hover:text-primary block capitalize transition">
+                    <a href="{{ route('user.address') }}" class="relative hover:text-primary block capitalize transition">
                         Manage addresses
                     </a>
                     <a href="#" class="relative hover:text-primary block capitalize transition">
@@ -86,7 +86,7 @@
             <div class="shadow rounded bg-white px-4 pt-6 pb-8">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="font-medium text-gray-800 text-lg">Shipping address</h3>
-                    <a href="#" class="text-primary">Edit</a>
+                    <a href="{{ route('user.address') }}" class="text-primary">Edit</a>
                 </div>
                 <div class="space-y-1">
                     <h4 class="text-gray-700 font-medium">{{ auth()->user()->name }}</h4>

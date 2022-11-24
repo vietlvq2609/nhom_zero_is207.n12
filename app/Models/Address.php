@@ -16,7 +16,8 @@ class Address extends Model
         'address_line2',
         'city',
         'region',
-        'postal_code'
+        'postal_code',
+        'country_id'
     ];
 
     // Relationships
