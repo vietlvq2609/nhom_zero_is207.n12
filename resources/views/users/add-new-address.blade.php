@@ -88,7 +88,6 @@
                     @error('country_id')
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
-
                 </div>
                 <div class="mt-4">
                     <button type="submit" class="block w-full py-2 text-center text-white border border-amber-500 rounded bg-amber-500 hover:bg-transparent hover:text-amber-500 transition uppercase font-roboto font-medium">Thêm địa chỉ</button>

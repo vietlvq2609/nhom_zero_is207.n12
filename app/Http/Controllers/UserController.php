@@ -200,9 +200,27 @@ class UserController extends Controller
        return redirect('/user/address')->with('message', "Thêm địa chỉ mới thành công");
     }
 
-    public function deleteAddress(Request $request)
+    public function updateAddress(Request $request)
     {
-        $deleted = DB::table('addresses')->where('id', '=', $request->address_id)->delete();
+        //những địa chỉ được check thì sẽ bị xóa, nếu không địa chỉ nào bị xóa thì bỏ qua
+        if($request->delete)
+        {
+            foreach($request->delete as $delete_id)
+            {
+                DB::delete('delete from addresses where addresses.id = ?', [$delete_id]);
+                DB::delete('delete from user_addresses where user_addresses.address_id = ?', [$delete_id]);
+            }
+        }
+
+        //địa chỉ được check mặc định thì sẽ được cập nhật là is_default=true
+        //các địa chỉ khác sẽ là is_default=false
+
+        if ($request->defaultAddress)
+        {
+            DB::update('update user_addresses set is_default=false where address_id != ?', [$request->defaultAddress]);
+            DB::update('update user_addresses set is_default=true where address_id = ?', [$request->defaultAddress]);
+        }
+        
         return UserController::editAddress();
     }
 }
