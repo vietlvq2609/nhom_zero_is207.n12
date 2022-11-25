@@ -90,8 +90,14 @@
                 </div>
                 <div class="space-y-1">
                     <h4 class="text-gray-700 font-medium">{{ auth()->user()->name }}</h4>
-                    <p class="text-gray-800">Medan, North Sumatera</p>
-                    <p class="text-gray-800">20371</p>
+
+                    <!-- in ra địa chỉ mặc định (địa chỉ nhận hàng) -->
+                    @foreach ($shipping as $shipaddress)
+                        @if($shipaddress->is_default)
+                            <p class="text-gray-800">{{$shipaddress->unit}}, {{$shipaddress->street}}, {{$shipaddress->address1}}, {{$shipaddress->address2}}, {{$shipaddress->city}}, {{$shipaddress->country_name}}.</p>
+                        @endif
+                    @endforeach
+
                     <p class="text-gray-800">{{ auth()->user()->phone_number }}</p>
                 </div>
             </div>

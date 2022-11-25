@@ -93,9 +93,17 @@ class UserController extends Controller
     // Show edit user view
     public function edit()
     {
+        $shipping_address = DB::select(
+            'select unit_number as unit, street_number as street, address_line1 as address1,
+                address_line2 as address2, city, region, country_name, is_default 
+            from addresses, user_addresses, countries
+            where addresses.id = user_addresses.address_id 
+                and addresses.country_id = countries.id
+                and user_addresses.user_id = ?', [auth()->id()]);
+
         if (Auth::user() ?? null) {
             return view('users.manage', [
-    
+                'shipping' =>$shipping_address
             ]);
         }
         return redirect('users.login');
@@ -177,12 +185,12 @@ class UserController extends Controller
     public function addAddress(Request $request)
     {
         $formFields = $request->validate([
-            'unit_number' => ['nullable'],
-            'street_number' => ['nullable'],
-            'address_line1' => ['required', 'min:1'],
-            'address_line2' => ['required', 'min:1'],
-            'city' => ['required', 'min:1'],
-            'region' => ['required', 'min:1'],
+            'unit_number' => ['required'],
+            'street_number' => ['required'],
+            'address_line1' => ['required'],
+            'address_line2' => ['required'],
+            'city' => ['required'],
+            'region' => ['required'],
             'postal_code'=> ['nullable'],
             'country_id' => ['required'],
         ]);

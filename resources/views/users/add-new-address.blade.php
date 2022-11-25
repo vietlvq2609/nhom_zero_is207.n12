@@ -10,7 +10,7 @@
 
                     <div>
                         <label for="unit_number" class="text-gray-600 mb-2 block">Số nhà:</label>
-                        <input type="text" name="unit_number" id="unit_number" class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400" placeholder="số 82">
+                        <input type="text" name="unit_number" id="unit_number" class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400" placeholder="VD: số 82">
                     </div>
                     @error('unit_number')
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -20,7 +20,7 @@
 
                     <div>
                         <label for="street_number" class="text-gray-600 mb-2 block">Tên đường:</label>
-                        <input type="text" name="street_number" id="street_number" class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400" placeholder="Quốc lộ 1A">
+                        <input type="text" name="street_number" id="street_number" class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400" placeholder="VD: Quốc lộ 1A">
                     </div>
                     @error('street_number')
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -29,8 +29,8 @@
                     <!-- phường, xã, thị trấn -->
 
                     <div>
-                        <label for="address_line1" class="text-gray-600 mb-2 block">Phường/xã/thị trấn:</label>
-                        <input type="text" name="address_line1" id="address_line1" class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400" placeholder="Đông Hòa">
+                        <label for="address_line1" class="text-gray-600 mb-2 block">Phường/ Xã/ Thị trấn/ Ấp:</label>
+                        <input type="text" name="address_line1" id="address_line1" class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400" placeholder="VD: Đông Hòa">
                     </div>
                     @error('address_line1')
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -39,8 +39,8 @@
                     <!-- quận huyện -->
 
                     <div>
-                        <label for="address_line2" class="text-gray-600 mb-2 block">Quận/huyện:</label>
-                        <input type="text" name="address_line2" id="address_line2" class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400" placeholder="Gò Vấp">
+                        <label for="address_line2" class="text-gray-600 mb-2 block">Quận/ Huyện:</label>
+                        <input type="text" name="address_line2" id="address_line2" class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400" placeholder="VD: Gò Vấp">
                     </div>
                     @error('address_line2')
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -49,8 +49,8 @@
                     <!-- tỉnh thành phố -->
 
                     <div>
-                        <label for="city" class="text-gray-600 mb-2 block">Tỉnh/Thành phố</label>
-                        <input type="text" name="city" id="city" class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400" placeholder="Hải Phòng">
+                        <label for="city" class="text-gray-600 mb-2 block">Tỉnh/ Thành phố</label>
+                        <input type="text" name="city" id="city" class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400" placeholder="VD: Hải Phòng">
                     </div>
                     @error('city')
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
