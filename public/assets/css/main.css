@@ -1131,12 +1131,28 @@ h1, h2, h3, h4, h5, h6 {
   align-items: flex-end;
 }
 
+.float-right {
+  float: right;
+}
+
+.float-left {
+  float: left;
+}
+
 .justify-center {
   justify-content: center;
 }
 
 .justify-between {
   justify-content: space-between;
+}
+
+.justify-right {
+  justify-content: right;
+}
+
+.justify-end {
+  justify-content: end;
 }
 
 .gap-6 {

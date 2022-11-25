@@ -29,13 +29,17 @@ class CartController extends Controller
                 'product_items.price',
                 'variations.name as variation_name',
                 'variation_options.value as variation_value',
-
             )
             ->get();
 
+        $ship_methods = DB::select(
+            'select * from shipping_methods'
+        );
+
         return view('cart', [
             'categories' => Product_category::get(),
-            'items' => $products
+            'items' => $products,
+            'ship_methods' => $ship_methods
         ]);
     }
     // delete cart
@@ -66,16 +70,35 @@ class CartController extends Controller
                 ->get()
                 ->first();
 
-            Shopping_cart_item::create([
-                'qty' => $request->qty,
-                'product_item_id' => $request->product_item_id,
-                'cart_id' => $cart->id
-            ]);
+            
+            $isExist = Shopping_cart_item::select("*")
+                ->where("product_item_id", $request->product_item_id)
+                ->exists();
+            
+            if ($isExist)
+            {
+                // nếu có rồi thì cập nhật lại giỏ hàng
+                DB::update(
+                    'update shopping_cart_items 
+                    set qty = qty + ? 
+                    where product_item_id = ?', [$request->qty, $request->product_item_id]);
+            }
+            else 
+            {
+                // nếu không có sẵn trong giỏ hàng thì tạo mới
+                Shopping_cart_item::create([
+                    'qty' => $request->qty,
+                    'product_item_id' => $request->product_item_id,
+                    'cart_id' => $cart->id
+                ]);
+                DB::update('update product_items set qty_in_stock = qty_in_stock - ? where id = ?', [$request->qty , $request->product_item_id]);
+                return redirect('/products')->with('message', 'Thêm vào giỏ hàng thành công');
+            }
 
             //giảm số lượng thức ăn(qty_in_stock) có trong product_item
             DB::update('update product_items set qty_in_stock = qty_in_stock - ? where id = ?', [$request->qty , $request->product_item_id]);
 
-            return redirect('/products')->with('message', 'Thêm vào giỏ hàng thành công');
+            return redirect('/products')->with('message', 'Cập nhật giỏ hàng');
         }
 
         return redirect('/login')->with('message', 'Bạn phải đăng nhập để thêm giỏ hàng!');
