@@ -57,11 +57,14 @@
                 <div id="total">{{$total}}đ</div>
             </div>
             <div id="BookingBtn">
-                <button id="BookingBtn" class="block m-auto w-3/5 py-2 text-center text-white border border-amber-500 rounded bg-amber-500 hover:bg-transparent hover:text-amber-500 transition uppercase font-roboto font-medium">
+                <button id="BookingBtn" class="block m-auto w-3/5 py-2 text-center text-white border border-amber-500 rounded bg-amber-500 hover:bg-transparent hover:text-amber-500 transition uppercase font-roboto font-medium"
+                    onclick="
+                        if(!confirm('Xác nhận đặc hàng')) 
+                            event.preventDefault()">
                     Đặt hàng
                 </button>
             </div>
-            
+
         </form>
     </div>
 
