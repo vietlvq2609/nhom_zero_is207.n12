@@ -39,10 +39,22 @@ class CartController extends Controller
         ]);
     }
     // delete cart
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        Shopping_cart_item::find($id)->delete();
-        return redirect('/cart')->with('message', 'Đã xóa sản phẩm khỏi giỏ hàng');
+        $canDelete =  Shopping_cart_item::find($request->delete_id);    
+        if ($canDelete)
+        {
+            $canDelete->delete();
+    
+            //tăng số lượng qty_in_stock trong bảng product_item => chưa làm
+            DB::update('update product_items set qty_in_stock = qty_in_stock + ? where id = ?', [$request->delete_qty , $request->delete_id]);
+    
+            return redirect('/cart')->with('message', 'Đã xóa sản phẩm khỏi giỏ hàng');
+        }
+        else 
+        {
+            return redirect('/cart')->with('message', 'Sản phẩm không tồn tại trong giỏ hàng');
+        }
     }
 
     // add new cart
@@ -59,6 +71,9 @@ class CartController extends Controller
                 'product_item_id' => $request->product_item_id,
                 'cart_id' => $cart->id
             ]);
+
+            //giảm số lượng thức ăn(qty_in_stock) có trong product_item
+            DB::update('update product_items set qty_in_stock = qty_in_stock - ? where id = ?', [$request->qty , $request->product_item_id]);
 
             return redirect('/products')->with('message', 'Thêm vào giỏ hàng thành công');
         }

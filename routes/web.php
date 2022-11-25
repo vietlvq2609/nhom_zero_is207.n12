@@ -52,7 +52,7 @@ Route::post('/user/address/add-new-address', [UserController::class, "addAddress
 Route::post('/user/address', [UserController::class, "updateAddress"])->name('user.updateAddress');
 
 // Cart routes
-Route::post('/cart/delete/{id}', [CartController::class, 'destroy']);
+Route::post('/delete', [CartController::class, 'destroy'])->name('cart.delete');
 Route::get('/cart', [CartController::class, 'index']);
 Route::post('/cart', [CartController::class, 'store']);
 

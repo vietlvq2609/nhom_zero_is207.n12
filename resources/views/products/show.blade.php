@@ -37,7 +37,7 @@
                 <div class="space-y-2">
                     <p class="text-gray-800 font-semibold space-x-2">
                         <span>Số lượng sản phẩm: </span>
-                        <span class="text-green-600">In Stock</span>
+                        <span name="item_qty" class="text-green-600">{{ $product_options->first()->qty }}</span>
                     </p>
                     <p class="space-x-2">
                         <span class="text-gray-800 font-semibold">Phân loại: </span>
@@ -59,7 +59,10 @@
                             <div class="size-selector relative">
                                 <input type="radio" name="product_item_id" class="checked:hidden absolute bg-transparent border-none w-full h-full cursor-pointer"  
                                     value="{{ $option->id }}" 
-                                    onclick="document.getElementsByName('new_price')[0].innerHTML= `{{ $option->price }} đ`">
+                                    onclick="
+                                            document.getElementsByName('new_price')[0].innerHTML= `{{ $option->price }} đ`;
+                                            document.getElementsByName('item_qty')[0].innerHTML= `{{ $option->qty }}`
+                                    ">
                                 <label
                                     class="px-2 text-sm border border-gray-200 rounded-sm h-6 flex items-center justify-center shadow-sm text-gray-600">{{ $option->value }}</label>
                             </div>

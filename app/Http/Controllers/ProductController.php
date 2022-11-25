@@ -48,7 +48,7 @@ class ProductController extends Controller
             ->join('product_configurations', 'product_items.id', '=', 'product_configurations.product_item_id')
             ->join('variation_options', 'variation_options.id', '=', 'product_configurations.variation_option_id')
             ->join('variations', 'variation_options.variation_id', '=', 'variations.id')
-            ->select('product_item_id as id', 'value','price')
+            ->select('product_item_id as id', 'value','price','qty_in_stock as qty')
             ->get();
 
         return view(

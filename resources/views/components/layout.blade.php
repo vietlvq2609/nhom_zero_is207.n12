@@ -59,10 +59,21 @@
                             <i class="fa-solid fa-bag-shopping"></i>
                         </div>
                         <div class="text-xs leading-3">Giỏ hàng</div>
-                        <div class="absolute right-0 top-0 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
-                            0
+                        @php 
+                        $total_qty = 0;
+                        if (Auth::user() ?? null)
+                        {
+                            $qties = DB::select('select qty from shopping_cart_items, shopping_carts where shopping_cart_items.cart_id = shopping_carts.id and shopping_carts.user_id = ?', [auth()->id()]);
+                            foreach($qties as $qty)
+                            $total_qty +=  $qty->qty;
+                        }
+                        @endphp
+                        <div id="cart_qty" class="absolute right-0 top-0 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
+                            <input type="hidden" id="saveTotal_qty" value="{{ $total_qty }}">
+
+                            {{ $total_qty }}
                         </div>
-                    </a>
+                            </a>
                     <a href="/user" class="text-center text-gray-700 hover:text-primary transition relative">
                         <div class="text-2xl">
                             <i class="fa-regular fa-user"></i>
@@ -167,6 +178,13 @@
     <!-- ./copyright -->
     <x-flash-message />
     @livewireScripts
+    <script>
+        var check_has_cart_qty = document.getElementById('saveTotal_qty').value
+        var get_cart_qty = document.getElementById('cart_qty')
+        if (check_has_cart_qty == 0)  
+            get_cart_qty = document.getElementById('cart_qty').classList.add('hidden');
+    </script>
+    
 </body>
 
 </html>
