@@ -1,6 +1,6 @@
 <x-layout>
     <div class="container w-3/5">
-        <form action="" method="POST">
+        <form action="#" method="POST">
             <h1 id="Gio_Hang" class="text-primary text-2xl font-semibold py-4">Giỏ hàng</h1>
             @php
                 $total = 0;

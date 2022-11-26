@@ -51,6 +51,9 @@ Route::post('/user/address/add-new-address', [UserController::class, "addAddress
 
 Route::post('/user/address', [UserController::class, "updateAddress"])->name('user.updateAddress');
 
+Route::get('user/changePassword',[UserController::class, "changePasswordView"])->name('user.changePassword');
+Route::post('user/changePassword',[UserController::class, "changePassword"])->name('user.postChangePassword');
+
 // Cart routes
 Route::post('/delete', [CartController::class, 'destroy'])->name('cart.delete');
 Route::get('/cart', [CartController::class, 'index']);

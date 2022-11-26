@@ -231,4 +231,36 @@ class UserController extends Controller
         
         return UserController::editAddress();
     }
+
+    public function changePasswordView()
+    {
+        return view('users.change-pass');
+    }
+
+    public function changePassword(Request $request)
+    {
+        // Kiểm tra xem người dùng có bỏ xót trường thông tin nào không
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required',
+            'new_password_confirmation' => 'required'
+        ]);
+        
+        // Kiểm tra mật khẩu cũ có đúng không
+        if(!Hash::check($request->old_password, auth()->user()->password)){
+            return back()->with("message", "Sai mật khẩu cũ!");
+        }
+        
+        // Kiểm tra xem mật khẩu mới và mật khẩu xác nhận lại có giống nhau không
+        if ($request->new_password != $request->new_password_confirmation)
+        {
+            return back()->with("message", "Mật khẩu xác nhận lại không đúng!");
+        }
+        // Cập nhật mật khẩu mới cho người dùng
+        User::whereId(auth()->user()->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        return back()->with("message", "Đổi mật khẩu thành công!");
+    }
 }

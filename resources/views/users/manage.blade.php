@@ -30,7 +30,7 @@
                     <a href="{{ route('user.address') }}" class="relative hover:text-primary block capitalize transition">
                         Manage addresses
                     </a>
-                    <a href="#" class="relative hover:text-primary block capitalize transition">
+                    <a href="{{route('user.changePassword')}}" class="relative hover:text-primary block capitalize transition">
                         Change password
                     </a>
                 </div>
