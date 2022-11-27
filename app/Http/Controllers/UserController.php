@@ -37,7 +37,7 @@ class UserController extends Controller
             'email_address' => ['required', 'email', Rule::unique('users', 'email_address')],
             'phone_number' => ['required', 'min:10', 'max:11', Rule::unique('users', 'phone_number')],
             'password' => 'required|confirmed|min:6',
-            'password_confirmation' => 'required'
+            'password_confirmation' => 'required|same:password'
         ]);
 
         // Hash Password
@@ -143,7 +143,8 @@ class UserController extends Controller
         $request->validate([
             'token' => 'required',
             'email_address' => 'required|email',
-            'password' => 'required|min:8|confirmed',
+            'password' => 'required|min:6|confirmed',
+            'password_confirmation' => 'required|same:password'
         ]);
      
         $status = Password::reset(
