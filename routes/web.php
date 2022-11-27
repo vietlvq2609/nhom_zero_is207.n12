@@ -41,18 +41,19 @@ Route::post('/register', [UserController::class, "store"]);
 
 Route::get('/forgot-password', [UserController::class, "fogotPassword"])->name('password.request');
 Route::post('/forgot-password', [UserController::class, "postFogotPassword"])->name('password.email');
-
 Route::get('/reset-password/{token}', [UserController::class, "resetPassword"])->name('password.reset');
 Route::post('/reset-password', [UserController::class, "postResetPassword"])->name('password.update');
 
 Route::get('/user/address', [UserController::class, "editAddress"])->name('user.address');
 Route::get('/user/address/add-new-address', [UserController::class, "addAddressPage"])->name('user.new-address');
 Route::post('/user/address/add-new-address', [UserController::class, "addAddress"])->name('user.new-address-post');
-
 Route::post('/user/address', [UserController::class, "updateAddress"])->name('user.updateAddress');
 
 Route::get('user/changePassword',[UserController::class, "changePasswordView"])->name('user.changePassword');
 Route::post('user/changePassword',[UserController::class, "changePassword"])->name('user.postChangePassword');
+
+Route::get('user/changeInfomation',[UserController::class, "changeInfoView"])->name('user.changeInfo');
+Route::post('user/changeInfomation',[UserController::class, "changeInfo"])->name('user.postChangeInfo');
 
 // Cart routes
 Route::post('/delete', [CartController::class, 'destroy'])->name('cart.delete');

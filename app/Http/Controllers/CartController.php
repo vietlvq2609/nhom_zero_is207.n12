@@ -53,11 +53,11 @@ class CartController extends Controller
             //tăng số lượng qty_in_stock trong bảng product_item => chưa làm
             DB::update('update product_items set qty_in_stock = qty_in_stock + ? where id = ?', [$request->delete_qty , $request->delete_id]);
     
-            return redirect('/cart')->with('message', 'Đã xóa sản phẩm khỏi giỏ hàng');
+            return back()->with('message', 'Đã xóa sản phẩm khỏi giỏ hàng');
         }
         else 
         {
-            return redirect('/cart')->with('message', 'Sản phẩm không tồn tại trong giỏ hàng');
+            return back()->with('message', 'Sản phẩm không tồn tại trong giỏ hàng');
         }
     }
 

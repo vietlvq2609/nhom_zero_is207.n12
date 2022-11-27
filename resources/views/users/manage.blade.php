@@ -6,8 +6,7 @@
         <div class="col-span-3">
             <div class="px-4 py-3 shadow flex items-center gap-4">
                 <div class="flex-shrink-0">
-                    <img src="../assets/images/avatar.png" alt="profile"
-                        class="rounded-full w-14 h-14 border border-gray-200 p-1 object-cover">
+                    <img src="{{asset('/storage/avatar/'.Auth::user()->avatar)}}" alt="avatar" class="rounded-full w-14 h-14 border border-gray-200 p-1 object-cover">
                 </div>
                 <div class="flex-grow">
                     <p class="text-gray-600">Hello,</p>
@@ -24,13 +23,13 @@
                         </span>
                         Manage account
                     </a>
-                    <a href="#" class="relative hover:text-primary block capitalize transition">
+                    <a href="{{ route('user.changeInfo') }}" class="relative hover:text-primary block capitalize transition">
                         Profile information
                     </a>
                     <a href="{{ route('user.address') }}" class="relative hover:text-primary block capitalize transition">
                         Manage addresses
                     </a>
-                    <a href="{{route('user.changePassword')}}" class="relative hover:text-primary block capitalize transition">
+                    <a href="{{ route('user.changePassword') }}" class="relative hover:text-primary block capitalize transition">
                         Change password
                     </a>
                 </div>

@@ -17,6 +17,9 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Routes;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -33,7 +36,8 @@ class UserController extends Controller
             'name' => ['required', 'min:3'],
             'email_address' => ['required', 'email', Rule::unique('users', 'email_address')],
             'phone_number' => ['required', 'min:10', 'max:11', Rule::unique('users', 'phone_number')],
-            'password' => 'required|confirmed|min:6'
+            'password' => 'required|confirmed|min:6',
+            'password_confirmation' => 'required'
         ]);
 
         // Hash Password
@@ -243,7 +247,7 @@ class UserController extends Controller
         $request->validate([
             'old_password' => 'required',
             'new_password' => 'required',
-            'new_password_confirmation' => 'required'
+            'new_password_confirmation' => 'required|same:new_password'
         ]);
         
         // Kiểm tra mật khẩu cũ có đúng không
@@ -251,16 +255,77 @@ class UserController extends Controller
             return back()->with("message", "Sai mật khẩu cũ!");
         }
         
-        // Kiểm tra xem mật khẩu mới và mật khẩu xác nhận lại có giống nhau không
-        if ($request->new_password != $request->new_password_confirmation)
-        {
-            return back()->with("message", "Mật khẩu xác nhận lại không đúng!");
-        }
         // Cập nhật mật khẩu mới cho người dùng
         User::whereId(auth()->user()->id)->update([
             'password' => Hash::make($request->new_password)
         ]);
 
         return back()->with("message", "Đổi mật khẩu thành công!");
+    }
+
+    public function changeInfoView()
+    {
+        return view('users.change_info');
+    }
+
+    public function changeInfo(Request $request)
+    {
+        $request->validate([
+            'avatar' => 'nullable',
+            'name' => ['required', 'min:3'],
+            'email_address' => ['required', 'email'],
+            'phone_number' => ['required', 'min:10', 'max:11'],
+            'password' => 'required|min:6',
+        ]);
+
+        // Kiểm tra mật khẩu cũ có đúng không
+        if(!Hash::check($request->password, auth()->user()->password)){
+            return back()->with("message", "Sai mật khẩu!");
+        }
+
+        // nếu email không phải là email cũ
+        if ($request->email_address != auth()->user()->email_address)
+        {
+            //Kiểm tra xem email mới đã có trong CSDL chưa
+            $emails = DB::select('select email_address from users');
+            foreach($emails as $email)
+                if($email->email_address == $request->email_address)
+                    return back()->with("message", "Email này đã được sử dụng, vui lòng nhập lại!"); 
+        }
+
+        // nếu số điện thoại nhập vào không phải là số cũ
+        if ($request->phone_number != auth()->user()->phone_number)
+        {
+            //Kiểm tra xem SĐT mới có trong CSDL chưa
+            $phones = DB::select('select phone_number from users');
+            foreach($phones as $phone)
+                if($phone->phone_number == $request->phone_number)
+                    return back()->with("message", "Số điện thoại này đã được sử dụng, vui lòng nhập lại!"); 
+        }
+        
+        // Cập nhật tên mới cho người dùng
+        User::whereId(auth()->user()->id)->update([
+            'name' => $request->name
+        ]);
+        
+        // Cập nhật email mới cho người dùng
+        User::whereId(auth()->user()->id)->update([
+            'email_address' => $request->email_address
+        ]);
+        
+        // Cập nhật số điện thoại mới cho người dùng
+        User::whereId(auth()->user()->id)->update([
+            'phone_number' => $request->phone_number
+        ]);
+        
+        // Upload avatar
+        if($request->hasFile('avatar')){
+            $filename = $request->avatar->getClientOriginalName();
+            // lưu ảnh vừa upload vào folder images
+            $request->avatar->storeAs('avatar',$filename,'public');
+            Auth()->user()->update(['avatar'=>$filename]);
+        }
+
+        return back()->with("message", "Cập nhật thông tin thành công!");   
     }
 }
