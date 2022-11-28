@@ -10,14 +10,23 @@ class Shop_order extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'order_date',
-        'order_total'
+        'payment_method_id',
+        'shipping_address',
+        'shipping_method',
+        'order_total',
+        'order_status'
     ];
 
     // Relationships
     public function order_line()
     {
         return $this->hasMany(Order_line::class, 'order_line');
+    }
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
     public function user_payment_method()
     {

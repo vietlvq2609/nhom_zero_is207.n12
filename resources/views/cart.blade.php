@@ -1,13 +1,15 @@
 <x-layout>
     <div class="container w-3/5">
-        <form action="#" method="POST">
-            <h1 id="Gio_Hang" class="text-primary text-2xl font-semibold py-4">Giỏ hàng</h1>
-            @php
-                $total = 0;
-                $QtyOfItemInCart = 0;
-            @endphp
+        <h1 id="Gio_Hang" class="text-primary text-2xl font-semibold py-4">Giỏ hàng</h1>
+
+        @php
+            $total = 0;
+            $QtyOfItemInCart = 0;
+        @endphp
+
+        <form action="#" method="POST" autocomplete="off">
+
             <div class="divide-y-4 divide-white">
-    
                 <div class="flex items-center py-3 px-5 w-full rounded text-sm text-gray-800">
                     <div class="flex justify-between items-center flex-1">
                         <div class="font-semibold text-red-600 text-lg">
@@ -27,7 +29,7 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="flex bg-amber-100 items-center py-3 px-5 w-full rounded text-sm text-gray-800 mt-6">
                     <div class="flex w-3/5 items-center w-3/5">
                         <p class="p-2">Sản phẩm</p>
@@ -42,22 +44,26 @@
 
                 
                 @foreach ($items as $item)
-                <x-cart-item :item="$item" />
+                    <x-cart-item :item="$item"/>
+
                     @php
                         $total += $item->price * $item->qty;
                         $QtyOfItemInCart ++;
                     @endphp
-                @endforeach
 
-                <input type="hidden" id="qtyOfItemInCart" value="{{ $QtyOfItemInCart }}">
+                @endforeach
             </div>
-           
+        
+            <input type="hidden" id="qtyOfItemInCart" value="{{ $QtyOfItemInCart }}">
+
+            <!-- Chọn phương thức vận chuyển -->
 
             <div id="ShippingMethodAndTotal" class="flex-column py-3 px-5 w-full ml-auto mt-8">
-                <div class="flex"> 
+                <div class="flex">
+                    
                     @foreach ($ship_methods as $ship_method)
                         <div class="size-selector relative mr-8">
-                            <input type="radio" id="ship_method_{{$ship_method->id}}" name="ship_method" class="checked:hidden absolute bg-transparent border-none w-full h-full cursor-pointer"  
+                            <input type="radio" id="ship_method_{{$ship_method->id}}" name="shipping_method" class="checked:hidden absolute bg-transparent border-none w-full h-full cursor-pointer"  
                                 value="{{$ship_method->price}}" 
                                 onclick="chooseShippingMethod({{$ship_method->id}})">
                             <label
@@ -66,21 +72,56 @@
                             </label>
                         </div>
                     @endforeach
+
+                    <!-- Phí ship -->
+
                     <div class="flex justify-between ml-auto px-5">
                         <div class="px-5">Phí ship:</div>
                         <div id="show_ship_cost" >{{ $ship_methods[0]->price }} đ</div>
+
                         @php
                             $total += $ship_methods[0]->price
                         @endphp
+
                     </div>
                 </div>
+
+                <!-- Tổng tiền -->
+
                 <div class="flex py-3 px-5 justify-between w-2/5 ml-auto mt-8">
                     <div class="uppercase text-blue-900 text-lg">Tổng cộng:</div>
-                    <input type="hidden" id="saveTotalValue" value="{{$total}}">
+                    <input type="hidden" name="order_total" id="saveTotalValue" value="{{$total}}">
                     <div id="total">{{$total}} đ</div>
                 </div>
+
+                <!-- Địa chỉ giao hàng -->
+
+                <div class="flex justify-between py-3">
+                    @if($shipping == null)
+                    <p class="text-gray-800">Bạn chưa thêm địa chỉ mặc định</p>
+                    @else
+                    <p class="text-gray-800">{{$shipping[0]->unit}}, {{$shipping[0]->street}}, {{$shipping[0]->address1}}, {{$shipping[0]->address2}}, {{$shipping[0]->city}}, {{$shipping[0]->country_name}}.</p>
+                    <input type="hidden" name="shipping_address" value="{{$shipping[0]->id}}">
+                    @endif
+                    <a href="{{ route('user.address') }}" class="text-red-500 font-semibold">Sửa</a>
+                </div>
+
+                <!-- phương thức thanh toán -->
+
+                <div class="flex justify-between">
+                    @if($billing == null)
+                    <p class="text-gray-800">Bạn chưa thêm phương thức thanh toán mặc định</p>
+                    @else
+                    <p class="text-gray-800">{{$billing[0]->value}}, {{$billing[0]->provider}}, {{$billing[0]->number}}.</p>
+                    <input type="hidden" name="payment_method_id" value="{{$billing[0]->id}}">
+                    @endif
+                    <a href="{{ route('user.paymentMethodView') }}" class="text-red-500 font-semibold">Sửa</a>
+                </div>    
             </div>
-            <div id="BookingBtn">
+
+            <!-- nút Đặt hàng -->
+
+            <div id="BookingBtn" class="mt-8">
                 <button id="BookingBtn" class="block m-auto w-3/5 py-2 text-center text-white border border-amber-500 rounded bg-amber-500 hover:bg-transparent hover:text-amber-500 transition uppercase font-roboto font-medium"
                     onclick="
                         if(!confirm('Xác nhận đặc hàng')) 

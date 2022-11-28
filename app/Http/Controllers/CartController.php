@@ -36,29 +36,50 @@ class CartController extends Controller
             'select * from shipping_methods'
         );
 
+        $shipping_address_default = DB::select(
+            'select addresses.id as id, unit_number as unit, street_number as street, address_line1 as address1,
+                address_line2 as address2, city, region, country_name
+            from addresses, user_addresses, countries
+            where addresses.id = user_addresses.address_id 
+                and addresses.country_id = countries.id
+                and user_addresses.is_default = true
+                and user_addresses.user_id = ?', [auth()->id()]);
+
+        $billing_address_default = DB::select(
+            'select user_payment_methods.id as id, value, provider, account_number as number
+            from payment_types, user_payment_methods
+            where payment_types.id = user_payment_methods.payment_type_id 
+                and user_payment_methods.is_default = true
+                and user_payment_methods.user_id = ?', [auth()->id()]);
+
         return view('cart', [
             'categories' => Product_category::get(),
             'items' => $products,
-            'ship_methods' => $ship_methods
+            'ship_methods' => $ship_methods,
+            'shipping' =>$shipping_address_default,
+            'billing' =>$billing_address_default
         ]);
     }
     // delete cart
     public function destroy(Request $request)
     {
-        $canDelete =  Shopping_cart_item::find($request->delete_id);    
-        if ($canDelete)
+        // kiểm tra xem có trong giỏ hàng ko
+        $canDelete = DB::table ('shopping_cart_items')
+        ->where('id',$request->id )
+        ->select('product_item_id')
+        ->get();
+
+        if ($canDelete != null)
         {
-            $canDelete->delete();
+            DB::delete('delete from shopping_cart_items where id = ?', [$request->id]);
     
             //tăng số lượng qty_in_stock trong bảng product_item => chưa làm
-            DB::update('update product_items set qty_in_stock = qty_in_stock + ? where id = ?', [$request->delete_qty , $request->delete_id]);
+            DB::update('update product_items set qty_in_stock = qty_in_stock + ? where id = ?', [$request->qty , $canDelete[0]->product_item_id]);
     
-            return back()->with('message', 'Đã xóa sản phẩm khỏi giỏ hàng');
+            return redirect('/cart')->with('message', 'Đã xóa sản phẩm khỏi giỏ hàng');
         }
         else 
-        {
             return back()->with('message', 'Sản phẩm không tồn tại trong giỏ hàng');
-        }
     }
 
     // add new cart

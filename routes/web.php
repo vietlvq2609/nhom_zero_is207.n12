@@ -62,7 +62,7 @@ Route::get('user/addPaymentMethod',[UserController::class, "addPaymentMethodView
 Route::post('user/addPaymentMethod',[UserController::class, "addPaymentMethod"])->name('user.addPaymentMethod');
 
 // Cart routes
-Route::post('/delete', [CartController::class, 'destroy'])->name('cart.delete');
+Route::get('/cart/delete/{id}/{qty}', [CartController::class, 'destroy'])->name('cart.delete{id}/{qty}');
 Route::get('/cart', [CartController::class, 'index']);
 Route::post('/cart', [CartController::class, 'store']);
 

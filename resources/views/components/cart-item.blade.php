@@ -24,16 +24,11 @@
         </div>
 
         <!-- nút Xóa -->
-        
-        <form action="/delete" method="POST">
-            <input type="hidden" value="{{$item->id}}" name="delete_id">
-            <input type="hidden" value="{{$item->qty}}" name="delete_qty">
-            <button type="submit" class="ml-6 text-red-500 text-lg underline rounded p-1 hover:scale-105"
-                onclick="
-                    if(!confirm('Bạn có muốn xóa sản phẩm này ra khỏi giỏ hàng!')) 
-                        event.preventDefault()">
-                Xoá
-            </button>
-        </form>
+        <a href="/cart/delete/{{$item->id}}/{{$item->qty}}" class="ml-6 text-red-500 text-lg underline rounded p-1 hover:scale-105"
+            onclick="
+                if(!confirm('Bạn có muốn xóa sản phẩm này ra khỏi giỏ hàng!')) 
+                    event.preventDefault()">
+            Xoá
+        </a>
     </div>
 </div>
