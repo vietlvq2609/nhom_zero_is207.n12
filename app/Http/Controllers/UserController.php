@@ -7,6 +7,7 @@ use App\Models\Address;
 use App\Models\User_address;
 use App\Models\Country;
 use App\Models\User_role;
+use App\Models\User_payment_method;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\Product_category;
@@ -97,17 +98,27 @@ class UserController extends Controller
     // Show edit user view
     public function edit()
     {
-        $shipping_address = DB::select(
+        $shipping_address_default = DB::select(
             'select unit_number as unit, street_number as street, address_line1 as address1,
-                address_line2 as address2, city, region, country_name, is_default 
+                address_line2 as address2, city, region, country_name
             from addresses, user_addresses, countries
             where addresses.id = user_addresses.address_id 
                 and addresses.country_id = countries.id
+                and user_addresses.is_default = true
                 and user_addresses.user_id = ?', [auth()->id()]);
+
+        $billing_address_default = DB::select(
+            'select value, provider, account_number as number
+            from payment_types, user_payment_methods
+            where payment_types.id = user_payment_methods.payment_type_id 
+                and user_payment_methods.is_default = true
+                and user_payment_methods.user_id = ?', [auth()->id()]);
+                
 
         if (Auth::user() ?? null) {
             return view('users.manage', [
-                'shipping' =>$shipping_address
+                'shipping' =>$shipping_address_default,
+                'billing' =>$billing_address_default
             ]);
         }
         return redirect('users.login');
@@ -210,7 +221,7 @@ class UserController extends Controller
             'is_default' => false
         ]);
 
-       return redirect('/user/address')->with('message', "Thêm địa chỉ mới thành công");
+       return redirect('/user/address')->with('message', "Thêm địa chỉ mới thành công!");
     }
 
     public function updateAddress(Request $request)
@@ -328,5 +339,62 @@ class UserController extends Controller
         }
 
         return back()->with("message", "Cập nhật thông tin thành công!");   
+    }
+
+    public function paymentMethodView()
+    {
+        $payment_method = DB::table('user_payment_methods')
+        ->where('users.id', auth()->id())
+        ->join('users', 'users.id', '=' ,'user_payment_methods.user_id')
+        ->join('payment_types', 'payment_types.id', '=', 'user_payment_methods.payment_type_id')
+        ->select('user_payment_methods.id as id', 'value', 'provider', 'account_number', 'expiry_date', 'is_default')
+        ->get();
+
+        return view('users.payment_method', [
+            'payments' => $payment_method
+        ]);
+    }
+
+    public function savePaymentMethod(Request $request)
+    {
+        //những payment được check thì sẽ bị xóa, nếu không payment nào bị xóa thì bỏ qua
+        if($request->delete)
+        {
+            foreach($request->delete as $delete_id)
+            {
+                DB::delete('delete from user_payment_methods where id = ?', [$delete_id]);
+            }
+        }
+
+        //payment được check mặc định thì sẽ được cập nhật là is_default=true
+        //các payment khác sẽ là is_default=false
+
+        if ($request->defaultPayment)
+        {
+            DB::update('update user_payment_methods set is_default=false where id != ?', [$request->defaultPayment]);
+            DB::update('update user_payment_methods set is_default=true where id = ?', [$request->defaultPayment]);
+        }
+
+        return UserController::paymentMethodView();
+    }
+
+    public function addPaymentMethodView()
+    {
+        return view('users.add-new-payment-method');
+    }
+
+    public function addPaymentMethod(Request $request)
+    {
+        $formFields = $request->validate([
+            'user_id' => ['required'],
+            'payment_type_id' => ['required'],
+            'provider' => ['required'],
+            'account_number' => ['required'],
+            // 'expiry_date' => ['nullable'],
+        ]);
+
+        User_payment_method::create($formFields);
+
+       return redirect('/user/PaymentMethod')->with('message', "Thêm phương thức thanh toán mới thành công!");
     }
 }

@@ -6,8 +6,13 @@
                 @csrf
                 <div class="space-y-2">
                     <div class="flex justify-center py-4">
-                        <img src="{{asset('/storage/avatar/'.Auth::user()->avatar)}}" alt="avatar" class="rounded-full w-28 h-28 border border-gray-200 object-cover">
-                    </div>
+                    @if(!file_exists(public_path().'/storage/avatar/'.Auth::user()->avatar) )
+                    <img src="{{ asset('/assets/images/Avatar.jpg') }}" alt="avatar" class="rounded-full w-28 h-28 border border-gray-200 object-cover">
+                    @else
+                    <img src="{{asset('/storage/avatar/'.Auth::user()->avatar)}}" alt="avatar" class="rounded-full w-28 h-28 border border-gray-200 object-cover">
+                    @endif
+                </div>
+                    
                     <div>
                         <label for="avatar" class="text-gray-600 mb-2 block">Chọn file ảnh để đặt lại Avartar:</label>
                         <input name="avatar" type="file" class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400" 

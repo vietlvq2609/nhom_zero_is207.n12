@@ -10,6 +10,8 @@ class User_payment_method extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
+        'payment_type_id',
         'provider',
         'account_number',
         'expiry_date',

@@ -20,8 +20,8 @@ return new class extends Migration
                 $table->foreignId('payment_type_id')->constrained()->onDelete('cascade');
                 $table->string('provider');
                 $table->string('account_number');
-                $table->boolean('is_default');
-                $table->string('expiry_date');
+                $table->boolean('is_default')->default(0);
+                $table->string('expiry_date')->default('Không có');
                 $table->timestamps();
             });
         }

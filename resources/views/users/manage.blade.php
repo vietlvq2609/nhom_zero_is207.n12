@@ -1,4 +1,5 @@
 <x-layout>
+
     <!-- account wrapper -->
     <div class="container grid grid-cols-12 items-start gap-6 pt-4 pb-16">
 
@@ -6,7 +7,11 @@
         <div class="col-span-3">
             <div class="px-4 py-3 shadow flex items-center gap-4">
                 <div class="flex-shrink-0">
+                    @if(!file_exists(public_path().'/storage/avatar/'.Auth::user()->avatar) )
+                    <img src="{{ asset('/assets/images/Avatar.jpg') }}" alt="avatar" class="rounded-full w-14 h-14 border border-gray-200 p-1 object-cover">
+                    @else
                     <img src="{{asset('/storage/avatar/'.Auth::user()->avatar)}}" alt="avatar" class="rounded-full w-14 h-14 border border-gray-200 p-1 object-cover">
+                    @endif
                 </div>
                 <div class="flex-grow">
                     <p class="text-gray-600">Hello,</p>
@@ -91,11 +96,11 @@
                     <h4 class="text-gray-700 font-medium">{{ auth()->user()->name }}</h4>
 
                     <!-- in ra địa chỉ mặc định (địa chỉ nhận hàng) -->
-                    @foreach ($shipping as $shipaddress)
-                        @if($shipaddress->is_default)
-                            <p class="text-gray-800">{{$shipaddress->unit}}, {{$shipaddress->street}}, {{$shipaddress->address1}}, {{$shipaddress->address2}}, {{$shipaddress->city}}, {{$shipaddress->country_name}}.</p>
-                        @endif
-                    @endforeach
+                    @if($shipping == null)
+                        <p class="text-gray-800">Bạn chưa thêm địa chỉ mặc định</p>
+                    @else
+                        <p class="text-gray-800">{{$shipping[0]->unit}}, {{$shipping[0]->street}}, {{$shipping[0]->address1}}, {{$shipping[0]->address2}}, {{$shipping[0]->city}}, {{$shipping[0]->country_name}}.</p>
+                    @endif
 
                     <p class="text-gray-800">{{ auth()->user()->phone_number }}</p>
                 </div>
@@ -104,12 +109,15 @@
             <div class="shadow rounded bg-white px-4 pt-6 pb-8">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="font-medium text-gray-800 text-lg">Billing address</h3>
-                    <a href="#" class="text-primary">Edit</a>
+                    <a href="{{ route('user.paymentMethodView') }}" class="text-primary">Edit</a>
                 </div>
                 <div class="space-y-1">
                     <h4 class="text-gray-700 font-medium">{{ auth()->user()->name }}</h4>
-                    <p class="text-gray-800">Medan, North Sumatera</p>
-                    <p class="text-gray-800">20317</p>
+                    @if($billing == null)
+                        <p class="text-gray-800">Bạn chưa thêm phương thức thanh toán mặc định</p>
+                    @else
+                        <p class="text-gray-800">{{$billing[0]->value}}, {{$billing[0]->provider}}, {{$billing[0]->number}}.</p>
+                    @endif
                     <p class="text-gray-800">{{ auth()->user()->phone_number }}</p>
                 </div>
             </div>

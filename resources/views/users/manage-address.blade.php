@@ -1,4 +1,7 @@
 <x-layout>
+    @php
+    $QtyInAddressList = 0            
+    @endphp
     <div class="container w-3/5">
         <div class="flex items-center justify-between mb-4">
             <h1 class="text-primary text-2xl font-semibold py-4 ">Địa chỉ</h1>
@@ -33,10 +36,17 @@
             @csrf 
                 @foreach ($addresses as $address)
                     <x-address_item :address="$address"/>
+                    @php
+                    $QtyInAddressList ++           
+                    @endphp
                 @endforeach
-                <button class="block m-auto w-3/5 py-2 text-center text-white border border-amber-500 rounded bg-amber-500 hover:bg-transparent hover:text-amber-500 transition uppercase font-roboto font-medium">
-                   Lưu
-                </button>
+
+                <input type="hidden" id="qtyOfItemInAddressList" value="{{ $QtyInAddressList }}">
+                <div id="saveAddressBtn">
+                    <button class="block m-auto w-3/5 py-2 text-center text-white border border-amber-500 rounded bg-amber-500 hover:bg-transparent hover:text-amber-500 transition uppercase font-roboto font-medium">
+                       Lưu
+                    </button>
+                </div>
             </form>
         </div>
     </div>
@@ -57,6 +67,20 @@
         {
             if(document.getElementById(`delete_${id}`).checked)
                 document.getElementById(`delete_${id}`).checked = false
+        }
+
+        // Ẩn nút lưu khi danh sách rỗng
+
+        var getQtyOfItemInAddressList = document.getElementById('qtyOfItemInAddressList').value
+        var hiddenSaveAddressBtn = document.getElementById('saveAddressBtn')
+        if (getQtyOfItemInAddressList == 0)
+        {
+            hiddenSaveAddressBtn.innerHTML = 
+                `
+                <h1 class="block m-auto w-3/5 py-16 text-center uppercase font-roboto font-medium text-red-600 text-lg">
+                    Dánh sách rỗng
+                </h1>
+                `
         }
     </script>
 </x-layout>

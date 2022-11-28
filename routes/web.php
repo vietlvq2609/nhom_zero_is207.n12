@@ -55,6 +55,12 @@ Route::post('user/changePassword',[UserController::class, "changePassword"])->na
 Route::get('user/changeInfomation',[UserController::class, "changeInfoView"])->name('user.changeInfo');
 Route::post('user/changeInfomation',[UserController::class, "changeInfo"])->name('user.postChangeInfo');
 
+Route::get('user/PaymentMethod',[UserController::class, "paymentMethodView"])->name('user.paymentMethodView');
+Route::post('user/PaymentMethod',[UserController::class, "savePaymentMethod"])->name('user.paymentMethod');
+
+Route::get('user/addPaymentMethod',[UserController::class, "addPaymentMethodView"])->name('user.addPaymentMethodView');
+Route::post('user/addPaymentMethod',[UserController::class, "addPaymentMethod"])->name('user.addPaymentMethod');
+
 // Cart routes
 Route::post('/delete', [CartController::class, 'destroy'])->name('cart.delete');
 Route::get('/cart', [CartController::class, 'index']);

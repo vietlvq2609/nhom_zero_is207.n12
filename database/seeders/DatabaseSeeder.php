@@ -29,7 +29,8 @@ class DatabaseSeeder extends Seeder
             VariationSeeder::class,
             VariationOptionSeeder::class,
             ProductConfigurationSeeder::class,
-            AdminSeeder::class
+            AdminSeeder::class,
+            PaymentTypeSeeder::class,
         ]);
     }
 }
