@@ -73,10 +73,14 @@ Route::get('/cart/shipping', [CartController::class, 'shippingView'])->name('car
 Route::post('/cart/shipping', [CartController::class, 'postShipping'])->name('cart.postShipping');
 
 Route::get('/cart/receive', [CartController::class, 'receiveView'])->name('cart.receiveView');
-Route::post('/cart/receive', [CartController::class, 'postReceive'])->name('cart.postReceive');
+Route::get('/cart/receive/{id}', [CartController::class, 'postReceive'])->name('cart.postReceive');
+
+Route::get('/cart/bought', [CartController::class, 'boughtView'])->name('cart.boughtView');
 
 Route::get('/cart/cancle', [CartController::class, 'cancleView'])->name('cart.cancleView');
-Route::post('/cart/cancle', [CartController::class, 'postCancle'])->name('cart.postCancle');
+Route::get('/cart/cancle/{id}', [CartController::class, 'postCancle'])->name('cart.postCancle_{id}');
+
+Route::get('/cart/buyAgain/{id}', [CartController::class, 'buyAgain']);
 
 // Admin routes
 Route::get('/admin', [AdminController::class, 'index']);

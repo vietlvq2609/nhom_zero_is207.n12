@@ -27,6 +27,14 @@
                             <!-- order_statuses có status là "giao thành công" -->
                             <a href="{{route('cart.receiveView')}}">Đã nhận</a>    
                         </div>
+                        <div class="font-semibold">
+                            <!-- order_statuses có status là "giao thành công" -->
+                            <a href="{{route('cart.boughtView')}}">Đã mua</a>    
+                        </div>
+                        <div class="font-semibold">
+                            <!-- order_statuses có status là "Đã hủy" -->
+                            <a href="{{route('cart.cancleView')}}">Đã hủy</a>    
+                        </div>
                     </div>
                 </div>
 

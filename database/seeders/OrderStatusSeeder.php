@@ -24,5 +24,11 @@ class OrderStatusSeeder extends Seeder
         DB::table('order_statuses')->insert([
             'status' => 'Đang xử lý'
         ]);
+        DB::table('order_statuses')->insert([
+            'status' => 'Đã hủy'
+        ]);
+        DB::table('order_statuses')->insert([
+            'status' => 'Đã mua'
+        ]);
     }
 }

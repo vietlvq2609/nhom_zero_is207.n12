@@ -64,11 +64,24 @@
     </div>
     <div class="flex justify-end ">
         @if($bill->status == 2)
-        <a href="#" class="ml-6 text-red-500 text-lg underline rounded p-1 hover:scale-105">
+        <a href="/cart/receive/{{$bill->id}}" class="ml-6 text-red-500 text-lg underline rounded p-1 hover:scale-105"
+            onclick="
+                if(!confirm('Xác nhận đã nhận đơn hàng')) 
+                    event.preventDefault()">
             Xác nhận đã nhận hàng
         </a>
+        @elseif ($bill->status == 4 || $bill->status == 5)
+        <a href="/cart/buyAgain/{{$bill->id}}" class="ml-6 text-red-500 text-lg underline rounded p-1 hover:scale-105"
+            onclick="
+                if(!confirm('Xác nhận mua lại đơn hàng! Các đơn hàng đã hết sản phẩm sẽ không được đưa vào giỏ hàng!')) 
+                    event.preventDefault()">
+            Mua lại
+        </a>
         @else
-        <a href="#" class="ml-6 text-red-500 text-lg underline rounded p-1 hover:scale-105">
+        <a href="/cart/cancle/{{$bill->id}}" class="ml-6 text-red-500 text-lg underline rounded p-1 hover:scale-105"
+            onclick="
+                if(!confirm('Xác nhận hủy đơn hàng!')) 
+                    event.preventDefault()">
             Hủy đơn hàng
         </a>
         @endif

@@ -92,6 +92,18 @@ class CartController extends Controller
     public function store(Request $request)
     {
         if (Auth::user() ?? null) {
+
+            // kiểm tra xem trong kho còn hàng không
+            $inStock = DB::table('product_items')
+            ->where('id', $request->product_item_id)
+            ->select('qty_in_stock')
+            ->get();
+
+            if($request->qty > $inStock[0]->qty_in_stock )
+            {
+                return back()->with('message', 'Đã hết hàng!');
+            }
+
             $cart = DB::table('shopping_carts')
                 ->where('user_id', auth()->id())
                 ->get()
@@ -334,6 +346,210 @@ class CartController extends Controller
 
     public function cancleView()
     {
+        $cancle_bills = DB::table('shop_orders')
+        ->where('shop_orders.user_id', auth()->id())
+        ->where('shop_orders.order_status', 4)
+        ->join('shipping_methods','shipping_methods.id', '=', 'shop_orders.shipping_method')
+        ->join('addresses','addresses.id', '=', 'shop_orders.shipping_address')
+        ->join('countries','countries.id', '=', 'addresses.country_id')
+        ->join('user_payment_methods','user_payment_methods.id', '=', 'shop_orders.payment_method_id')
+        ->join('payment_types','payment_types.id', '=', 'user_payment_methods.payment_type_id')
+        ->select(
+            'shop_orders.id as id',
+            'shipping_methods.name as ship_name',
+            'shipping_methods.price as ship_price',
+            'addresses.unit_number as unit',
+            'addresses.street_number as street',
+            'addresses.address_line1 as address1',
+            'addresses.address_line2 as address2',
+            'addresses.city',
+            'countries.country_name',
+            'payment_types.value',
+            'user_payment_methods.provider',
+            'user_payment_methods.account_number',
+            'order_status as status'
+        )
+        ->get();
+
+        $cancle_items = DB::table('order_lines')
+        ->where('shop_orders.user_id', auth()->id())
+        ->where('shop_orders.order_status', 4)
+        ->join('shop_orders', 'shop_orders.id', '=', 'order_lines.order_id')
+        ->join('product_items', 'product_items.id', '=', 'order_lines.product_item_id')
+        ->join('products', 'products.id', '=', 'product_items.product_id')
+        ->join('product_configurations', 'product_items.id', '=', 'product_configurations.product_item_id')
+        ->join('variation_options', 'variation_options.id', '=', 'product_configurations.variation_option_id')
+        ->join('variations', 'variation_options.variation_id', '=', 'variations.id')
+        ->select(
+            'order_lines.order_id',
+            'products.id as product_id',
+            'products.name as product_name',
+            'products.product_image',
+            'order_lines.qty as qty',
+            'order_lines.price as price',
+            'variations.name as variation_name',
+            'variation_options.value as variation_value',
+            )
+        ->get();
+        
+        return view('carts.cancle',[
+            'bills' => $cancle_bills,
+            'items' => $cancle_items
+        ]);
         return view('carts.cancle');
+    }
+
+    public function postCancle(Request $request)
+    {
+        // đưa đơn hàng vào mục đã hủy
+        DB::update(
+        'update shop_orders set order_status = 4 where id = ?', [$request->id]
+        );
+
+        $order_items = DB::table('order_lines')
+        ->where ('order_id', $request->id)
+        ->select('product_item_id', 'qty')
+        ->get();
+
+        // cập nhật lại số lượng hàng trong kho
+
+        foreach($order_items as $order_item)
+        {
+            DB::update('
+            update product_items
+            set qty_in_stock = qty_in_stock + ?
+            where id = ?
+            ', [$order_item->qty, $order_item->product_item_id]);
+        }
+
+        return redirect('/cart/cancle')->with('message', 'Đã hủy đơn hàng!');
+    }
+
+    public function buyAgain(Request $request)
+    {
+        // lấy tất cả các sản phẩm thuộc bill đó
+        $order_items = DB::table('order_lines')
+        ->where ('order_id', $request->id)
+        ->select('product_item_id', 'qty')
+        ->get();
+
+        // lấy giỏ hàng
+        $cart = DB::table('shopping_carts')
+                ->where('user_id', auth()->id())
+                ->get()
+                ->first();
+
+        // xử lý với từng món hàng trong đơn hàng đã hủy
+        foreach($order_items as $order_item)
+        {
+            // kiểm tra xem trong kho còn hàng không nếu không còn thì bỏ qua lun
+            $inStock = DB::table('product_items')
+            ->where('id', $order_item->product_item_id)
+            ->select('qty_in_stock')
+            ->get();
+
+            if( $order_item->qty <= $inStock[0]->qty_in_stock )
+            {
+                $isExist = Shopping_cart_item::select("*")
+                ->where("product_item_id", $order_item->product_item_id)
+                ->where('cart_id', $cart->id)
+                ->exists();
+                    
+                if ($isExist)
+                {
+                    // nếu có rồi thì cập nhật lại giỏ hàng
+                    DB::update(
+                        'update shopping_cart_items 
+                        set qty = qty + ? 
+                        where product_item_id = ?', [$order_item->qty, $order_item->product_item_id]);
+                }
+                else 
+                {
+                    // nếu không có sẵn trong giỏ hàng thì tạo mới
+                    Shopping_cart_item::create([
+                        'qty' => $order_item->qty,
+                        'product_item_id' => $order_item->product_item_id,
+                        'cart_id' => $cart->id
+                    ]);
+                    DB::update('update product_items set qty_in_stock = qty_in_stock - ? where id = ?', [$order_item->qty , $order_item->product_item_id]);
+                }
+                
+                //giảm số lượng thức ăn(qty_in_stock) có trong product_item
+                DB::update('update product_items set qty_in_stock = qty_in_stock - ? where id = ?', [$order_item->qty , $order_item->product_item_id]);
+            }
+        }
+
+        // xóa đơn hàng trong mục đã hủy này đi
+        DB::delete('
+        delete from shop_orders where id =?
+        ', [$request->id]);
+
+        return redirect('/products')->with('message', 'Thêm vào giỏ hàng thành công');
+    }
+
+    public function postReceive(Request $request)
+    {
+        // đưa đơn hàng vào mục đã mua
+        DB::update(
+            'update shop_orders set order_status = 5 where id = ?', [$request->id]
+        );
+
+        // thêm bình luận cho sản phẩm
+
+        return back()->with('message', 'Đã hủy đơn hàng!');
+    }
+
+    public function boughtView()
+    {
+        $bought_bills = DB::table('shop_orders')
+        ->where('shop_orders.user_id', auth()->id())
+        ->where('shop_orders.order_status', 5)
+        ->join('shipping_methods','shipping_methods.id', '=', 'shop_orders.shipping_method')
+        ->join('addresses','addresses.id', '=', 'shop_orders.shipping_address')
+        ->join('countries','countries.id', '=', 'addresses.country_id')
+        ->join('user_payment_methods','user_payment_methods.id', '=', 'shop_orders.payment_method_id')
+        ->join('payment_types','payment_types.id', '=', 'user_payment_methods.payment_type_id')
+        ->select(
+            'shop_orders.id as id',
+            'shipping_methods.name as ship_name',
+            'shipping_methods.price as ship_price',
+            'addresses.unit_number as unit',
+            'addresses.street_number as street',
+            'addresses.address_line1 as address1',
+            'addresses.address_line2 as address2',
+            'addresses.city',
+            'countries.country_name',
+            'payment_types.value',
+            'user_payment_methods.provider',
+            'user_payment_methods.account_number',
+            'order_status as status'
+        )
+        ->get();
+
+        $bought_items = DB::table('order_lines')
+        ->where('shop_orders.user_id', auth()->id())
+        ->where('shop_orders.order_status', 5)
+        ->join('shop_orders', 'shop_orders.id', '=', 'order_lines.order_id')
+        ->join('product_items', 'product_items.id', '=', 'order_lines.product_item_id')
+        ->join('products', 'products.id', '=', 'product_items.product_id')
+        ->join('product_configurations', 'product_items.id', '=', 'product_configurations.product_item_id')
+        ->join('variation_options', 'variation_options.id', '=', 'product_configurations.variation_option_id')
+        ->join('variations', 'variation_options.variation_id', '=', 'variations.id')
+        ->select(
+            'order_lines.order_id',
+            'products.id as product_id',
+            'products.name as product_name',
+            'products.product_image',
+            'order_lines.qty as qty',
+            'order_lines.price as price',
+            'variations.name as variation_name',
+            'variation_options.value as variation_value',
+            )
+        ->get();
+        
+        return view('carts.bought',[
+            'bills' => $bought_bills,
+            'items' => $bought_items
+        ]);
     }
 }
