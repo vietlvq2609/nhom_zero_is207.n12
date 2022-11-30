@@ -66,5 +66,17 @@ Route::get('/cart/delete/{id}/{qty}', [CartController::class, 'destroy'])->name(
 Route::get('/cart', [CartController::class, 'index']);
 Route::post('/cart', [CartController::class, 'store']);
 
+Route::get('/cart/prepare', [CartController::class, 'prepareView'])->name('cart.prepareView');
+Route::post('/cart/prepare', [CartController::class, 'postPrepare'])->name('cart.postPrepare');
+
+Route::get('/cart/shipping', [CartController::class, 'shippingView'])->name('cart.shippingView');
+Route::post('/cart/shipping', [CartController::class, 'postShipping'])->name('cart.postShipping');
+
+Route::get('/cart/receive', [CartController::class, 'receiveView'])->name('cart.receiveView');
+Route::post('/cart/receive', [CartController::class, 'postReceive'])->name('cart.postReceive');
+
+Route::get('/cart/cancle', [CartController::class, 'cancleView'])->name('cart.cancleView');
+Route::post('/cart/cancle', [CartController::class, 'postCancle'])->name('cart.postCancle');
+
 // Admin routes
 Route::get('/admin', [AdminController::class, 'index']);

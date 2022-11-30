@@ -1,25 +1,35 @@
-@props(['item'])
+@props(['item','QtyOfItemInCart'])
 <!-- khai báo các giá trị của các item khi khách hàng nhấn nút Đặt hàng -->
 <!-- các giá trị này lưu trong thẻ input type="hidden" -->
-<input type="hidden" name="">
-
+    <input type="hidden" name="cart_item_id[{{ $QtyOfItemInCart }}]" value="{{ $item->product_items_id }}">
+    <input type="hidden" name="cart_item_qty[{{ $QtyOfItemInCart }}]" value="{{ $item->qty }}">
+    <input type="hidden" name="cart_item_price[{{ $QtyOfItemInCart }}]" value="{{ $item->price }}">
 
 
 <div class="flex bg-amber-100 items-center py-3 px-5 w-full rounded text-sm text-gray-800">
-    <div class="flex w-3/5 items-center w-3/5">
+
+    <!-- hình ảnh, tên, loại order -->
+
+    <a href="/products/{{ $item->product_id }}" class="flex w-3/5 items-center w-3/5">
         <img src="{{ $item->product_image }}" class="w-16 h-16 object-contain">
         <p class="p-2">{{ $item->product_name }}</p>
         <p class="p-1 text-red-600 text-lg">{{ $item->variation_value }}</p>
-    </div>
+    </a>
+
     <div class="flex justify-between items-center flex-1">
-        <input type="hidden" id="price_{{$item->id}}" value="{{ $item->price }}">
+
+        <!-- giá cố định -->
+
         <div class="font-semibold">{{ $item->price }}đ</div>
-        <input id="item_{{$item->id}}" type="number" name="qty" value="{{ $item->qty }}" class="w-10 py-0 px-1" 
-            min="1" onchange="changeQty({{$item->id}})">
+
+        <!-- số lượng sản phẩm -->
+
+        <div class="font-semibold">{{ $item->qty }}</div>
+
+        <!-- tiền hàng -->
+
         <div>
-            <!-- tạo thẻ input hidden để lưu tạm giá trị của tổng tiền sản phẩm -->
-            <input type="hidden" id="tmp_product_tatal_price_{{$item->id}}" name="product_tatal_price" value="{{ $item->price * $item->qty}}">
-            <div id="product_tatal_price_{{$item->id}}" class="font-semibold inline-block">{{ $item->price * $item->qty}}</div>
+            <div class="font-semibold inline-block">{{ $item->price * $item->qty}}</div>
             <span class="font-semibold inline-block"> đ</span>
         </div>
 

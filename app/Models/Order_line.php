@@ -10,6 +10,8 @@ class Order_line extends Model
     use HasFactory;
 
     protected $fillable = [
+        'product_item_id',
+        'order_id',
         'qty',
         'price'
     ];

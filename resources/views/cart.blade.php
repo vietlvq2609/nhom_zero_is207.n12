@@ -7,8 +7,8 @@
             $QtyOfItemInCart = 0;
         @endphp
 
-        <form action="#" method="POST" autocomplete="off">
-
+        <form action="{{ route('cart.postPrepare') }}" method="POST" autocomplete="off">
+        @csrf
             <div class="divide-y-4 divide-white">
                 <div class="flex items-center py-3 px-5 w-full rounded text-sm text-gray-800">
                     <div class="flex justify-between items-center flex-1">
@@ -17,15 +17,15 @@
                         </div>
                         <div class="font-semibold">
                             <!-- order_statuses có status là "đang xử lý" -->
-                            <a href="#">Đang chuẩn bị hàng</a>    
+                            <a href="{{route('cart.prepareView')}}">Đang chuẩn bị hàng</a>    
                         </div>
                         <div class="font-semibold">
                             <!-- order_statuses có status là "đang giao" -->
-                            <a href="#">Đang giao</a>    
+                            <a href="{{route('cart.shippingView')}}">Đang giao</a>    
                         </div>
                         <div class="font-semibold">
                             <!-- order_statuses có status là "giao thành công" -->
-                            <a href="#">Đã nhận</a>    
+                            <a href="{{route('cart.receiveView')}}">Đã nhận</a>    
                         </div>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
 
                 
                 @foreach ($items as $item)
-                    <x-cart-item :item="$item"/>
+                    <x-cart-item :item="$item" :QtyOfItemInCart="$QtyOfItemInCart"/>
 
                     @php
                         $total += $item->price * $item->qty;
@@ -54,7 +54,7 @@
                 @endforeach
             </div>
         
-            <input type="hidden" id="qtyOfItemInCart" value="{{ $QtyOfItemInCart }}">
+            <input type="hidden" id="qtyOfItemInCart" name ="order_total" value="{{ $QtyOfItemInCart }}">
 
             <!-- Chọn phương thức vận chuyển -->
 
@@ -63,8 +63,8 @@
                     
                     @foreach ($ship_methods as $ship_method)
                         <div class="size-selector relative mr-8">
-                            <input type="radio" id="ship_method_{{$ship_method->id}}" name="shipping_method" class="checked:hidden absolute bg-transparent border-none w-full h-full cursor-pointer"  
-                                value="{{$ship_method->price}}" 
+                            <input type="radio" id="ship_method_{{$ship_method->id}}" name="ship_method" class="checked:hidden absolute bg-transparent border-none w-full h-full cursor-pointer"  
+                                value="{{$ship_method->price}}"
                                 onclick="chooseShippingMethod({{$ship_method->id}})">
                             <label
                                 class="px-2 text-sm border border-gray-200 rounded-sm h-6 flex items-center justify-center shadow-sm text-gray-600">
@@ -72,6 +72,8 @@
                             </label>
                         </div>
                     @endforeach
+
+                    <input type="hidden" name="shipping_method" value="1">
 
                     <!-- Phí ship -->
 
@@ -90,7 +92,7 @@
 
                 <div class="flex py-3 px-5 justify-between w-2/5 ml-auto mt-8">
                     <div class="uppercase text-blue-900 text-lg">Tổng cộng:</div>
-                    <input type="hidden" name="order_total" id="saveTotalValue" value="{{$total}}">
+                    <input type="hidden" id="saveTotalValue" value="{{$total}}">
                     <div id="total">{{$total}} đ</div>
                 </div>
 
@@ -98,10 +100,17 @@
 
                 <div class="flex justify-between py-3">
                     @if($shipping == null)
-                    <p class="text-gray-800">Bạn chưa thêm địa chỉ mặc định</p>
+
+                        <p class="text-gray-800">Bạn chưa thêm địa chỉ mặc định</p>
+
+                        <input type="hidden" name="shipping_address" value="0">
+
                     @else
-                    <p class="text-gray-800">{{$shipping[0]->unit}}, {{$shipping[0]->street}}, {{$shipping[0]->address1}}, {{$shipping[0]->address2}}, {{$shipping[0]->city}}, {{$shipping[0]->country_name}}.</p>
-                    <input type="hidden" name="shipping_address" value="{{$shipping[0]->id}}">
+
+                        <p class="text-gray-800">{{$shipping[0]->unit}}, {{$shipping[0]->street}}, {{$shipping[0]->address1}}, {{$shipping[0]->address2}}, {{$shipping[0]->city}}, {{$shipping[0]->country_name}}.</p>
+
+                        <input type="hidden" name="shipping_address" value="{{$shipping[0]->id}}">
+
                     @endif
                     <a href="{{ route('user.address') }}" class="text-red-500 font-semibold">Sửa</a>
                 </div>
@@ -110,19 +119,26 @@
 
                 <div class="flex justify-between">
                     @if($billing == null)
-                    <p class="text-gray-800">Bạn chưa thêm phương thức thanh toán mặc định</p>
+
+                        <p class="text-gray-800">Bạn chưa thêm phương thức thanh toán mặc định</p>
+
+                        <input type="hidden" name="payment_method_id" value="0">
+
                     @else
-                    <p class="text-gray-800">{{$billing[0]->value}}, {{$billing[0]->provider}}, {{$billing[0]->number}}.</p>
-                    <input type="hidden" name="payment_method_id" value="{{$billing[0]->id}}">
+
+                        <p class="text-gray-800">{{$billing[0]->value}}, {{$billing[0]->provider}}, {{$billing[0]->number}}.</p>
+
+                        <input type="hidden" name="payment_method_id" value="{{$billing[0]->id}}">
+
                     @endif
                     <a href="{{ route('user.paymentMethodView') }}" class="text-red-500 font-semibold">Sửa</a>
-                </div>    
+                </div>
             </div>
 
             <!-- nút Đặt hàng -->
 
             <div id="BookingBtn" class="mt-8">
-                <button id="BookingBtn" class="block m-auto w-3/5 py-2 text-center text-white border border-amber-500 rounded bg-amber-500 hover:bg-transparent hover:text-amber-500 transition uppercase font-roboto font-medium"
+                <button class="block m-auto w-3/5 py-2 text-center text-white border border-amber-500 rounded bg-amber-500 hover:bg-transparent hover:text-amber-500 transition uppercase font-roboto font-medium"
                     onclick="
                         if(!confirm('Xác nhận đặc hàng')) 
                             event.preventDefault()">
@@ -148,6 +164,7 @@
         function chooseShippingMethod(ship_method_id)
         {
             var getShippingMethodPrice = document.getElementById(`ship_method_${ship_method_id}`).value
+            document.getElementsByName('shipping_method')[0].value = ship_method_id
 
             // gán giá trị của phương thức ship mới cho "phí ship"
             document.getElementById('show_ship_cost').innerHTML= `${getShippingMethodPrice} đ`
@@ -180,34 +197,6 @@
                 </h1>
                 `
             hiddenShippingMethodAndTotal.classList.add('hidden')
-        }
-
-        function changeQty(itemId)
-        {
-            // giá trị thẻ input number vừa thay đổi
-            var curQty = document.getElementById(`item_${itemId}`).value
-
-            // thay đổi tổng giá trị của sản phẩm và gán lại giá trị cho thẻ input lưu giá trị đó
-            var product_tatal_price = document.getElementById(`product_tatal_price_${itemId}`)
-            var item_price = document.getElementById(`price_${itemId}`).value
-            var price_after_change = curQty * item_price
-
-            product_tatal_price.innerHTML= `${price_after_change}`
-            document.getElementById(`tmp_product_tatal_price_${itemId}`).value = price_after_change
-
-            //thay đổi giá trị của mục "Tổng tiền"
-            var list_items = document.getElementsByName('product_tatal_price')
-            var result = 0
-            for (var i=0;i<list_items.length; i++)
-                result += Number(list_items[i].value) 
-            
-            result += Number(saveOldShippingMethodValue)
-            
-            document.getElementById('total').innerHTML=`${result} đ`
-
-            // lưu lại giá trị của total mới
-            document.getElementById('saveTotalValue').value = result
-            saveOldTotalValue = result
         }
     </script>
 </x-layout>
