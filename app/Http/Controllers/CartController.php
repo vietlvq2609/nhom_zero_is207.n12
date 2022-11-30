@@ -471,7 +471,6 @@ class CartController extends Controller
                         'product_item_id' => $order_item->product_item_id,
                         'cart_id' => $cart->id
                     ]);
-                    DB::update('update product_items set qty_in_stock = qty_in_stock - ? where id = ?', [$order_item->qty , $order_item->product_item_id]);
                 }
                 
                 //giảm số lượng thức ăn(qty_in_stock) có trong product_item
