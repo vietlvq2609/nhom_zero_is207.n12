@@ -17,6 +17,9 @@
                 <div class="p-2">Đơn giá</div>
                 <div class="p-2">Số lượng</div>
                 <div class="p-2">Số tiền</div>
+                @if($bill->status == 5)
+                <div class="p-2">Thao tác</div>
+                @endif
             </div>
         </div>
 
@@ -26,7 +29,7 @@
                 @php 
                     $bill_total = $bill_total + $item->price * $item->qty
                 @endphp
-                <x-order_items :item="$item"/>
+                <x-order_items :item="$item" :order_status="$bill->status"/>
             @endif
             @endforeach
         </div>

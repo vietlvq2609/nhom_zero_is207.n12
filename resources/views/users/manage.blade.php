@@ -46,7 +46,7 @@
                         </span>
                         My order history
                     </a>
-                    <a href="#" class="relative hover:text-primary block capitalize transition">
+                    <a href="{{route('cart.boughtView')}}" class="relative hover:text-primary block capitalize transition">
                         My returns
                     </a>
                     <a href="{{route('cart.cancleView')}}" class="relative hover:text-primary block capitalize transition">

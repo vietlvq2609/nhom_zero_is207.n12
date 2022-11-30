@@ -1,5 +1,5 @@
-@props(['item'])
-<div class="flex bg-amber-100 items-center py-3 px-5 w-full rounded text-sm text-gray-800">
+@props(['item','order_status'])
+<div class="flex bg-amber-100 items-center py-3  w-full rounded text-sm text-gray-800">
 
     <!-- hình ảnh, tên, loại order -->
 
@@ -13,16 +13,19 @@
 
         <!-- giá cố định -->
 
-        <div class="font-semibold">{{ $item->price }}đ</div>
+        <div class="font-semibold p-2">{{ $item->price }}đ</div>
 
         <!-- số lượng sản phẩm -->
 
-        <div class="font-semibold">{{ $item->qty }}</div>
+        <div class="font-semibold p-2">{{ $item->qty }}</div>
 
         <!-- tiền hàng -->
 
         <div>
-            <div class="font-semibold inline-block">{{ $item->price * $item->qty}} đ</div>
+            <div class="font-semibold inline-block p-2">{{ $item->price * $item->qty}} đ</div>
         </div>
+        @if($order_status == 5)
+        <a href="/review/{{ $item->ordered_product_id }}" class="font-semibold text-red-500 underline rounded hover:scale-105">Đánh giá</a>
+        @endif
     </div>
 </div>

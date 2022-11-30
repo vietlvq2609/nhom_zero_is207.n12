@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Shop_order;
 use App\Models\Order_line;
+use App\Models\User_review;
 use Carbon\Carbon;
 
 class CartController extends Controller
@@ -535,6 +536,7 @@ class CartController extends Controller
         ->join('variation_options', 'variation_options.id', '=', 'product_configurations.variation_option_id')
         ->join('variations', 'variation_options.variation_id', '=', 'variations.id')
         ->select(
+            'order_lines.id as ordered_product_id',
             'order_lines.order_id',
             'products.id as product_id',
             'products.name as product_name',
@@ -550,5 +552,71 @@ class CartController extends Controller
             'bills' => $bought_bills,
             'items' => $bought_items
         ]);
+    }
+
+    public function reviewView(Request $request)
+    {
+        $items = DB::table('order_lines')
+        ->where('order_lines.id', $request->id )
+        ->join('product_items','product_items.id', '=', 'order_lines.product_item_id' )
+        ->join('products', 'products.id', '=', 'product_items.product_id')
+        ->join('product_configurations', 'product_items.id', '=', 'product_configurations.product_item_id')
+        ->join('variation_options', 'variation_options.id', '=', 'product_configurations.variation_option_id')
+        ->select(
+        'products.id as product_id',
+        'products.name as product_name', 
+        'products.product_image', 
+        'product_items.price', 
+        'variation_options.value as variation_value'
+        )
+        ->get();
+
+
+        return view('carts.review',[
+            'item'=> $items[0],
+            'ordered_product_id'=>$request->id
+        ]);
+    }
+
+    public function postReview(Request $request)
+    {
+        $formFields = $request->validate([
+            'rating_value' => ['required'],
+            'comment' => ['nullable'],
+        ]);
+
+        $reviewed = User_review::select("*")
+        ->where('user_id', auth()->id())
+        ->where('ordered_product_id', $request->ordered_product_id )
+        ->select()
+        ->exists();
+
+        // nếu đã từng đánh giá rồi thì chỉ update lại đánh giá đó
+        if($reviewed)
+        {
+            User_review::where('user_id', auth()->id())
+                ->where('ordered_product_id', $request->ordered_product_id)
+                ->update(['rating_value' =>  $request->rating_value,
+                            'comment' => $request->comment,]);
+    
+            $url = '/products/'.$request->product_id;
+    
+            return redirect($url)->with('message', 'Cập nhật đánh giá thành công!');
+        }
+        else
+        {
+            User_review::create([
+                'user_id' => auth()->id(),
+                'ordered_product_id' =>$request->ordered_product_id ,
+                'rating_value' =>  $request->rating_value,
+                'comment' => $request->comment,
+            ]);
+    
+            $url = '/products/'.$request->product_id;
+    
+            return redirect($url)->with('message', 'Thêm đánh giá thành công!');
+        }
+
+        return back()->with('message', 'Có lỗi xảy ra!');
     }
 }

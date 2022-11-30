@@ -51,6 +51,35 @@ class ProductController extends Controller
             ->select('product_item_id as id', 'value','price','qty_in_stock as qty')
             ->get();
 
+        $reviews = DB::table('user_reviews')
+        ->where('product_items.product_id', $product->id)
+        ->join('users', 'users.id', '=' ,'user_reviews.user_id')
+        ->join('order_lines', 'order_lines.id', '=', 'user_reviews.ordered_product_id')
+        ->join('product_items', 'product_items.id', '=', 'order_lines.product_item_id')
+        ->join('products', 'products.id', '=', 'product_items.product_id')
+        ->select(
+            'users.name as user_name',
+            'users.avatar as avatar',
+            'user_reviews.rating_value as rate',
+            'user_reviews.comment as comment',
+            )
+        ->get();
+
+        $product_rate = 0;
+        $review_count = 0;
+        
+        foreach($reviews as $review)
+        {
+            $product_rate += $review->rate;
+            $review_count++;
+        }
+
+        if ($review_count == 0) $product_rate = 5;
+        else
+        // dùng round để lấy giá trị làm tròn
+            $product_rate = round($product_rate / $review_count);
+
+
         return view(
             'products.show',
             [
@@ -61,6 +90,9 @@ class ProductController extends Controller
                 'product_category' => $product->product_category()->get()->first()->category_name,
                 'product_options' => $products,
                 'categories' => Product_category::get(),
+                'product_rate' => $product_rate,
+                'review_count' => $review_count,
+                'reviews' => $reviews
             ]
         );
     }

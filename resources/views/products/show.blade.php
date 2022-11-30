@@ -26,13 +26,11 @@
                 <h2 class="text-3xl font-medium uppercase mb-2">{{ $product_name }}</h2>
                 <div class="flex items-center mb-4">
                     <div class="flex gap-1 text-sm text-yellow-400">
-                        <span><i class="fa-solid fa-star"></i></span>
-                        <span><i class="fa-solid fa-star"></i></span>
-                        <span><i class="fa-solid fa-star"></i></span>
-                        <span><i class="fa-solid fa-star"></i></span>
-                        <span><i class="fa-solid fa-star"></i></span>
+                        @for ($i = 0 ; $i < $product_rate; $i ++)
+                           <span><i class="fa-solid fa-star"></i></span>
+                        @endfor
                     </div>
-                    <div class="text-xs text-gray-500 ml-3">(150 Reviews)</div>
+                    <div class="text-xs text-gray-500 ml-3">({{$review_count}} Reviews)</div>
                 </div>
                 <div class="space-y-2">
                     <p class="text-gray-800 font-semibold space-x-2">
@@ -97,6 +95,50 @@
         </div>
     </div>
     <!-- ./description -->
+
+    <!-- Comment -->
+    <div class="container pb-16">
+        <h3 class="border-b border-gray-200 font-roboto text-gray-800 pb-3 font-medium">Đánh giá</h3>
+        <div class="flex-column w-full pt-6">
+            @if($review_count == 0)
+            <div class="text-gray-600">
+                Chưa có đánh giá nào
+            </div>
+            @else
+                @foreach ($reviews as $review)
+                <div class="flex bg-amber-100 items-center py-3 px-5 w-full rounded text-sm text-gray-800 mt-6">
+                    <div class="flex-shrink-0">
+                        @if(!file_exists(public_path().'/storage/avatar/'.$review->avatar) )
+                        <img src="{{ asset('/assets/images/Avatar.jpg') }}" alt="avatar" class="rounded-full w-14 h-14 border border-gray-200 p-1 object-cover">
+                        @else
+                        <img src="{{asset('/storage/avatar/'.$review->avatar)}}" alt="avatar" class="rounded-full w-14 h-14 border border-gray-200 p-1 object-cover">
+                        @endif
+                    </div>
+                    <div class="flex-column ml-3">
+                        <div class="text-gray-600 flex">
+                            {{$review->user_name}} 
+                            <div class="text-gray-600 ml-6">
+                                Đánh giá:
+                            </div>
+                            <div class="flex gap-1 text-sm text-yellow-400 ml-6">
+                                @for ($i = 0 ; $i < $review->rate; $i ++)
+                                    <span><i class="fa-solid fa-star"></i></span>
+                                @endfor
+                            </div>
+                        </div>
+                        <div class="text-gray-600 flex">
+                            <div class="text-gray-600 mr-2">
+                                Bình luận:
+                            </div>
+                            {{$review->comment}}
+                        </div>
+                    </div>
+                    </div>
+                @endforeach
+            @endif
+        </div>
+    </div>
+    <!-- ./Comment -->
 
 
     <script>

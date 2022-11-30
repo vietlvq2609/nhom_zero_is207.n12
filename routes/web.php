@@ -82,5 +82,8 @@ Route::get('/cart/cancle/{id}', [CartController::class, 'postCancle'])->name('ca
 
 Route::get('/cart/buyAgain/{id}', [CartController::class, 'buyAgain']);
 
+Route::get('/review/{id}',[CartController::class, 'reviewView'])->name('cart.reviewView');
+Route::post('/review',[CartController::class, 'postReview'])->name('cart.postReview');
+
 // Admin routes
 Route::get('/admin', [AdminController::class, 'index']);
