@@ -61,6 +61,8 @@ Route::post('user/PaymentMethod',[UserController::class, "savePaymentMethod"])->
 Route::get('user/addPaymentMethod',[UserController::class, "addPaymentMethodView"])->name('user.addPaymentMethodView');
 Route::post('user/addPaymentMethod',[UserController::class, "addPaymentMethod"])->name('user.addPaymentMethod');
 
+Route::get('user/review',[UserController::class, "reviewView"])->name('user.reviewView');
+
 // Cart routes
 Route::get('/cart/delete/{id}/{qty}', [CartController::class, 'destroy'])->name('cart.delete{id}/{qty}');
 Route::get('/cart', [CartController::class, 'index']);
@@ -83,6 +85,7 @@ Route::get('/cart/cancle/{id}', [CartController::class, 'postCancle'])->name('ca
 Route::get('/cart/buyAgain/{id}', [CartController::class, 'buyAgain']);
 
 Route::get('/review/{id}',[CartController::class, 'reviewView'])->name('cart.reviewView');
+Route::get('/review/delete/{id}',[CartController::class, 'deleteReview']);
 Route::post('/review',[CartController::class, 'postReview'])->name('cart.postReview');
 
 // Admin routes

@@ -397,4 +397,34 @@ class UserController extends Controller
 
        return redirect('/user/PaymentMethod')->with('message', "Thêm phương thức thanh toán mới thành công!");
     }
+
+    public function reviewView()
+    {
+        $reviews = DB::table('user_reviews')
+        ->where('user_reviews.user_id', auth()->id())
+        ->join('users', 'users.id', '=' ,'user_reviews.user_id')
+        ->join('order_lines', 'order_lines.id', '=', 'user_reviews.ordered_product_id')
+        ->join('product_items', 'product_items.id', '=', 'order_lines.product_item_id')
+        ->join('products', 'products.id', '=', 'product_items.product_id')
+        ->join('product_configurations', 'product_items.id', '=', 'product_configurations.product_item_id')
+        ->join('variation_options', 'variation_options.id', '=', 'product_configurations.variation_option_id')
+        ->join('variations', 'variation_options.variation_id', '=', 'variations.id')
+        ->select(
+            'user_reviews.id as review_id',
+            'ordered_product_id',
+            'user_reviews.rating_value as rate',
+            'user_reviews.comment as comment',
+            'order_lines.product_item_id as id', 
+            'products.id as product_id',
+            'products.name as product_name', 
+            'products.product_image', 
+            'product_items.price', 
+            'variation_options.value as variation_value'
+            )
+        ->get();
+
+        return view('users.review',[
+            'reviews' =>$reviews,
+        ]);
+    }
 }

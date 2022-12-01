@@ -52,7 +52,7 @@
                     <a href="{{route('cart.cancleView')}}" class="relative hover:text-primary block capitalize transition">
                         My Cancellations
                     </a>
-                    <a href="#" class="relative hover:text-primary block capitalize transition">
+                    <a href="{{route('user.reviewView')}}" class="relative hover:text-primary block capitalize transition">
                         My reviews
                     </a>
                 </div>

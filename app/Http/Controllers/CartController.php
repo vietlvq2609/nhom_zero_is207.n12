@@ -619,4 +619,14 @@ class CartController extends Controller
 
         return back()->with('message', 'Có lỗi xảy ra!');
     }
+
+    public function deleteReview(Request $request)
+    {
+        DB::delete(
+        'delete from user_reviews
+        where id = ?',
+        [ $request ->id]
+        );
+        return back()->with('message', 'Đã xóa đánh giá!');
+    }
 }

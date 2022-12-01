@@ -117,9 +117,9 @@
                     <div class="flex-column ml-3">
                         <div class="text-gray-600 flex">
                             {{$review->user_name}} 
-                            <div class="text-gray-600 ml-6">
+                            <p class="text-gray-600 ml-6">
                                 Đánh giá:
-                            </div>
+                            </p>
                             <div class="flex gap-1 text-sm text-yellow-400 ml-6">
                                 @for ($i = 0 ; $i < $review->rate; $i ++)
                                     <span><i class="fa-solid fa-star"></i></span>
@@ -127,13 +127,12 @@
                             </div>
                         </div>
                         <div class="text-gray-600 flex">
-                            <div class="text-gray-600 mr-2">
-                                Bình luận:
-                            </div>
-                            {{$review->comment}}
+                            <p class="text-gray-600 mr-2">
+                                Bình luận: {{$review->comment}}
+                            </p>
                         </div>
                     </div>
-                    </div>
+                </div>
                 @endforeach
             @endif
         </div>
