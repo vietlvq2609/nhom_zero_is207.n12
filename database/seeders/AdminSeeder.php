@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Support\Facades\DB;
 //use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class AdminSeeder extends Seeder
 {
@@ -18,8 +19,8 @@ class AdminSeeder extends Seeder
         DB::table('users')->insert([
             'name' => "ZeroFood Admin",
             'email_address' => 'admin@gmail.com',
-            "phone_number" => '123456789',
-            'password' => '123456789'
+            'phone_number' => '123456789',
+            'password' => Hash::make('123456789')
         ]);
 
         DB::table('user_roles')->insert([

@@ -7,10 +7,10 @@
         <div class="col-span-3">
             <div class="px-4 py-3 shadow flex items-center gap-4">
                 <div class="flex-shrink-0">
-                    @if(!file_exists(public_path().'/storage/avatar/'.Auth::user()->avatar) )
-                    <img src="{{ asset('/assets/images/Avatar.jpg') }}" alt="avatar" class="rounded-full w-14 h-14 border border-gray-200 p-1 object-cover">
+                    @if(!file_exists(public_path().'/assets/images/avatars/'.Auth::user()->avatar))
+                    <img src="{{ asset('/assets/images/Avatar.jpg') }}" alt="avatar mặc định" class="rounded-full w-14 h-14 border border-gray-200 p-1 object-cover">
                     @else
-                    <img src="{{asset('/storage/avatar/'.Auth::user()->avatar)}}" alt="avatar" class="rounded-full w-14 h-14 border border-gray-200 p-1 object-cover">
+                    <img src="{{ asset('/assets/images/avatars/'.Auth::user()->avatar) }}" alt="avatar của người dùng" class="rounded-full w-14 h-14 border border-gray-200 p-1 object-cover">
                     @endif
                 </div>
                 <div class="flex-grow">

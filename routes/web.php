@@ -89,4 +89,7 @@ Route::get('/review/delete/{id}',[CartController::class, 'deleteReview']);
 Route::post('/review',[CartController::class, 'postReview'])->name('cart.postReview');
 
 // Admin routes
-Route::get('/admin', [AdminController::class, 'index']);
+
+Route::prefix('admin')->middleware(['isAdmin'])->group(function() {
+    Route::get('/dashboard', [AdminController::class, 'index']);
+});

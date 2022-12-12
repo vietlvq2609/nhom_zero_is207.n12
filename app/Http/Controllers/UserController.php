@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Routes;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
@@ -283,7 +284,7 @@ class UserController extends Controller
     public function changeInfo(Request $request)
     {
         $request->validate([
-            'avatar' => 'nullable',
+            'avatar' => 'nullable|image',
             'name' => ['required', 'min:3'],
             'email_address' => ['required', 'email'],
             'phone_number' => ['required', 'min:10', 'max:11'],
@@ -332,9 +333,17 @@ class UserController extends Controller
         
         // Upload avatar
         if($request->hasFile('avatar')){
-            $filename = $request->avatar->getClientOriginalName();
-            // lưu ảnh vừa upload vào folder images
-            $request->avatar->storeAs('avatar',$filename,'public');
+            // nếu trong /assets/images/avatars đã có file avatar của người dùng thì xóa nó đi
+            if(file_exists(public_path().'/assets/images/avatars/'.Auth::user()->avatar) )
+            {
+                File::delete(public_path().'/assets/images/avatars/'.Auth::user()->avatar);
+            }
+
+            //lưu avatar mới sang assets/images/avatars
+            $filename = auth()->user()->id. '_'. $request->avatar->getClientOriginalName();
+            $request->avatar->move('assets/images/avatars', $filename );
+
+            // cập nhật lại avatar của người dùng
             Auth()->user()->update(['avatar'=>$filename]);
         }
 

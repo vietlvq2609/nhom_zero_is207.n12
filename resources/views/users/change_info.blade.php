@@ -6,10 +6,10 @@
                 @csrf
                 <div class="space-y-2">
                     <div class="flex justify-center py-4">
-                    @if(!file_exists(public_path().'/storage/avatar/'.Auth::user()->avatar) )
-                    <img src="{{ asset('/assets/images/Avatar.jpg') }}" alt="avatar" class="rounded-full w-28 h-28 border border-gray-200 object-cover">
+                    @if(!file_exists(public_path().'/assets/images/avatars/'.Auth::user()->avatar))
+                    <img src="{{ asset('/assets/images/Avatar.jpg') }}" alt="avatar mặc định" class="rounded-full w-28 h-28 border border-gray-200 object-cover">
                     @else
-                    <img src="{{asset('/storage/avatar/'.Auth::user()->avatar)}}" alt="avatar" class="rounded-full w-28 h-28 border border-gray-200 object-cover">
+                    <img src="{{ asset('/assets/images/avatars/'.Auth::user()->avatar) }}" alt="avatar của người dùng" class="rounded-full w-28 h-28 border border-gray-200 object-cover">
                     @endif
                 </div>
                     
@@ -17,6 +17,9 @@
                         <label for="avatar" class="text-gray-600 mb-2 block">Chọn file ảnh để đặt lại Avartar:</label>
                         <input name="avatar" type="file" class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400" 
                             id="avatar">
+                        @error('avatar')
+                            <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div>
                         <label for="name" class="text-gray-600 mb-2 block">Họ và tên: </label>
