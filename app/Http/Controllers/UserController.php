@@ -131,7 +131,7 @@ class UserController extends Controller
         return view('users.forgot-password');
     }
 
-    public function postFogotPassword(Request $request) 
+    public function postFogotPassword(Request $request) //hàm này chưa làm dc
     {
         $request->validate(['email_address' => 'required|email']);
         
@@ -216,11 +216,26 @@ class UserController extends Controller
         $address = Address::create($formFields);
 
         //add infomations into user_address table
-        User_address::create([
-            'user_id' => auth()->id(),
-            'address_id' => $address->id,
-            'is_default' => false
-        ]);
+        // if this is first address of this user, it will be default
+        $count_address = DB::table('user_addresses')
+        ->where('user_id', auth()->id())
+        ->count('*');
+        
+        if ($count_address == 0)
+        {
+            User_address::create([
+                'user_id' => auth()->id(),
+                'address_id' => $address->id,
+                'is_default' => true
+            ]);
+        }
+        else{
+            User_address::create([
+                'user_id' => auth()->id(),
+                'address_id' => $address->id,
+                'is_default' => false
+            ]);
+        }
 
        return redirect('/user/address')->with('message', "Thêm địa chỉ mới thành công!");
     }
@@ -401,8 +416,26 @@ class UserController extends Controller
             'account_number' => ['required'],
             // 'expiry_date' => ['nullable'],
         ]);
+        
+        // nếu đây là phương thức thanh toán đầu tiên thì nó sẽ là mặc định
+        $count_payment = DB::table('user_payment_methods')
+        ->where('user_id', $request->user_id)
+        ->count('*');
 
-        User_payment_method::create($formFields);
+        if ($count_payment == 0)
+        {
+            User_payment_method::create([
+                'user_id' => $request->user_id,
+                'payment_type_id' => $request->payment_type_id,
+                'provider' => $request->provider,
+                'account_number' => $request->account_number,
+                'is_default' => true
+            ]);
+        }
+        else
+        {
+            User_payment_method::create($formFields);
+        }
 
        return redirect('/user/PaymentMethod')->with('message', "Thêm phương thức thanh toán mới thành công!");
     }
