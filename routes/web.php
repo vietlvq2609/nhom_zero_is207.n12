@@ -98,5 +98,5 @@ Route::post('/review',[CartController::class, 'postReview'])->name('cart.postRev
 // Admin routes
 
 Route::prefix('admin')->middleware(['isAdmin'])->group(function() {
-    Route::get('/dashboard', [AdminController::class, 'index']);
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 });

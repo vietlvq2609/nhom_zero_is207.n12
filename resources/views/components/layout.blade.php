@@ -54,6 +54,19 @@
 
             <div class="flex items-center space-x-4">
                 @auth
+                    @php
+                        $isAdmin = DB::table('user_roles')
+                                ->where('user_id', auth()->id())
+                                ->first()
+                    @endphp
+                    @if($isAdmin->role_id == 1)
+                    <a href="{{route('admin.dashboard')}}" class="text-center text-gray-700 hover:text-primary transition relative">
+                        <div class="text-2xl">
+                            <i class="fa-solid fa-gauge-high"></i>
+                        </div>
+                        <div class="text-xs leading-3">Dashboard</div>
+                    </a>
+                    @endif
                     <a href="/cart" class="text-center text-gray-700 hover:text-primary transition relative">
                         <div class="text-2xl">
                             <i class="fa-solid fa-bag-shopping"></i>
@@ -70,10 +83,9 @@
                         @endphp
                         <div id="cart_qty" class="absolute right-0 top-0 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
                             <input type="hidden" id="saveTotal_qty" value="{{ $total_qty }}">
-
                             {{ $total_qty }}
                         </div>
-                            </a>
+                    </a>
                     <a href="/user" class="text-center text-gray-700 hover:text-primary transition relative">
                         <div class="text-2xl">
                             <i class="fa-regular fa-user"></i>

@@ -37,6 +37,9 @@
                     <a href="{{ route('user.changePassword') }}" class="relative hover:text-primary block capitalize transition">
                         Change password
                     </a>
+                    <a href="{{ route('password.request') }}" class="relative hover:text-primary block capitalize transition">
+                        Forgot password
+                    </a>
                 </div>
 
                 <div class="space-y-1 pl-8 pt-4">
