@@ -5,7 +5,7 @@
         <p>Vui lòng click vào nút bên dưới để bắt đầu lấy lại mật khẩu</p>
         <p>
             <a style="display:inline-block; background: orange; color: #000; padding:7px 25px; font-weight:bold"
-            href="{{ route('password.reset', ['user' => $user->id, 'token' => $user->remember_token]) }}">Lấy lại mật khẩu</a>
+            href="{{ route('password.reset', ['user' => $user->id, 'token' => $token]) }}">Lấy lại mật khẩu</a>
         </p>
     </div>
 </div>

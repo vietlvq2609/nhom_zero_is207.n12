@@ -142,13 +142,12 @@ class UserController extends Controller
         $user = User::where('email_address', $request->email_address)->first();
         // update remember_token cho user đó
         DB::update('update users set remember_token = ? where id= ?', [$token, $user->id]);
-        // Gửi mail cho user đó
-        Mail::send('emails.forgot-pass-send', compact('user'), function($email) use($user) {
+
+        Mail::send('emails.forgot-pass-send', compact('user','token'), function($email) use($user) {
             $email->subject('Zero Food - Lấy lại mật khẩu');
             $email->to($user->email_address, $user->name);
         });
-
-        return redirect()->back()->with('message', 'Vui lòng check email để thay đổi mật khẩu');
+            return redirect()->back()->with('message', 'Vui lòng check email để thay đổi mật khẩu');
     }
 
     //Reset Password
