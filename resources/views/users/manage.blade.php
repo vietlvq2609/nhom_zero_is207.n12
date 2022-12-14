@@ -78,7 +78,7 @@
             <div class="shadow rounded bg-white px-4 pt-6 pb-8">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="font-medium text-gray-800 text-lg">Personal Profile</h3>
-                    <a href="#" class="text-primary">Edit</a>
+                    <a href="{{ route('user.changeInfo') }}" class="text-primary">Edit</a>
                 </div>
                 <div class="space-y-1">
                     <h4 class="text-gray-700 font-medium">{{ auth()->user()->name }}</h4>
