@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Routes;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -131,50 +132,49 @@ class UserController extends Controller
         return view('users.forgot-password');
     }
 
-    public function postFogotPassword(Request $request) //hàm này chưa làm dc
+    public function postFogotPassword(Request $request)
     {
-        $request->validate(['email_address' => 'required|email']);
+        $request->validate(['email_address' => 'required|email|exists:users']);
         
-        $status = Password::sendResetLink(
-            $request->only('email_address')
-        );
+        // tạo một token ngẫu nhiên có 10 kí tự
+        $token = strtoupper(Str::random(10));
+        // tìm user có địa chủ email như trên
+        $user = User::where('email_address', $request->email_address)->first();
+        // update remember_token cho user đó
+        $user->update(['remeber_token' => $token]);
+        // Gửi mail cho user đó
+        Mail::send('emails.forgot-pass-send', compact('user'), function($email) use($user) {
+            $email->subject('Zero Food - Lấy lại mật khẩu');
+            $email->to($user->email_address, $user->name);
+        });
 
-        return $status === Password::RESET_LINK_SENT
-                    ? back()->with(['status' => __($status)])
-                    : back()->withErrors(['email_address' => __($status)]);
+        return redirect()->back()->with('message', 'Vui lòng check email để thay đổi mật khẩu');
     }
 
     //Reset Password
-    public function resetPassword ($token) 
+    public function resetPassword (User $user, $token) 
     {
-        return view('users.reset-pass', ['token' => $token]);
+        if($user->remember_token === $token)
+        {
+            return view('emails.forgot-pass-reset', ['user' => $user->id, 'token' => $token]);
+        }
+        else
+        {
+            return abort(404);
+        }
     }
 
-    public function postResetPassword(Request $request)
+    public function postResetPassword(User $user, $token, Request $request)
     {
         $request->validate([
-            'token' => 'required',
-            'email_address' => 'required|email',
             'password' => 'required|min:6|confirmed',
             'password_confirmation' => 'required|same:password'
         ]);
-     
-        $status = Password::reset(
-            $request->only('email_address', 'password', 'password_confirmation', 'token'),
-            function ($user, $password) {
-                $user->forceFill([
-                    'password' => Hash::make($password)
-                ])->setRememberToken(Str::random(60));
-     
-                $user->save();
-     
-                event(new PasswordReset($user));
-            }
-        );
-     
-        return $status === Password::PASSWORD_RESET
-                    ? redirect()->route('login')->with('status', __($status))
-                    : back()->withErrors(['email_address' => [__($status)]]);
+        
+        $new_pass = bcrypt($request->password);
+        DB::update('update users set password = ?, remember_token = NULL where id= ?', [$new_pass, $user->id]);
+
+        return redirect('/login')->with('message','Đặt lại mật khẩu thành công, vui lòng đăng nhập lại!');
     }
 
     //Edit Address

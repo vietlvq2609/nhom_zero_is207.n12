@@ -38,29 +38,36 @@ Route::get('/user', [UserController::class, "edit"]);
 Route::post('/user/authenticate', [UserController::class, "authenticate"]);
 Route::post("/logout", [UserController::class, "logout"]);
 Route::post('/register', [UserController::class, "store"]);
-
+    // User - forgot password
+        // cấu hình email trong laravel: https://www.youtube.com/watch?v=0qcRBik3xnI
 Route::get('/forgot-password', [UserController::class, "fogotPassword"])->name('password.request');
 Route::post('/forgot-password', [UserController::class, "postFogotPassword"])->name('password.email');
-Route::get('/reset-password/{token}', [UserController::class, "resetPassword"])->name('password.reset');
-Route::post('/reset-password', [UserController::class, "postResetPassword"])->name('password.update');
+Route::get('/reset-password/{user}/{token}', [UserController::class, "resetPassword"])->name('password.reset');
+Route::post('/reset-password/{user}/{token}', [UserController::class, "postResetPassword"])->name('password.update');
 
+    // User - add received addresses
 Route::get('/user/address', [UserController::class, "editAddress"])->name('user.address');
 Route::get('/user/address/add-new-address', [UserController::class, "addAddressPage"])->name('user.new-address');
 Route::post('/user/address/add-new-address', [UserController::class, "addAddress"])->name('user.new-address-post');
 Route::post('/user/address', [UserController::class, "updateAddress"])->name('user.updateAddress');
 
+    // User - change password
 Route::get('user/changePassword',[UserController::class, "changePasswordView"])->name('user.changePassword');
 Route::post('user/changePassword',[UserController::class, "changePassword"])->name('user.postChangePassword');
 
+    // User change infomations
 Route::get('user/changeInfomation',[UserController::class, "changeInfoView"])->name('user.changeInfo');
 Route::post('user/changeInfomation',[UserController::class, "changeInfo"])->name('user.postChangeInfo');
 
+    // User - add payment methods
+        // View
 Route::get('user/PaymentMethod',[UserController::class, "paymentMethodView"])->name('user.paymentMethodView');
 Route::post('user/PaymentMethod',[UserController::class, "savePaymentMethod"])->name('user.paymentMethod');
-
+        // Action
 Route::get('user/addPaymentMethod',[UserController::class, "addPaymentMethodView"])->name('user.addPaymentMethodView');
 Route::post('user/addPaymentMethod',[UserController::class, "addPaymentMethod"])->name('user.addPaymentMethod');
 
+    // User - show their reviews
 Route::get('user/review',[UserController::class, "reviewView"])->name('user.reviewView');
 
 // Cart routes

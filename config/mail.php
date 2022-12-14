@@ -36,11 +36,17 @@ return [
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
-            'port' => env('MAIL_PORT', 587),
-            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => env('MAIL_USERNAME'),
-            'password' => env('MAIL_PASSWORD'),
+            // 'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+            'host' => 'smtp.gmail.com',
+            // 'port' => env('MAIL_PORT', 587),
+            'port' => 587,
+            // 'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+            'encryption' => 'tls',
+            // 'username' => env('MAIL_USERNAME'),
+            'username' => '20520433@gm.uit.edu.vn',
+            // 'password' => env('MAIL_PASSWORD'),
+            'password' => 'cermwgspkayedean',
+            
             'timeout' => null,
             'local_domain' => env('MAIL_EHLO_DOMAIN'),
         ],
@@ -99,8 +105,10 @@ return [
     ],
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', '20520433@gm.uit.edu.vn'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        // 'address' => env('MAIL_FROM_ADDRESS', '20520433@gm.uit.edu.vn'),
+        'address' => '20520433@gm.uit.edu.vn',
+        // 'name' => env('MAIL_FROM_NAME', 'Example'),
+        'name' => 'Zero Food',
     ],
 
     /*
