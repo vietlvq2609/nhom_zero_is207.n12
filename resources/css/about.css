@@ -1,0 +1,211 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Times New Roman', Times, serif;
+    width: 100%;
+    font-size: 16px;
+}
+
+header, main {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+header a {
+    text-decoration: none;
+    font-size: 2rem;
+    color: #c39738;
+    padding: 24px;
+}
+
+header a:hover {
+    color: black;
+    border-bottom: 2px solid #000000;
+    padding: 0 20px;
+}
+
+main {
+    padding: 64px 0;
+    width: 60%;
+}
+
+main h2 {
+    font-size: 3rem;
+    font-weight: 300;
+}
+
+main img {
+    width: 100%;
+}
+
+.intro-body {
+    display: flex;
+    justify-content: space-between;
+}
+
+.intro-images {
+    width: 50%;
+}
+
+.intro-content {
+    float: right;
+    width: 40%;
+    text-align: justify;
+}
+
+.goal-body {
+    display: flex;
+    justify-content: space-between;
+}
+
+.goal-content {
+    width: 45%;
+    text-align: justify;
+}
+
+.goal-images {
+    width: 50%;
+}
+
+/* Slider Member */
+
+.member img {
+    vertical-align: middle;
+}
+
+.slideMember {
+    display: none;
+}
+
+.slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+}
+
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0 ;
+    user-select: none;
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev {
+    left: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+
+.text {
+    color: #400b9b;
+    font-size: 16px;
+    padding: 8px 12px;
+    position: absolute;
+    width: 100%;
+    bottom: 8px;
+    font-weight: 700;
+    background-color: white;
+}
+
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6 ease;
+}
+
+.active, dot:hover {
+    background-color: #717171;
+}
+
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+}
+
+@media only screen and (max-with: 600px) {
+    .prev, .next, .text {font-size: 10px;}
+}
+
+.planContent {
+    text-align: left;
+}
+
+.contactAbout {
+    text-align: left;
+}
+
+.contactAbout a {
+    text-decoration: none;
+    font-size: 1rem;
+    color: #c39738;
+    padding: 4px;
+}
+
+.contactAbout a:hover {
+    color: red;
+}
+
+.contactForm {
+    text-align: left;
+    margin-top: 32px;
+}
+
+.form-group {
+    margin-top: 16px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 16px 8px;
+}
+
+.form-group textarea {
+    width: 100%;
+}
+
+.form-group button {
+    padding: 16px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: gold;
+}
+
+.form-group button:hover {
+    background-color: #333;
+    color: #fff;
+}
