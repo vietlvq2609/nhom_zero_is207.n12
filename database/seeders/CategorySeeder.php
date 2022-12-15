@@ -23,7 +23,7 @@ class CategorySeeder extends Seeder
             ],
             [
                 'category_name' => 'Đồ uống',
-                'parent_category_id' => null,
+                'parent_category_id' => 1,
                 'category_image' => "https://suckhoedoisong.qltns.mediacdn.vn/324455921873985536/2022/5/9/nuoc-chanh1-16521101548871034599330.jpg"
             ],
             [
