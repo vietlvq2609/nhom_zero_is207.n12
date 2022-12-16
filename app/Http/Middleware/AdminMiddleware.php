@@ -33,7 +33,7 @@ class AdminMiddleware
                 return $next($request);
             }
             else{
-                return redirect('/')->with('message','You are not an admin');
+                return abort(404);
             }
         }
         else 

@@ -451,6 +451,32 @@ class CartController extends Controller
             where id = ?
             ', [$order_item->qty, $order_item->product_item_id]);
         }
+        
+        // lấy thông tin của bill đó
+        $shop_order = Shop_order::where('id', $request->id)->first();
+
+        // Gửi mail cho user xác nhận hủy đơn và hoàn lại tiền
+        if($shop_order->payment_method_id != 1 )
+        {
+            $user = User::where('id', auth()->id())->first();
+            $payment_method = User_payment_method::where('user_payment_methods.id', $shop_order->payment_method_id)
+                ->join('payment_types','payment_types.id', '=', 'user_payment_methods.payment_type_id')
+                ->select('value', 'provider', 'account_number as number')
+                ->first();
+            $shipping_method = Shipping_method::where('id',$shop_order->shipping_method)->first();
+            $shipping_address = DB::table('addresses')
+                ->where('addresses.id',$shop_order->shipping_address)
+                ->join('countries','countries.id','=','addresses.country_id')
+                ->select('unit_number as unit', 'street_number as street', 'address_line1 as line1', 'address_line2 as line2', 'city', 'country_name')
+                ->first();
+
+            Mail::send('emails.cancle-bill', compact('user','shop_order','payment_method','shipping_method','shipping_address'), function($email) use($user) {
+                $email->subject('Zero Food - Xác nhận hủy đơn hàng!');
+                $email->to($user->email_address, $user->name);
+            });
+            
+            return redirect('/cart/cancle')->with('message', 'Hủy đơn hàng thành công, Vui lòng check lại email để xem thông tin đơn hàng!');
+        }
 
         return redirect('/cart/cancle')->with('message', 'Đã hủy đơn hàng!');
     }
