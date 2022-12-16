@@ -9,31 +9,14 @@
 
         <!-- products -->
         <div class="col-span-3">
-            <div class="flex justify-end items-center mb-4">
-                {{-- <select name="sort" id="sort"
+            {{-- <div class="flex justify-end items-center mb-4">
+                <select name="sort" id="sort"
                     class="w-44 text-sm text-gray-600 py-3 px-4 border-gray-300 shadow-sm rounded focus:ring-primary focus:border-primary">
                     <option value="latest">Mới nhất</option>
                     <option value="price-low-to-high">Giá thấp đến cao</option>
                     <option value="price-high-to-low">Giá cao đến thấp</option>
-                </select> --}}
-                <ul>
-                    <li>
-                        <a href="{{ request()->fullUrlWithQuery(['price'=>0]) }}">Tất cả</a>
-                    </li>
-                    <li>
-                        <a href="{{ request()->fullUrlWithQuery(['price'=>1]) }}">Size nhỏ dưới 100.000đ</a>
-                    </li>
-                    <li>
-                        <a href="{{ request()->fullUrlWithQuery(['price'=>2]) }}">Size nhỏ từ 100.000đ trở lên.</a>
-                    </li>
-                    <li>
-                        <a href="{{ request()->fullUrlWithQuery(['price'=>3]) }}">Size lớn dưới 150.000đ</a>
-                    </li>
-                    <li>
-                        <a href="{{ request()->fullUrlWithQuery(['price'=>4]) }}">Size lớn từ 150.000đ trở lên</a>
-                    </li>
-                </ul>
-            </div>
+                </select>
+            </div> --}}
 
             <!-- hiện danh sách các product -->
             @unless(count($products) == 0)
