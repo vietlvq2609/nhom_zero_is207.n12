@@ -62,7 +62,7 @@
                 @endforeach
             </div>
         
-            <input type="hidden" id="qtyOfItemInCart" name ="order_total" value="{{ $QtyOfItemInCart }}">
+            <input type="hidden" id="qtyOfItemInCart" name="total_items" value="{{ $QtyOfItemInCart }}">
 
             <!-- Chọn phương thức vận chuyển -->
 
@@ -100,7 +100,7 @@
 
                 <div class="flex py-3 px-5 justify-between w-2/5 ml-auto mt-8">
                     <div class="uppercase text-blue-900 text-lg">Tổng cộng:</div>
-                    <input type="hidden" id="saveTotalValue" value="{{$total}}">
+                    <input type="hidden" id="saveTotalValue" name ="order_total" value="{{$total}}">
                     <div id="total">{{$total}} đ</div>
                 </div>
 

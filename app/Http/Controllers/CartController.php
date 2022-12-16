@@ -11,6 +11,12 @@ use App\Models\Shop_order;
 use App\Models\Order_line;
 use App\Models\User_review;
 use Carbon\Carbon;
+use App\Models\User;
+use App\Models\User_payment_method;
+use App\Models\Payment_type;
+use App\Models\Shipping_method;
+use App\Models\Address;
+use Illuminate\Support\Facades\Mail;
 
 class CartController extends Controller
 {
@@ -222,7 +228,7 @@ class CartController extends Controller
                 ->get()
                 ->first();
 
-        for ($i = 0; $i < $request->order_total ; $i++)
+        for ($i = 0; $i < $request->total_items ; $i++)
         {
             Order_line::create([
                 'product_item_id' => $request->cart_item_id[$i],
@@ -230,6 +236,29 @@ class CartController extends Controller
                 'qty' => $request->cart_item_qty[$i],
                 'price' => $request->cart_item_price[$i],
             ]);
+        }
+        // Gửi mail xác nhận cho khách, bảo khách chuyển khoảng
+        // nếu khách chọn phương thức thanh toán là "trả bằng tiền mặt thì không cần gửi mail
+        if($request->payment_method_id != 1 )
+        {
+            $user = User::where('id', auth()->id())->first();
+            $payment_method = User_payment_method::where('user_payment_methods.id',$request->payment_method_id)
+                ->join('payment_types','payment_types.id', '=', 'user_payment_methods.payment_type_id')
+                ->select('value')
+                ->first();
+            $shipping_method = Shipping_method::where('id',$request->shipping_method)->first();
+            $shipping_address = DB::table('addresses')
+                ->where('addresses.id',$request->shipping_address)
+                ->join('countries','countries.id','=','addresses.country_id')
+                ->select('unit_number as unit', 'street_number as street', 'address_line1 as line1', 'address_line2 as line2', 'city', 'country_name')
+                ->first();
+
+            Mail::send('emails.confirm-booking-bill', compact('user','shop_order','payment_method','shipping_method','shipping_address'), function($email) use($user) {
+                $email->subject('Zero Food - Xác nhận đặt hàng và thanh toán');
+                $email->to($user->email_address, $user->name);
+            });
+            
+            return redirect('/cart/prepare')->with('message', 'Đặt hàng thành công, Vui lòng check lại email để xem thông tin đơn hàng!');
         }
 
         DB::table('shopping_cart_items')->where('cart_id', '=', $cart->id )->delete();

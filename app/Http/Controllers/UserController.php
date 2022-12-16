@@ -147,7 +147,8 @@ class UserController extends Controller
             $email->subject('Zero Food - Lấy lại mật khẩu');
             $email->to($user->email_address, $user->name);
         });
-            return redirect()->back()->with('message', 'Vui lòng check email để thay đổi mật khẩu');
+        
+        return redirect()->back()->with('message', 'Vui lòng check email để thay đổi mật khẩu');
     }
 
     //Reset Password
