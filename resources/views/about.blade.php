@@ -1,30 +1,23 @@
 <x-layout>
-    <!DOCTYPE html>
-    <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../css/about.css">
 
-        <title>Giới thiệu nhóm</title>
-    </head>
+    <link rel="stylesheet" href="/assets/css/about.css">
+    
 
     <body>
         <header>
-            <a href="#">Giới thiệu</a>
-            <a href="#">Mục tiêu</a>
-            <a href="#">Thành viên</a>
-            <a href="#">Kế hoạch</a>
-            <a href="#">Liên hệ</a>
+            <a href="#introduce">Giới thiệu</a>
+            <a href="#goal">Mục tiêu</a>
+            <a href="#members">Thành viên</a>
+            <a href="#plan">Kế hoạch</a>
+            <a href="#contact">Liên hệ</a>
         </header>
         <main>
             <div id="introduce" class="introduce">
                 <h2>Giới thiệu đồ án</h2>
                 <div class="intro-body">
                     <div class="intro-images">
-                        <img src="./images/food.jpg" alt="Ảnh giới thiệu về trang web">
+                        <img src="/assets/images/Avatar.jpg" alt="Ảnh giới thiệu về trang web">
                     </div>
                     <div class="intro-content">
                         <p>Trong một vài năm gần đây, do sự tác động của đại dịch Covid làm lượng khách hàng giảm đi, nhu cầu mua sắm giảm mạnh đã làm cho phương thức kinh doanh offline gặp nhiều bất lợi. Bên cạnh đó, hệ sinh thái dành cho kinh doanh online đã được xây dựng gần như hoàn thiện từ nguồn hàng, kênh bán hàng hay đơn vị vận chuyển đều có sẵn. Điều đó đã tạo điều kiện thuận lợi cho hình thức kinh doanh online vươn lên. Mà nhu cầu ăn uống của khách hàng không thay đổi, chỉ khác là phương thức mua sắm dần chuyển sang online do vừa thuận tiện, lại tiết kiệm thời gian. Do đó các website bán thức ăn cũng trở thành vùng đất màu mỡ cho người kinh doanh. Đấy cũng là lý do bọn em chọn đề tài “Website bán thức ăn”.</p>
