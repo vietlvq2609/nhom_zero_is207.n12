@@ -35,7 +35,7 @@ class ProductController extends Controller
                     ->minprice(request(['min_price']))
                     ->maxprice(request(['max_price']))
                     ->search(request(['search']))
-                    ->paginate(6)
+                    ->paginate(6)->appends(request()->query())
             ]
         );
     }
