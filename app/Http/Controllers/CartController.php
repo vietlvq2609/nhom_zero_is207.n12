@@ -257,12 +257,12 @@ class CartController extends Controller
                 $email->subject('Zero Food - Xác nhận đặt hàng và thanh toán');
                 $email->to($user->email_address, $user->name);
             });
-            
+
+            DB::table('shopping_cart_items')->where('cart_id', '=', $cart->id )->delete();
             return redirect('/cart/prepare')->with('message', 'Đặt hàng thành công, Vui lòng check lại email để xem thông tin đơn hàng!');
         }
 
         DB::table('shopping_cart_items')->where('cart_id', '=', $cart->id )->delete();
-
         return redirect('/cart/prepare')->with('message', 'Đặt hàng thành công!');
     }
 
