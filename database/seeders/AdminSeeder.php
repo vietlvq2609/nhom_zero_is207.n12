@@ -20,7 +20,8 @@ class AdminSeeder extends Seeder
             'name' => "ZeroFood Admin",
             'email_address' => 'admin@gmail.com',
             'phone_number' => '123456789',
-            'password' => Hash::make('123456789')
+            'password' => Hash::make('123456789'),
+            'avatar' => 'https://www.toponseek.com/blogs/wp-content/uploads/2022/11/admin-la-gi-1.jpg'
         ]);
 
         DB::table('user_roles')->insert([

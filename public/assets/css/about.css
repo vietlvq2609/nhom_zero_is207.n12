@@ -19,13 +19,12 @@ header a {
     text-decoration: none;
     font-size: 2rem;
     color: #c39738;
-    padding: 24px;
+    padding: 24px 20px;
 }
 
 header a:hover {
     color: black;
     border-bottom: 2px solid #000000;
-    padding: 0 20px;
 }
 
 main {
@@ -35,6 +34,8 @@ main {
 main h2 {
     font-size: 3rem;
     font-weight: 300;
+    margin-bottom: 32px;
+    margin-top: 16px;
 }
 
 main img {
@@ -72,8 +73,16 @@ main img {
 
 /* Slider Member */
 
-.member img {
-    vertical-align: middle;
+.slideMember {
+    text-align: center;
+}
+
+.slideMember img {
+    
+    height: auto;
+    width: 250px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .slideMember {
@@ -123,7 +132,6 @@ main img {
     width: 100%;
     bottom: 8px;
     font-weight: 700;
-    background-color: white;
 }
 
 .dot {
@@ -159,52 +167,11 @@ main img {
     text-align: left;
 }
 
-.contactAbout {
-    text-align: left;
-}
-
-.contactAbout a {
-    text-decoration: none;
-    font-size: 1rem;
-    color: #c39738;
-    padding: 4px;
-}
-
-.contactAbout a:hover {
-    color: red;
-}
-
-.contactForm {
-    text-align: left;
-    margin-top: 32px;
-}
-
-.form-group {
+.planContent ul {
     margin-top: 16px;
 }
 
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
+.planContent ul li {
+    list-style-type: square;
 }
 
-.form-group input {
-    width: 100%;
-    padding: 16px 8px;
-}
-
-.form-group textarea {
-    width: 100%;
-}
-
-.form-group button {
-    padding: 16px 8px;
-    border-radius: 8px;
-    cursor: pointer;
-    background-color: gold;
-}
-
-.form-group button:hover {
-    background-color: #333;
-    color: #fff;
-}
