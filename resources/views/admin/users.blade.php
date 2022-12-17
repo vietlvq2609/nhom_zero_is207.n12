@@ -79,52 +79,7 @@
                         <button type="button" class="btn btn-primary" name="form_action" onclick="showForm('delete')">Delete</button>
                     </div>
 
-                    <!-- Form insert -->
-                    <form action="{{route('addUser')}}" method="POST" id="inserting" class="form-insert">
-                        @csrf
-                        <h2>Insert User</h2>
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control" id="name" name="name" require>
-                        </div>
-                        @error('name')
-                        <p>{{$message}}</p>
-                        @enderror
-                        <div class="form-group">
-                            <label for="avatar">Avatar</label>
-                            <input type="text" class="form-control" id="avatar" name="avatar" require>
-                        </div>
-                        @error('avatar')
-                        <p>{{$message}}</p>
-                        @enderror
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" require>
-                        </div>
-                        @error('email')
-                        <p>{{$message}}</p>
-                        @enderror
-                        <div class="form-group">
-                            <label for="phone">Phone</label>
-                            <input type="text" class="form-control" id="phone" name="phone" require>
-                        </div>
-                        @error('phone_number')
-                        <p>{{$message}}</p>
-                        @enderror
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" require>
-                        </div>
-                        @error('password')
-                        <p>{{$message}}</p>
-                        @enderror
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Insert</button>
-                        </div>
-                    </form>
 
-                    <!-- Form delete -->
-                    
 
                     <div class="card mb-4">
                         <div class="card-header">
@@ -166,12 +121,7 @@
             </main>
         </div>
     </div>
-    <!-- Form insert -->
-    <script src="/assets/js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/b479d3cb73.js" crossorigin="anonymous"></script>
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 
 </html>
