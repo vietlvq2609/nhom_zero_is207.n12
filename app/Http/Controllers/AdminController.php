@@ -44,6 +44,35 @@ class AdminController extends Controller
     }
 
 
+    // insert 
+    public function addUser(Request $request)
+    {
+        
+        $formfield = $request->validate([
+            'name' => 'required',
+            'email_address' => 'required',
+            'phone_number' =>'required',
+            'password' => 'required',
+            'avatar' => 'required',
+        ]);
+
+        // Hash Password
+        $formfield['password'] = bcrypt($formfield['password']);
+
+        User::create($formfield);
+
+        return back()->with('message',"Thêm thành công");
+    }
+
+    // update
+    
+
+    //delete
+    public function deleteUser(Request $request)
+    {
+       DB::delete('delete from users where id = ?', [ $request->user_id ]);
+        return back()->with('message',"Xóa thành công");
+    }
 
     // Products
     public function products()

@@ -29,7 +29,7 @@
 
     </nav>
     <div id="layoutSidenav">
-    <div id="layoutSidenav_nav">
+        <div id="layoutSidenav_nav">
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
@@ -51,7 +51,7 @@
                                 <a href="{{ route('adminOrder') }}" class="nav-link">Orders</a>
                             </nav>
                         </div>
-                        
+
                         <div class="sb-sidenav-menu-heading">Addons</div>
                         <a class="nav-link" href="charts.html">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
@@ -73,22 +73,59 @@
             <main>
                 <div class="container-fluid px-4">
                     <h1 class="mt-4">Management User</h1>
-                    <!--  -->
-                        <!-- <div class="col-xl-3 col-md-6">
-                            <div class="card bg-danger text-white mb-4">
-                                <div class="card-body">More</div>
-                                <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="#">View Details</a>
-                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                </div>
-                            </div>
-                        </div> -->
-                    </div>
                     <div class="btn-group btn-action" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-primary">Insert</button>
-                        <button type="button" class="btn btn-primary">Update</button>
-                        <button type="button" class="btn btn-primary">Delete</button>
+                        <button type="button" class="btn btn-primary" name="form_action" onclick="showForm('insert')">Insert</button>
+                        <button type="button" class="btn btn-primary" name="form_action" onclick="showForm('update')">Update</button>
+                        <button type="button" class="btn btn-primary" name="form_action" onclick="showForm('delete')">Delete</button>
                     </div>
+
+                    <!-- Form insert -->
+                    <form action="{{route('addUser')}}" method="POST" id="inserting" class="form-insert">
+                        @csrf
+                        <h2>Insert User</h2>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" require>
+                        </div>
+                        @error('name')
+                        <p>{{$message}}</p>
+                        @enderror
+                        <div class="form-group">
+                            <label for="avatar">Avatar</label>
+                            <input type="text" class="form-control" id="avatar" name="avatar" require>
+                        </div>
+                        @error('avatar')
+                        <p>{{$message}}</p>
+                        @enderror
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" require>
+                        </div>
+                        @error('email')
+                        <p>{{$message}}</p>
+                        @enderror
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="text" class="form-control" id="phone" name="phone" require>
+                        </div>
+                        @error('phone_number')
+                        <p>{{$message}}</p>
+                        @enderror
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" require>
+                        </div>
+                        @error('password')
+                        <p>{{$message}}</p>
+                        @enderror
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Insert</button>
+                        </div>
+                    </form>
+
+                    <!-- Form delete -->
+                    
+
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
@@ -129,7 +166,12 @@
             </main>
         </div>
     </div>
+    <!-- Form insert -->
+    <script src="/assets/js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/b479d3cb73.js" crossorigin="anonymous"></script>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 
 </html>

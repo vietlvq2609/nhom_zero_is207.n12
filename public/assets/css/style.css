@@ -11704,3 +11704,23 @@ body {
   
   padding: 32px 0;
 }
+
+#inserting {
+  width: 50%;
+  margin-right: auto;
+  margin-left: auto;
+  background-color:rgba(211, 212, 213, 0.5);
+  margin-bottom: 64px;
+}
+
+.form-insert h2 {
+  text-align: center;
+}
+
+.form-insert div {
+  margin: 16px;
+}
+
+.form-insert .form-control {
+  margin-top: 16px;
+}

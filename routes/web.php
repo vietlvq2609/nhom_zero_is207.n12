@@ -102,6 +102,10 @@ Route::prefix('admin')->middleware(['isAdmin'])->group(function() {
     Route::get('/user', [AdminController::class, 'users'])->name('adminUser');
     Route::get('/products', [AdminController::class, 'products'])->name('adminProduct');
     Route::get('/orders', [AdminController::class, 'orders'])->name('adminOrder');
+
+    Route::post('/addUser', [AdminController::class, 'addUser'])->name('addUser');
+    Route::post('/deleteUser', [AdminController::class, 'deleteUser'])->name('deleteUser');
+    Route::post('/updateUser', [AdminController::class, 'updateUser'])->name('updateUser');
 });
 
 // Route::prefix('/admin')->middleware('isAdmin')->group(function(){
