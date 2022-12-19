@@ -11724,3 +11724,19 @@ body {
 .form-insert .form-control {
   margin-top: 16px;
 }
+
+.dis-user {
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+  
+}
+
+.dis-user .card {
+  background-color:#86b7fe;
+}
+
+.dis-user .card form div {
+  margin: 4px;
+}

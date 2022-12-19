@@ -48,7 +48,8 @@
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="{{ route('adminUser')}}">Users</a>
                                 <a class="nav-link" href="{{ route('adminProduct')}}">Products</a>
-                                <a href="{{ route('adminOrder') }}" class="nav-link">Orders</a>
+                                <a class="nav-link" href="{{ route('adminOrder') }}">Orders</a>
+                                <a class="nav-link" href="{{ route('adminShop')}}">Shoppings</a>
                             </nav>
                         </div>
                         <div class="sb-sidenav-menu-heading">Addons</div>
@@ -71,55 +72,47 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Management User</h1>
-                    <!--  -->
-                        <!-- <div class="col-xl-3 col-md-6">
-                            <div class="card bg-danger text-white mb-4">
-                                <div class="card-body">More</div>
-                                <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="#">View Details</a>
-                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    <h1 class="mt-4">Management Products</h1>
+                    
+                    <div class="card mb-4">
+                    <div class="card-header">
+                            <div class="row">
+                                <div class="col-md-6">
+                                <i class="fas fa-table me-1"></i>
+                                DataTable Information Products
+                                </div>
+                                <div class="col-md 6">
+                                    <a href="" class="btn btn-primary float-end">Insert</a>
                                 </div>
                             </div>
-                        </div> -->
-                    </div>
-                    <div class="btn-group btn-action" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-primary">Insert</button>
-                        <button type="button" class="btn btn-primary">Update</button>
-                        <button type="button" class="btn btn-primary">Delete</button>
-                    </div>
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <i class="fas fa-table me-1"></i>
-                            DataTable Information User
                         </div>
                         <div class="card-body">
                             <table class="dataTable-table" id="datatablesProduct">
                                 <thead>
                                     <tr>
+                                        <th>No</th>
                                         <th>Type</th>
                                         <th>Name</th>
                                         <th>Description</th>
                                         <th>Image</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>Type</th>
-                                        <th>Name</th>
-                                        <th>Description</th>
-                                        <th>Image</th>
-                                    </tr>
-                                </tfoot>
                                 <tbody>
-                                    @foreach($products as $product)
+                                    <?php $i=0;
+                                    foreach($products as $product): $i++?>
                                     <tr>
+                                        <td>{{ $i }}</td>
                                         <td>{{ $product->category_name }}</td>
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->description }}</td>
-                                        <td> <img width="400px" src="{{ $product->product_image }}" alt="{{ $product->description }}"></td>
+                                        <td> <img width="200px" src="{{ $product->product_image }}" alt="{{ $product->description }}"></td>
+                                        <td style="width: 150px;">
+                                            <a href="" class="btn btn-info">Edit</a>
+                                            <a href="" class="btn btn-danger">Delete</a>
+                                        </td>
                                     </tr>
-                                    @endforeach
+                                    <?php endforeach ?>
                                 </tbody>
                             </table>
                         </div>

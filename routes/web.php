@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
+use App\Models\Address;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -102,35 +103,13 @@ Route::prefix('admin')->middleware(['isAdmin'])->group(function() {
     Route::get('/user', [AdminController::class, 'users'])->name('adminUser');
     Route::get('/products', [AdminController::class, 'products'])->name('adminProduct');
     Route::get('/orders', [AdminController::class, 'orders'])->name('adminOrder');
+    Route::get('/shoppings', [AdminController::class, 'shoppings'])->name('adminShop');
+    Route::get('/createUser', [AdminController::class, 'createUser'])->name('createUser');
+    Route::get('/editUser', [AdminController::class, 'loadEditForm'])->name('loadEditForm');
 
-    Route::post('/addUser', [AdminController::class, 'addUser'])->name('addUser');
-    Route::post('/deleteUser', [AdminController::class, 'deleteUser'])->name('deleteUser');
-    Route::post('/updateUser', [AdminController::class, 'updateUser'])->name('updateUser');
+    Route::post('/insertUser', [AdminController::class, 'insertUser'])->name('insertUser');
+    Route::post('/destroyUser', [AdminController::class, 'destroyUser'])->name('destroyUser');
+    Route::post('editUser', [AdminController::class, 'editUser'])->name('editUser');
 });
 
-// Route::prefix('/admin')->middleware('isAdmin')->group(function(){
-//     // Admin - get View
-//     Route::get('/', [AdminController::class, 'index'])->name('adminView');
-//     Route::get('/user', [AdminController::class, 'user'])->name('adminUser');
-//     Route::get('/ticket', [AdminController::class, 'ticket'])->name('adminTicket');
-//     Route::get('/tour', [AdminController::class, 'tour'])->name('adminTour');
-//     Route::get('/blog', [AdminController::class, 'blog'])->name('adminBlog');
-//     // Admin - add
-//     Route::post('/addUser', [AdminController::class, 'addUser'])->name('addUser');
-//     Route::post('/addTour', [AdminController::class, 'addTour'])->name('addTour');
-//     Route::post('/addTicket', [AdminController::class, 'addTicket'])->name('addTicket');
-//     Route::post('/addBlog', [AdminController::class, 'addBlog'])->name('addBlog');
-//     // Admin - delete
-//     Route::post('/deleteTour', [AdminController::class, 'deleteTour'])->name('deleteTour');
-//     Route::post('/deleteTicket', [AdminController::class, 'deleteTicket'])->name('deleteTicket');
-//     Route::post('/deleteBlog', [AdminController::class, 'deleteBlog'])->name('deleteBlog');
-//     Route::post('/deleteUser', [AdminController::class, 'deleteUser'])->name('deleteUser');
-//     // Admin - edit
-//     Route::post('/updateTour', [AdminController::class, 'updateTour'])->name('updateTour');
-//     Route::post('/updateBlog', [AdminController::class, 'updateBlog'])->name('updateBlog');
-//     Route::post('/updateTicket', [AdminController::class, 'updateTicket'])->name('updateTicket');
-//     Route::post('/updateUser', [AdminController::class, 'updateUser'])->name('updateUser');
-//     // Admin - contact
-//     Route::get('/contact', [AdminController::class, 'contact'])->name('adminContact');
-//     Route::post('/contact', [AdminController::class, 'deletecontact']);
-// });
+

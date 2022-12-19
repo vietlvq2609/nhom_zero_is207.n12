@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Product;
+use Illuminate\Support\Facades\Redis;
+use Symfony\Component\HttpFoundation\RateLimiter\RequestRateLimiterInterface;
 
 class AdminController extends Controller
 {
@@ -36,7 +38,7 @@ class AdminController extends Controller
     public function users()
     {
         $users = DB::table('users')
-        ->select('name', 'avatar', 'email_address','phone_number')
+        ->select('id', 'name', 'avatar', 'email_address','phone_number')
         ->get();
         return view('admin.users', [
             'users' => $users
@@ -45,27 +47,40 @@ class AdminController extends Controller
 
 
     // insert 
-    public function addUser(Request $request)
+    public function createUser()
     {
-        
-        $formfield = $request->validate([
-            'name' => 'required',
-            'email_address' => 'required',
-            'phone_number' =>'required',
-            'password' => 'required',
-            'avatar' => 'required',
-        ]);
+        return view('admin.createUser');
+    }
 
-        // Hash Password
-        $formfield['password'] = bcrypt($formfield['password']);
+    public function insertUser(Request $request)
+    {
+        $value = new User();
+        $value->name = $request['name'];
+        $value->avatar = $request['avatar'];
+        $value->email_address = $request['email'];
+        $value->password = $request['password'];
+        $value->phone_number = $request['phone'];
 
-        User::create($formfield);
+        $value['password'] = bcrypt($value['password']);
 
-        return back()->with('message',"Thêm thành công");
+        // DB::table('users')->insert([
+        //     'name' => $value['name'],
+        //     'avatar' => $value['avatar'],
+        //     'email_address' => $value['email_address'],
+        //     'password' => $value['password'],
+        //     'phone_number' => $value['phone_number']
+        // ]);
+
+        $value->save();
+
+        return redirect('admin/user')->with('message', "Inserted");
     }
 
     // update
-    
+    public function loadEditForm($id)
+    {
+        return view('admin.editUser');
+    }
 
     //delete
     public function deleteUser(Request $request)
@@ -98,5 +113,20 @@ class AdminController extends Controller
         ]);
     }
     
+    // Shoppings
+    public function shoppings()
+    {
+        $shoppings = DB::table('shop_orders')
+        ->join('users', 'shop_orders.user_id', '=', 'users.id')
+        ->join('payment_types', 'shop_orders.payment_method_id', '=', 'payment_types.id')
+        ->join('shipping_methods', 'shop_orders.shipping_method', '=', 'shipping_methods.id')
+        ->join('order_statuses', 'shop_orders.order_status', '=', 'order_statuses.id')
+        ->select('users.name as name_user', 'payment_types.value as name_type', 'shop_orders.shipping_address', 
+        'shipping_methods.name as name_method', 'order_statuses.status as name_status', 'shop_orders.order_date', 'shop_orders.order_total')
+        ->get();
+        return view('admin.shoppings', [
+            'shoppings' => $shoppings
+        ]);
+    }
 
 }

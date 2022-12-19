@@ -48,7 +48,8 @@
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="{{ route('adminUser')}}">Users</a>
                                 <a class="nav-link" href="{{ route('adminProduct')}}">Products</a>
-                                <a href="{{ route('adminOrder') }}" class="nav-link">Orders</a>
+                                <a class="nav-link" href="{{ route('adminOrder') }}">Orders</a>
+                                <a class="nav-link" href="{{ route('adminShop')}}">Shoppings</a>
                             </nav>
                         </div>
                         
@@ -108,7 +109,7 @@
                             <div class="card bg-danger text-white mb-4">
                                 <div class="card-body">Shoppings</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="#">Đã có:</a>
+                                    <a class="small text-white stretched-link" href="{{ route('adminShop') }}">Đã có:</a>
                                     <div class="small text-white">{{ $shopping_count }}</div>
                                 </div>
                             </div>

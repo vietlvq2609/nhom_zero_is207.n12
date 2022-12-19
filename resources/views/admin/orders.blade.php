@@ -48,7 +48,8 @@
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="{{ route('adminUser')}}">Users</a>
                                 <a class="nav-link" href="{{ route('adminProduct')}}">Products</a>
-                                <a href="{{ route('adminOrder') }}" class="nav-link">Orders</a>
+                                <a class="nav-link" href="{{ route('adminOrder') }}">Orders</a>
+                                <a class="nav-link" href="{{ route('adminShop')}}">Shoppings</a>
                             </nav>
                         </div>
                         
@@ -72,27 +73,11 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Management User</h1>
-                    <!--  -->
-                        <!-- <div class="col-xl-3 col-md-6">
-                            <div class="card bg-danger text-white mb-4">
-                                <div class="card-body">More</div>
-                                <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="#">View Details</a>
-                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                </div>
-                            </div>
-                        </div> -->
-                    </div>
-                    <!-- <div class="btn-group btn-action" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-primary">Insert</button>
-                        <button type="button" class="btn btn-primary">Update</button>
-                        <button type="button" class="btn btn-primary">Delete</button>
-                    </div> -->
+                    <h1 class="mt-4">Management Orders</h1>
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
-                            DataTable Information Order
+                            DataTable Information Orders
                         </div>
                         <div class="card-body">
                             <table class="dataTable-table" id="datatablesUser">
