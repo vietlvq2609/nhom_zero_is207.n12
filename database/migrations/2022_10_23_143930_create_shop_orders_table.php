@@ -17,10 +17,10 @@ return new class extends Migration
             Schema::create('shop_orders', function (Blueprint $table) {
                 $table->id();
                 $table->foreignId('user_id')->constrained()->onDelete('cascade');
-                $table->foreignId('payment_method_id')->constrained()->onDelete('cascade');
-                $table->foreignId('shipping_address')->constrained()->onDelete('cascade');
-                $table->foreignId('shipping_method')->constrained()->onDelete('cascade');
-                $table->foreignId('order_status')->constrained()->onDelete('cascade');
+                $table->foreignId('payment_method_id')->constrained('user_payment_methods')->onDelete('cascade');
+                $table->foreignId('shipping_address')->constrained('addresses')->onDelete('cascade');
+                $table->foreignId('shipping_method')->constrained('shipping_methods')->onDelete('cascade');
+                $table->foreignId('order_status')->constrained('order_statuses')->onDelete('cascade');
                 $table->string('order_date');
                 $table->integer('order_total');
                 $table->timestamps();

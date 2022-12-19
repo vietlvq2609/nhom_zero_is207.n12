@@ -16,7 +16,7 @@ return new class extends Migration
         if (!Schema::hasTable('products')) {
             Schema::create('products', function (Blueprint $table) {
                 $table->id();
-                $table->foreignId('category_id')->unsigned()->constrained()->onDelete('cascade');
+                $table->foreignId('category_id')->unsigned()->constrained('product_categories')->onDelete('cascade');
                 $table->string('name');
                 $table->string('description')->nullable();
                 $table->string('product_image');

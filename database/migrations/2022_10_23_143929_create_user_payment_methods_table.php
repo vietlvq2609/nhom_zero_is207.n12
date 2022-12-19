@@ -16,8 +16,8 @@ return new class extends Migration
         if (!Schema::hasTable('user_payment_methods')) {
             Schema::create('user_payment_methods', function (Blueprint $table) {
                 $table->id();
-                $table->foreignId('user_id')->constrained()->onDelete('cascade');
-                $table->foreignId('payment_type_id')->constrained()->onDelete('cascade');
+                $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+                $table->foreignId('payment_type_id')->constrained('payment_types')->onDelete('cascade');
                 $table->string('provider');
                 $table->string('account_number');
                 $table->boolean('is_default')->default(0);

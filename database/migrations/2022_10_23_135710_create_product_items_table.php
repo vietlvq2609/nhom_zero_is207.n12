@@ -16,7 +16,7 @@ return new class extends Migration
         if (!Schema::hasTable('product_items')) {
             Schema::create('product_items', function (Blueprint $table) {
                 $table->id();
-                $table->foreignId('product_id')->constrained()->onDelete('cascade');
+                $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
                 $table->smallInteger('qty_in_stock');
                 $table->integer('price');
                 $table->timestamps();

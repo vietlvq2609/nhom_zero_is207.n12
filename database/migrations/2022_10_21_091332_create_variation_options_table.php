@@ -16,7 +16,7 @@ return new class extends Migration
         if (!Schema::hasTable('variation_options')) {
             Schema::create('variation_options', function (Blueprint $table) {
                 $table->id();
-                $table->foreignId('variation_id')->constrained()->onDelete('cascade');
+                $table->foreignId('variation_id')->constrained('variations')->onDelete('cascade');
                 $table->string('value');
                 $table->timestamps();
             });

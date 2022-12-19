@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('promotion_categories')) {
-            Schema::create('promotion_categories', function (Blueprint $table) {
-                $table->foreignId('category_id')->constrained()->onDelete('cascade');
-                $table->foreignId('promotion_id')->constrained()->onDelete('cascade');
+        if (!Schema::hasTable('user_addresses')) {
+            Schema::create('user_addresses', function (Blueprint $table) {
+                $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+                $table->foreignId('address_id')->constrained('addresses')->onDelete('cascade');
+                $table->boolean('is_default')->default(false);
                 $table->timestamps();
             });
         }
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('promotion_categories');
+        Schema::dropIfExists('user_addresses');
     }
 };

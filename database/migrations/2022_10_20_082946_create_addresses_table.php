@@ -16,7 +16,7 @@ return new class extends Migration
         if (!Schema::hasTable('addresses')) {
             Schema::create('addresses', function (Blueprint $table) {
                 $table->id();
-                $table->foreignId('country_id')->constrained()->onDelete('cascade');
+                $table->foreignId('country_id')->constrained('countries')->onDelete('cascade');
                 $table->string('unit_number')->nullable();
                 $table->string('street_number')->nullable();
                 $table->string('address_line1');

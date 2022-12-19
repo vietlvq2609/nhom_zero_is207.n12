@@ -16,8 +16,8 @@ return new class extends Migration
         if (!Schema::hasTable('shopping_cart_items')) {
             Schema::create('shopping_cart_items', function (Blueprint $table) {
                 $table->id();
-                $table->foreignId('cart_id')->constrained()->onDelete('cascade');
-                $table->foreignId('product_item_id')->constrained()->onDelete('cascade');
+                $table->foreignId('cart_id')->constrained('shopping_carts')->onDelete('cascade');
+                $table->foreignId('product_item_id')->constrained('product_items')->onDelete('cascade');
                 $table->tinyInteger('qty');
                 $table->timestamps();
             });
