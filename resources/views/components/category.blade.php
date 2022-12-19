@@ -2,7 +2,7 @@
   <!-- categories -->
   <div class="container py-16">
       <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">Danh mục sản phẩm</h2>
-      <div class="grid grid-cols-3 gap-3">
+      <div class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 gap-3">
           @foreach($categories as $category)
           @unless($category->id == 1)
           <div class="relative rounded-sm overflow-hidden group h-40">
