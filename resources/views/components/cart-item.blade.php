@@ -10,17 +10,19 @@
 
     <!-- hình ảnh, tên, loại order -->
 
-    <a href="/products/{{ $item->product_id }}" class="flex w-3/5 items-center w-3/5">
+    <a href="/products/{{ $item->product_id }}" class="flex items-center w-3/5">
         <img src="{{ $item->product_image }}" class="w-16 h-16 object-contain">
-        <p class="p-2">{{ $item->product_name }}</p>
-        <p class="p-1 text-red-600 text-lg">{{ $item->variation_value }}</p>
+        <div class="flex-column">
+            <p class="p-2">{{ $item->product_name }}</p>
+            <p class="p-1 text-red-600 text-lg">{{ $item->variation_value }}</p>
+        </div>
     </a>
 
     <div class="flex justify-between items-center flex-1">
 
         <!-- giá cố định -->
 
-        <div class="font-semibold">{{ $item->price }}đ</div>
+        <div class="font-semibold">{{ $item->price }} đ</div>
 
         <!-- số lượng sản phẩm -->
 

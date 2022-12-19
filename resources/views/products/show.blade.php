@@ -88,7 +88,7 @@
     <!-- description -->
     <div class="container pb-16">
         <h3 class="border-b border-gray-200 font-roboto text-gray-800 pb-3 font-medium">Chi tiết sản phẩm</h3>
-        <div class="w-3/5 pt-6">
+        <div class="w-full pt-6">
             <div class="text-gray-600">
                 {{ $product_description }}
             </div>
@@ -131,10 +131,18 @@
                                 Bình luận: {{$review->comment}}
                             </p>
                         </div>
+                        <div class="text-gray-600 flex">
+                            <p class="text-gray-600 mr-2">
+                                Thời gian: {{ $review->day }} - {{$review->month }} - {{$review->year}}
+                            </p>
+                        </div>
                     </div>
                 </div>
                 @endforeach
             @endif
+        </div>
+        <div class="mt-8 w-screen items-center">
+            {{ $reviews->links() }}
         </div>
     </div>
     <!-- ./Comment -->

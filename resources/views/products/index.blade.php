@@ -2,13 +2,13 @@
     <x-breadcrumb text="Shop" />
 
     <!-- shop wrapper -->
-    <div class="container grid grid-cols-4 gap-6 pt-4 pb-16 items-start">
+    <div class="container grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-6 pt-4 pb-16 items-start m-auto md:w-full sm:w-full">
         <!-- sidebar -->
         <x-sidebar />
         <!-- ./sidebar -->
 
         <!-- products -->
-        <div class="col-span-3">
+        <div class="lg:col-span-3 md:col-span-2 sm:col-span-1">
             {{-- <div class="flex justify-end items-center mb-4">
                 <select name="sort" id="sort"
                     class="w-44 text-sm text-gray-600 py-3 px-4 border-gray-300 shadow-sm rounded focus:ring-primary focus:border-primary">
@@ -20,15 +20,11 @@
 
             <!-- hiện danh sách các product -->
             @unless(count($products) == 0)
-                <div class="grid grid-cols-3 gap-6">
+                <div class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 lg:gap-6 md:gap-2">
                     @foreach ($products as $product)
                         <x-product-card :product="$product" :product_price="$product_price" />
                     @endforeach
-                </div>
-                <div class="mt-8">
-                    {{ $products->links() }}
-                </div>
-                
+                </div> 
             @else
             <!-- báo lỗi khi không tìm thấy sản phẩm nào -->
                 <div class="flex justify-center items-center flex-col">
@@ -38,6 +34,9 @@
             @endunless
         </div>
         <!-- ./products -->
+        <div class="mt-8 w-screen items-center">
+            {{ $products->links() }}
+        </div>
     </div>
     <!-- ./shop wrapper -->
 </x-layout>

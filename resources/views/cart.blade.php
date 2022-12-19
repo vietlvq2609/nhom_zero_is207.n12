@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="container w-3/5">
+    <div class="container lg:w-3/5 md:w-10\/12 sm:w-10\/12">
         <h1 id="Gio_Hang" class="text-primary text-2xl font-semibold py-4">Giỏ hàng</h1>
 
         @php
@@ -70,7 +70,7 @@
                 <div class="flex">
                     
                     @foreach ($ship_methods as $ship_method)
-                        <div class="size-selector relative mr-8">
+                        <div class="size-selector relative lg:mr-8 md:mr-4 sm:mr-4">
                             <input type="radio" id="ship_method_{{$ship_method->id}}" name="ship_method" class="checked:hidden absolute bg-transparent border-none w-full h-full cursor-pointer"  
                                 value="{{$ship_method->price}}"
                                 onclick="chooseShippingMethod({{$ship_method->id}})">
@@ -98,7 +98,7 @@
 
                 <!-- Tổng tiền -->
 
-                <div class="flex py-3 px-5 justify-between w-2/5 ml-auto mt-8">
+                <div class="flex py-3 px-5 justify-between lg:w-2/5 md:w-1\/2 sm:w-1\/2 ml-auto mt-8">
                     <div class="uppercase text-blue-900 text-lg">Tổng cộng:</div>
                     <input type="hidden" id="saveTotalValue" name ="order_total" value="{{$total}}">
                     <div id="total">{{$total}} đ</div>

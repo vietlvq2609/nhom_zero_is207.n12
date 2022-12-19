@@ -2,10 +2,10 @@
     @php
     $QtyInPaymentMethodList = 0            
     @endphp
-    <div class="container w-3/5">
+    <div class="container lg:w-3/5 md:w-10\/12 sm:w-10\/12">
         <div class="flex items-center justify-between mb-4">
             <h1 class="text-primary text-2xl font-semibold py-4 ">Phương thức thanh toán</h1>
-            <a href="{{ route('user.addPaymentMethodView') }}" class="text-red-500 text-lg font-semibold">Thêm phương thức thanh toán mới</a>
+            <a href="{{ route('user.addPaymentMethodView') }}" class="text-red-500 text-lg font-semibold">Thêm</a>
         </div>
         <h2 class="text-primary text-2xl font-semibold py-4 ">Phương thức thanh toán mặc định:</h2>
 

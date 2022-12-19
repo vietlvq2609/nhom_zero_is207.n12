@@ -4,7 +4,7 @@
     <div class="container grid grid-cols-12 items-start gap-6 pt-4 pb-16">
 
         <!-- sidebar -->
-        <div class="col-span-3">
+        <div class="lg:col-span-3 md:col-span-6 sm:col-span-6">
             <div class="px-4 py-3 shadow flex items-center gap-4">
                 <div class="flex-shrink-0">
                     @if(!file_exists(public_path().'/assets/images/avatars/'.Auth::user()->avatar))
@@ -76,7 +76,7 @@
         <!-- ./sidebar -->
 
         <!-- info -->
-        <div class="col-span-9 grid grid-cols-3 gap-4">
+        <div class="lg:col-span-9 md:col-span-6 sm:col-span-6 grid lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1 gap-4">
 
             <div class="shadow rounded bg-white px-4 pt-6 pb-8">
                 <div class="flex items-center justify-between mb-4">

@@ -10,7 +10,7 @@
                 <input type="radio" id="defaultAddress_{{ $address->id }}" name="defaultAddress" class="checked:hidden absolute bg-transparent border-none w-full h-full cursor-pointer" checked
                     value="{{ $address->id }}"
                     onclick="checkDefault({{ $address->id }})">
-                <label for="defaultAddress" class="px-2 text-sm border border-gray-200 rounded-sm h-6 flex items-center justify-center shadow-sm text-gray-600">
+                <label for="defaultAddress" class=" px-2 lg:text-sm md:text-xs border border-gray-200 rounded-sm h-6 flex items-center justify-center shadow-sm text-gray-600">
                     Mặc định
                 </label>
             </div>
@@ -19,14 +19,14 @@
                 <input type="radio" id="defaultAddress_{{ $address->id }}" name="defaultAddress" class="checked:hidden absolute bg-transparent border-none w-full h-full cursor-pointer"
                     value="{{ $address->id }}"    
                     onclick="checkDefault({{ $address->id }})">
-                <label for="defaultAddress" class="px-2 text-sm border border-gray-200 rounded-sm h-6 flex items-center justify-center shadow-sm text-gray-600">
+                <label for="defaultAddress" class=" px-2 lg:text-sm md:text-xs border border-gray-200 rounded-sm h-6 flex items-center justify-center shadow-sm text-gray-600">
                     Mặc định
                 </label>
             </div>
         @endif
 
         <!-- các trường thông tin của địa chỉ -->
-        <div class="flex-column">
+        <div class="flex-column max-w-md max-w-sm">
             <div class="flex justify-between flex-2">
                 <div class="font-semibold">{{ $address->unit_number}}</div>
                 <div class="font-semibold">, {{ $address->street_number}}</div>

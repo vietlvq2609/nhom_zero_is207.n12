@@ -26,10 +26,14 @@
         @endif
 
         <!-- các trường thông tin của địa chỉ -->
-        <div class="font-semibold">{{ $payment->value }}</div>
-        <div class="font-semibold">{{ $payment->provider}}</div>
-        <div class="font-semibold">{{ $payment->account_number}}</div>
-        <!-- <div class="font-semibold">{{ $payment->expiry_date}}</div> -->
+        <div class="max-w-md max-w-sm">
+            <div class="flex justify-between flex-2">
+                <div class="font-semibold">{{ $payment->value }}</div>
+                <div class="font-semibold">{{ $payment->provider}}</div>
+                <div class="font-semibold">{{ $payment->account_number}}</div>
+                <!-- <div class="font-semibold">{{ $payment->expiry_date}}</div> -->
+            </div>
+        </div>
         <!-- nút xóa -->
         
         <div class="size-selector relative">

@@ -50,7 +50,7 @@
             </div>
         </div>
     
-        <div class="flex py-3 px-5 justify-between w-2/5 ml-auto mt-8">
+        <div class="flex py-3 px-5 justify-between lg:w-2/5  md:w-1\/2 sm:w-1\/2 ml-auto mt-8">
             <div class="uppercase text-blue-900 text-lg">Tổng cộng:</div>
             <div id="total">{{ $bill_total + $bill->ship_price}} đ</div>
         </div>
@@ -67,21 +67,21 @@
     </div>
     <div class="flex justify-end ">
         @if($bill->status == 2)
-        <a href="/cart/receive/{{$bill->id}}" class="ml-6 text-red-500 text-lg underline rounded p-1 hover:scale-105"
+        <a href="/cart/receive/{{$bill->id}}" class="ml-6 mb-4 text-red-500 text-lg underline rounded p-1 hover:scale-105"
             onclick="
                 if(!confirm('Xác nhận đã nhận đơn hàng')) 
                     event.preventDefault()">
             Xác nhận đã nhận hàng
         </a>
         @elseif ($bill->status == 4 || $bill->status == 5)
-        <a href="/cart/buyAgain/{{$bill->id}}" class="ml-6 text-red-500 text-lg underline rounded p-1 hover:scale-105"
+        <a href="/cart/buyAgain/{{$bill->id}}" class="ml-6 mb-4 text-red-500 text-lg underline rounded p-1 hover:scale-105"
             onclick="
                 if(!confirm('Xác nhận mua lại đơn hàng! Các đơn hàng đã hết sản phẩm sẽ không được đưa vào giỏ hàng!')) 
                     event.preventDefault()">
             Mua lại
         </a>
         @else
-        <a href="/cart/cancle/{{$bill->id}}" class="ml-6 text-red-500 text-lg underline rounded p-1 hover:scale-105"
+        <a href="/cart/cancle/{{$bill->id}}" class="ml-6 mb-4 text-red-500 text-lg underline rounded p-1 hover:scale-105"
             onclick="
                 if(!confirm('Xác nhận hủy đơn hàng!')) 
                     event.preventDefault()">

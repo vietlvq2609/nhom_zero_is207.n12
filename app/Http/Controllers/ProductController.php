@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Product_category;
+use App\Models\User_review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -51,7 +52,7 @@ class ProductController extends Controller
             ->select('product_item_id as id', 'value','price','qty_in_stock as qty')
             ->get();
 
-        $reviews = DB::table('user_reviews')
+        $reviews = DB::table('user_reviews')->latest('user_reviews.created_at')
         ->where('product_items.product_id', $product->id)
         ->join('users', 'users.id', '=' ,'user_reviews.user_id')
         ->join('order_lines', 'order_lines.id', '=', 'user_reviews.ordered_product_id')
@@ -62,8 +63,11 @@ class ProductController extends Controller
             'users.avatar as avatar',
             'user_reviews.rating_value as rate',
             'user_reviews.comment as comment',
+            'user_reviews.created_at',
+            DB::raw('DAY(user_reviews.created_at) day, MONTH(user_reviews.created_at) month,YEAR(user_reviews.created_at) year')
+            
             )
-        ->get();
+        ->paginate(10);
 
         $product_rate = 0;
         $review_count = 0;
@@ -92,7 +96,7 @@ class ProductController extends Controller
                 'categories' => Product_category::get(),
                 'product_rate' => $product_rate,
                 'review_count' => $review_count,
-                'reviews' => $reviews
+                'reviews' => $reviews,
             ]
         );
     }
