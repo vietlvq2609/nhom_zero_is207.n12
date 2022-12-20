@@ -28,27 +28,27 @@ class CategorySeeder extends Seeder
             ],
             [
                 'category_name' => 'Pizza',
-                'parent_category_id' => 3,
+                'parent_category_id' => 1,
                 'category_image' => "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Eq_it-na_pizza-margherita_sep2005_sml.jpg/800px-Eq_it-na_pizza-margherita_sep2005_sml.jpg",
             ],
             [
                 'category_name' => 'Salad',
-                'parent_category_id' => 4,
+                'parent_category_id' => 1,
                 'category_image' => "https://images.immediate.co.uk/production/volatile/sites/30/2014/05/Epic-summer-salad-hub-2646e6e.jpg"
             ],
             [
                 'category_name' => 'Mì Ý',
-                'parent_category_id' => 5,
+                'parent_category_id' => 1,
                 'category_image' => 'https://i1-giadinh.vnecdn.net/2022/04/20/Bc99-1650439459-8855-1650439557.jpg?w=0&h=0&q=100&dpr=2&fit=crop&s=iatvSHr9fwWEuRdqPKJHRg'
             ],
             [
                 'category_name' => 'Tráng miệng',
-                'parent_category_id' => 6,
+                'parent_category_id' => 1,
                 'category_image' => "https://suckhoedoisong.qltns.mediacdn.vn/Images/phamhiep/2016/08/09/1_11.jpg"
             ],
             [
                 'category_name' => 'Gà giòn',
-                'parent_category_id' => 7,
+                'parent_category_id' => 1,
                 'category_image' => "https://cdn.tgdd.vn/2021/07/CookProduct/9-1200x676.jpg"
             ],
         ]);
