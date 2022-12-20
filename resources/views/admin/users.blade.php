@@ -106,7 +106,7 @@
                                         <td>{{ $user->phone_number }}</td>
                                         <td>
                                             <a href="/admin/editUser/{{$user->id}}" class="btn btn-info">Edit</a>
-                                            <a href="{{route('loadEditForm')}}" class="btn btn-danger">Delete</a>
+                                            <a href="{{route('destroyUser')}}" class="btn btn-danger">Delete</a>
                                         </td>
                                     </tr>
                                     @endforeach

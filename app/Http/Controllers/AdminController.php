@@ -38,6 +38,7 @@ class AdminController extends Controller
     // Admin User
     public function users()
     {
+        
         $users = DB::table('users')
             ->select('id', 'name', 'avatar', 'email_address', 'phone_number')
             ->get();
