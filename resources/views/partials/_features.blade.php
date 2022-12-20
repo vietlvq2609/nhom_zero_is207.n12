@@ -1,5 +1,5 @@
 <!-- features -->
-<div class="container py-16">
+<div class="lg:container md:w-full sm:w-full py-16 sm:px-1">
     <div class="lg:w-10/12 md:w-full sm:w-full grid grid-cols-3 gap-6 mx-auto justify-center">
         <div class="border border-primary rounded-sm px-3 py-6 flex justify-center items-center gap-5">
             <img src="assets/images/icons/delivery-van.svg" alt="Delivery" class="w-12 h-12 object-contain">
