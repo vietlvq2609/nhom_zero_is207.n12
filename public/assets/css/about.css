@@ -3,12 +3,13 @@
 }
 
 .body {
-    font-family: 'Times New Roman', Times, serif;
     width: 100%;
     font-size: 16px;
 }
 
-.header, .main {
+.header,
+.main {
+    padding-top: 50px;
     width: 80%;
     margin-left: auto;
     margin-right: auto;
@@ -17,9 +18,9 @@
 
 .header a {
     text-decoration: none;
-    font-size: 2rem;
+    font-size: 1.25rem;
     color: #c39738;
-    padding: 24px 20px;
+    padding: 14px 20px;
 }
 
 .header a:hover {
@@ -35,7 +36,7 @@
     font-size: 3rem;
     font-weight: 300;
     margin-bottom: 32px;
-    margin-top: 16px;
+    margin-top: 50px;
 }
 
 .main img {
@@ -78,7 +79,6 @@
 }
 
 .slideMember img {
-    
     height: auto;
     width: 250px;
     margin-left: auto;
@@ -95,7 +95,8 @@
     margin: auto;
 }
 
-.prev, .next {
+.prev,
+.next {
     cursor: pointer;
     position: absolute;
     top: 50%;
@@ -106,7 +107,7 @@
     font-weight: bold;
     font-size: 18px;
     transition: 0.6s ease;
-    border-radius: 0 3px 3px 0 ;
+    border-radius: 0 3px 3px 0;
     user-select: none;
 }
 
@@ -120,8 +121,9 @@
     border-radius: 3px 0 0 3px;
 }
 
-.prev:hover, .next:hover {
-    background-color: rgba(0,0,0,0.8);
+.prev:hover,
+.next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
 .text {
@@ -145,7 +147,8 @@
     transition: background-color 0.6 ease;
 }
 
-.active, dot:hover {
+.active,
+dot:hover {
     background-color: #717171;
 }
 
@@ -155,12 +158,20 @@
 }
 
 @keyframes fade {
-    from {opacity: .4}
-    to {opacity: 1}
+    from {
+        opacity: 0.4;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 @media only screen and (max-with: 600px) {
-    .prev, .next, .text {font-size: 10px;}
+    .prev,
+    .next,
+    .text {
+        font-size: 10px;
+    }
 }
 
 .planContent {
@@ -174,4 +185,3 @@
 .planContent ul li {
     list-style-type: square;
 }
-

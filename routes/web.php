@@ -105,11 +105,11 @@ Route::prefix('admin')->middleware(['isAdmin'])->group(function() {
     Route::get('/orders', [AdminController::class, 'orders'])->name('adminOrder');
     Route::get('/shoppings', [AdminController::class, 'shoppings'])->name('adminShop');
     Route::get('/createUser', [AdminController::class, 'createUser'])->name('createUser');
-    Route::get('/editUser', [AdminController::class, 'loadEditForm'])->name('loadEditForm');
+    Route::get('/editUser/{id}', [AdminController::class, 'loadEditForm'])->name('loadEditForm');
 
     Route::post('/insertUser', [AdminController::class, 'insertUser'])->name('insertUser');
     Route::post('/destroyUser', [AdminController::class, 'destroyUser'])->name('destroyUser');
-    Route::post('editUser', [AdminController::class, 'editUser'])->name('editUser');
+    Route::post('/editUser', [AdminController::class, 'editUser'])->name('editUser');
 });
 
 

@@ -24,15 +24,15 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="name">Name</label>
-                                <input type="text" class="form-control" name="name" id="name">
+                                <input type="text" class="form-control" value="{{$user->name}}" name="name" id="name">
                             </div>
                             <div class="form-group">
                                 <label for="avatar">Avatar</label>
-                                <input type="text" class="form-control" name="avatar" id="avatar">
+                                <input type="text" class="form-control" value="{{$user->avatar}}" name="avatar" id="avatar">
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" class="form-control" name="email" id="email">
+                                <input type="email" class="form-control"  value="{{$user->email}}" name="email" id="email">
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
