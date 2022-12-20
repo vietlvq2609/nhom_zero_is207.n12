@@ -4,15 +4,15 @@
     <link rel="stylesheet" href="/assets/css/about.css">
     
 
-    <body>
-        <header>
+    <body class="body">
+        <header class="header">
             <a href="#introduce">Giới thiệu</a>
             <a href="#goal">Mục tiêu</a>
             <a href="#members">Thành viên</a>
             <a href="#plan">Kế hoạch</a>
             <a href="#contact">Liên hệ</a>
         </header>
-        <main>
+        <main class="main">
             <div id="introduce" class="introduce">
                 <h2>Giới thiệu đồ án</h2>
                 <div class="intro-body">

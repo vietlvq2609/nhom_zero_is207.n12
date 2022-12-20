@@ -2,43 +2,43 @@
     box-sizing: border-box;
 }
 
-body {
+.body {
     font-family: 'Times New Roman', Times, serif;
     width: 100%;
     font-size: 16px;
 }
 
-header, main {
+.header, .main {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
 }
 
-header a {
+.header a {
     text-decoration: none;
     font-size: 2rem;
     color: #c39738;
     padding: 24px 20px;
 }
 
-header a:hover {
+.header a:hover {
     color: black;
     border-bottom: 2px solid #000000;
 }
 
-main {
+.main {
     padding: 64px 0;
 }
 
-main h2 {
+.main h2 {
     font-size: 3rem;
     font-weight: 300;
     margin-bottom: 32px;
     margin-top: 16px;
 }
 
-main img {
+.main img {
     width: 100%;
 }
 
