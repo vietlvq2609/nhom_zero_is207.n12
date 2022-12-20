@@ -109,7 +109,7 @@ Route::prefix('admin')->middleware(['isAdmin'])->group(function() {
 
     Route::post('/insertUser', [AdminController::class, 'insertUser'])->name('insertUser');
     Route::post('/destroyUser', [AdminController::class, 'destroyUser'])->name('destroyUser');
-    Route::post('editUser', [AdminController::class, 'editUser'])->name('editUser');
+    
 });
 
 

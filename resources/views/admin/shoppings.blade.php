@@ -98,7 +98,7 @@
                                     <tr>
                                         <td>{{ $shopping->name_user }}</td>
                                         <td>{{ $shopping->name_type }}</td>
-                                        <td>{{ $shopping->shipping_address }}</td>
+                                        <td>{{ $shopping->address }}</td>
                                         <td>{{ $shopping->name_method }}</td>
                                         <td>{{ $shopping->name_status }}</td>
                                         <td>{{ $shopping->order_date }}</td>

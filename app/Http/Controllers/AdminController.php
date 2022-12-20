@@ -121,9 +121,18 @@ class AdminController extends Controller
         ->join('payment_types', 'shop_orders.payment_method_id', '=', 'payment_types.id')
         ->join('shipping_methods', 'shop_orders.shipping_method', '=', 'shipping_methods.id')
         ->join('order_statuses', 'shop_orders.order_status', '=', 'order_statuses.id')
-        ->select('users.name as name_user', 'payment_types.value as name_type', 'shop_orders.shipping_address', 
+        ->join('addresses', 'shop_orders.shipping_address', '=', 'addresses.id')
+        ->select('users.name as name_user', 'payment_types.value as name_type', 'shop_orders.shipping_address as address', 
         'shipping_methods.name as name_method', 'order_statuses.status as name_status', 'shop_orders.order_date', 'shop_orders.order_total')
         ->get();
+
+        $addresses = DB::table('addresses') 
+        ->distinct()->where('id', '=', '$shoppings.address')
+        ->get();
+        echo '{{ $addresses }}';
+
+        $shoppings->address = $addresses;
+
         return view('admin.shoppings', [
             'shoppings' => $shoppings
         ]);
