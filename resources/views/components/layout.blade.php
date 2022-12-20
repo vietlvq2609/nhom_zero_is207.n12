@@ -8,7 +8,6 @@
     <title>ZeroFood - Ăn ngon mặc đẹp</title>
 
     <link rel="shortcut icon" href="/assets/images/favicon/favicon.ico" type="image/x-icon">
-
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -56,32 +55,34 @@
                 @auth
                     @php
                         $isAdmin = DB::table('user_roles')
-                                ->where('user_id', auth()->id())
-                                ->first()
+                            ->where('user_id', auth()->id())
+                            ->first();
                     @endphp
-                    @if($isAdmin->role_id == 1)
-                    <a href="{{route('admin.dashboard')}}" class="text-center text-gray-700 hover:text-primary transition relative">
-                        <div class="text-2xl">
-                            <i class="fa-solid fa-gauge-high"></i>
-                        </div>
-                        <div class="text-xs leading-3">Dashboard</div>
-                    </a>
+                    @if ($isAdmin->role_id == 1)
+                        <a href="{{ route('admin.dashboard') }}"
+                            class="text-center text-gray-700 hover:text-primary transition relative">
+                            <div class="text-2xl">
+                                <i class="fa-solid fa-gauge-high"></i>
+                            </div>
+                            <div class="text-xs leading-3">Dashboard</div>
+                        </a>
                     @endif
                     <a href="/cart" class="text-center text-gray-700 hover:text-primary transition relative">
                         <div class="text-2xl">
                             <i class="fa-solid fa-bag-shopping"></i>
                         </div>
                         <div class="text-xs leading-3">Giỏ hàng</div>
-                        @php 
-                        $total_qty = 0;
-                        if (Auth::user() ?? null)
-                        {
-                            $qties = DB::select('select qty from shopping_cart_items, shopping_carts where shopping_cart_items.cart_id = shopping_carts.id and shopping_carts.user_id = ?', [auth()->id()]);
-                            foreach($qties as $qty)
-                            $total_qty +=  $qty->qty;
-                        }
+                        @php
+                            $total_qty = 0;
+                            if (Auth::user() ?? null) {
+                                $qties = DB::select('select qty from shopping_cart_items, shopping_carts where shopping_cart_items.cart_id = shopping_carts.id and shopping_carts.user_id = ?', [auth()->id()]);
+                                foreach ($qties as $qty) {
+                                    $total_qty += $qty->qty;
+                                }
+                            }
                         @endphp
-                        <div id="cart_qty" class="absolute right-0 top-0 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
+                        <div id="cart_qty"
+                            class="absolute right-0 top-0 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
                             <input type="hidden" id="saveTotal_qty" value="{{ $total_qty }}">
                             {{ $total_qty }}
                         </div>
@@ -103,7 +104,7 @@
                             class="inline-block bg-primary rounded py-1 px-2 text-gray-200 hover:brightness-95 text-sm transition">
                             <i class="fa-solid fa-right-to-bracket"></i>
                             <span>Đăng nhập</span>
-                        </a> 
+                        </a>
                     </div>
                 @endauth
             </div>
@@ -193,10 +194,10 @@
     <script>
         var check_has_cart_qty = document.getElementById('saveTotal_qty').value
         var get_cart_qty = document.getElementById('cart_qty')
-        if (check_has_cart_qty == 0)  
+        if (check_has_cart_qty == 0)
             get_cart_qty = document.getElementById('cart_qty').classList.add('hidden');
     </script>
-    
+
 </body>
 
 </html>

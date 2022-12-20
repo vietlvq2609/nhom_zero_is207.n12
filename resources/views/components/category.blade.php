@@ -1,4 +1,4 @@
-  @props(['categories']);
+  @props(['categories'])
   <!-- categories -->
   <div class="container py-16">
       <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">Danh mục sản phẩm</h2>

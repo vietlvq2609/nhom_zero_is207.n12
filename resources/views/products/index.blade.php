@@ -2,7 +2,7 @@
     <x-breadcrumb text="Shop" />
 
     <!-- shop wrapper -->
-    <div class="container grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-6 pt-4 pb-16 items-start m-auto md:w-full sm:w-full">
+    <div class="lg:container md:w-screen sm:container sm:px-1 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 lg:gap-6 md:gap-2 sm:gap-6 pt-4 pb-16 items-start m-auto">
         <!-- sidebar -->
         <x-sidebar />
         <!-- ./sidebar -->

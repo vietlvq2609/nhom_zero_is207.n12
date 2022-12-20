@@ -12,19 +12,20 @@ use Symfony\Component\HttpFoundation\RateLimiter\RequestRateLimiterInterface;
 class AdminController extends Controller
 {
     // Render admin view
-    public function index() {
+    public function index()
+    {
         // Count user, products, orders
         $users = DB::table('users')
-        ->count('*');
+            ->count('*');
 
         $products = DB::table('products')
-        ->count('*');
+            ->count('*');
 
         $orders = DB::table('order_lines')
-        ->count('*');
+            ->count('*');
 
         $shoppings = DB::table('shop_orders')
-        ->count('*');
+            ->count('*');
 
         return view('admin.index', [
             'user_count' => $users,
@@ -37,9 +38,10 @@ class AdminController extends Controller
     // Admin User
     public function users()
     {
+        
         $users = DB::table('users')
-        ->select('id', 'name', 'avatar', 'email_address','phone_number')
-        ->get();
+            ->select('id', 'name', 'avatar', 'email_address', 'phone_number')
+            ->get();
         return view('admin.users', [
             'users' => $users
         ]);
@@ -77,25 +79,27 @@ class AdminController extends Controller
     }
 
     // update
-    public function loadEditForm($id)
+    public function loadEditForm(User $id)
     {
-        return view('admin.editUser');
+        return view('admin.editUser', [
+            "user" => $id
+        ]);
     }
 
     //delete
     public function deleteUser(Request $request)
     {
-       DB::delete('delete from users where id = ?', [ $request->user_id ]);
-        return back()->with('message',"Xóa thành công");
+        DB::delete('delete from users where id = ?', [$request->user_id]);
+        return back()->with('message', "Xóa thành công");
     }
 
     // Products
     public function products()
     {
         $products = DB::table('products')
-        ->join('product_categories', 'products.category_id', '=', 'product_categories.id')
-        ->select('product_categories.category_name', 'name', 'description', 'product_image')
-        ->get();
+            ->join('product_categories', 'products.category_id', '=', 'product_categories.id')
+            ->select('product_categories.category_name', 'name', 'description', 'product_image')
+            ->get();
         return view('admin.products', [
             'products' => $products
         ]);
@@ -105,14 +109,14 @@ class AdminController extends Controller
     public function orders()
     {
         $orders = DB::table('order_lines')
-        ->join('products', 'order_lines.product_item_id', '=', 'products.id')
-        ->select('products.name','order_lines.order_id', 'order_lines.qty', 'order_lines.price')
-        ->get();
+            ->join('products', 'order_lines.product_item_id', '=', 'products.id')
+            ->select('products.name', 'order_lines.order_id', 'order_lines.qty', 'order_lines.price')
+            ->get();
         return view('admin.orders', [
             'orders' => $orders
         ]);
     }
-    
+
     // Shoppings
     public function shoppings()
     {
@@ -121,21 +125,11 @@ class AdminController extends Controller
         ->join('payment_types', 'shop_orders.payment_method_id', '=', 'payment_types.id')
         ->join('shipping_methods', 'shop_orders.shipping_method', '=', 'shipping_methods.id')
         ->join('order_statuses', 'shop_orders.order_status', '=', 'order_statuses.id')
-        ->join('addresses', 'shop_orders.shipping_address', '=', 'addresses.id')
-        ->select('users.name as name_user', 'payment_types.value as name_type', 'shop_orders.shipping_address as address', 
+        ->select('users.name as name_user', 'payment_types.value as name_type', 'shop_orders.shipping_address', 
         'shipping_methods.name as name_method', 'order_statuses.status as name_status', 'shop_orders.order_date', 'shop_orders.order_total')
         ->get();
-
-        $addresses = DB::table('addresses') 
-        ->distinct()->where('id', '=', '$shoppings.address')
-        ->get();
-        echo '{{ $addresses }}';
-
-        $shoppings->address = $addresses;
-
         return view('admin.shoppings', [
             'shoppings' => $shoppings
         ]);
     }
-
 }

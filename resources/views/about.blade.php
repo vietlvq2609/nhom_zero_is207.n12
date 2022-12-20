@@ -1,15 +1,13 @@
 <x-layout>
-
-
     <link rel="stylesheet" href="/assets/css/about.css">
     
-
-    <body>
-        <header>
+    <div class="body">
+        <div class="header">
             <a href="#introduce">Giới thiệu</a>
             <a href="#goal">Mục tiêu</a>
             <a href="#members">Thành viên</a>
             <a href="#plan">Kế hoạch</a>
+        
         </header>
         <main>
             <div id="introduce" class="introduce">
@@ -107,7 +105,7 @@
                     </ul>
                 </div>
             </div>
-        </main>
+        </div>
 
         <script>
             let slideIndex = 1;
@@ -142,7 +140,7 @@
             }
         </script>
 
-    </body>
+    </div>
 
     </html>
 </x-layout>

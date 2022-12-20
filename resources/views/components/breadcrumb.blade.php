@@ -1,4 +1,4 @@
-@props(['text']);
+@props(['text'])
 
 <!-- breadcrumb -->
 <div class="container py-4 flex items-center gap-3">

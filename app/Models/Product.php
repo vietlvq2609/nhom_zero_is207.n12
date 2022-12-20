@@ -19,7 +19,10 @@ class Product extends Model
     public function scopeCategory($query, array $filters)
     {
         if ($filters['category'] ?? false) {
-            $query->whereIn('category_id', explode(',', request('category')));
+            $query->whereIn('category_id', explode(',', request('category')))
+            ->orWhereHas('product_category', function (Builder $query) {
+                $query->whereIn('parent_category_id', explode(',', request('category')));
+            });
         }
     }
     public function scopeMinPrice($query, array $filters)
