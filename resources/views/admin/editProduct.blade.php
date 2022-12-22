@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cập nhật người dùng</title>
+    <title>Cập nhật sản phẩm</title>
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
@@ -13,30 +13,26 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <h3>Cập nhật</h3>
+                        <h3>Cập nhật sản phẩm</h3>
                     </div>
                 </div>
             </div>
             <div class="card-body">
-                <form action="{{route('insertUser', ['user' => $user])}}" method="POST">
+                <form action="{{route('updateProduct', ['product' => $product])}}" method="POST">
                     @csrf 
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="name">Tên</label>
-                                <input type="text" class="form-control" value="{{$user->name}}" name="name" id="name">
+                                <input type="text" class="form-control" value="{{$product->name}}" name="name" id="name">
                             </div>
                             <div class="form-group">
-                                <label for="avatar">Avatar</label>
-                                <input type="text" class="form-control" value="{{$user->avatar}}" name="avatar" id="avatar">
+                                <label for="description">Mô tả</label>
+                                <input type="text" class="form-control" value="{{$product->description}}" name="description" id="description">
                             </div>
                             <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control"  value="{{$user->email_address}}" name="email" id="email">
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Số điện thoại</label>
-                                <input type="text" class="form-control" value="{{$user->phone_number}}" name="phone" id="phone">
+                                <label for="image">Hình ảnh minh họa</label>
+                                <input type="text" class="form-control" value="{{$product->product_image}}" name="image" id="image">
                             </div>
                             <div class="form-group text-center">
                                 <button class="btn btn-success mt-2" type="submit">Lưu</button>

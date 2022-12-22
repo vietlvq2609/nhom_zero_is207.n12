@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Insert User</title>
+    <title>Thêm sản phẩm</title>
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
@@ -13,37 +13,45 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <h3>Insert user</h3>
+                        <h3>Thêm sản phẩm</h3>
                     </div>
                 </div>
             </div>
             <div class="card-body">
-                <form action="{{route('insertUser')}}" method="POST">
+                <form action="{{route('insertProduct')}}" method="POST">
                     @csrf 
                     <div class="row">
                         <div class="col-md-12">
+
+                        @php
+                            $product_types = DB::table('product_categories')
+                                ->select('id','category_name')
+                                ->get();
+                        @endphp
                             <div class="form-group">
-                                <label for="name">Name</label>
+                                <label for="type_id">Loại</label>
+                                <select name="type_id" id="payment_type">
+                                @foreach ($product_types as $product_type)
+                                    <option value="{{$product_type->id}}" selected>
+                                        {{$product_type->category_name}}
+                                    </option>
+                                @endforeach
+                        </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Tên</label>
                                 <input type="text" class="form-control" name="name" id="name">
                             </div>
                             <div class="form-group">
-                                <label for="avatar">Avatar</label>
-                                <input type="text" class="form-control" name="avatar" id="avatar">
+                                <label for="description">Mô tả</label>
+                                <input type="text" class="form-control" name="description" id="description">
                             </div>
                             <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control" name="email" id="email">
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" class="form-control" name="password" id="password">
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Phone Number</label>
-                                <input type="text" class="form-control" name="phone" id="phone">
+                                <label for="image">Hình ảnh minh họa</label>
+                                <input type="text" class="form-control" name="image" id="image">
                             </div>
                             <div class="form-group text-center">
-                                <button class="btn btn-success mt-2" type="submit">Save</button>
+                                <button class="btn btn-success mt-2" type="submit">Lưu</button>
                             </div>
                         </div>
                     </div>

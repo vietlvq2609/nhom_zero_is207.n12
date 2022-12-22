@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Product;
+use App\Models\Product_category;
 use Illuminate\Support\Facades\Redis;
 use Symfony\Component\HttpFoundation\RateLimiter\RequestRateLimiterInterface;
 
@@ -75,7 +76,7 @@ class AdminController extends Controller
 
         $value->save();
 
-        return redirect('admin/user')->with('message', "Inserted");
+        return redirect('admin/user')->with('message', "Thêm thành công");
     }
 
     // update
@@ -86,10 +87,24 @@ class AdminController extends Controller
         ]);
     }
 
-    //delete
-    public function deleteUser(Request $request)
+    public function updateUser(Request $request, $id)
     {
-        DB::delete('delete from users where id = ?', [$request->user_id]);
+        DB::table('users')->where('id', '=', $id)->delete();
+        $user = DB::table('users')->where('id', '=', $id)->get();
+        $user->name = $request->name;
+        $user->avatar = $request->avatar;
+        $user->email_address = $request->email;
+        $user->phone_number = $request->phone;
+        
+        return redirect('admin/user')->with('message', "Sửa thành công");
+    }
+
+
+
+    //delete
+    public function destroyUser($id)
+    {
+        DB::table('users')->where('id', '=', $id)->delete();
         return back()->with('message', "Xóa thành công");
     }
 
@@ -98,11 +113,56 @@ class AdminController extends Controller
     {
         $products = DB::table('products')
             ->join('product_categories', 'products.category_id', '=', 'product_categories.id')
-            ->select('product_categories.category_name', 'name', 'description', 'product_image')
+            ->select('products.id', 'product_categories.category_name', 'name', 'description', 'product_image')
             ->get();
         return view('admin.products', [
             'products' => $products
         ]);
+    }
+
+    // insert
+    public function createProduct()
+    {
+        return view('admin.createProduct');
+    }
+
+    public function insertProduct(Request $request)
+    {   
+
+        $value = new Product();
+        $value->category_id = $request->type_id;
+        $value->name = $request->name;
+        $value->description = $request->description;
+        $value->product_image = $request->image;
+
+        $value->save();
+        return redirect('admin/products')->with('message', "Sửa thành công");
+    }
+
+    // update
+    public function loadEditProduct($id)
+    {
+        return view('admin.editProduct', [
+            "product" => $id
+        ]);
+    }
+
+    public function updateProduct(Request $request, $id)
+    {
+        $product = DB::table('products')->where('id', '=', $id)->get();
+        $value = new Product();
+        $value->name = $request->name;
+        $value->description = $request->description;
+        $value->product_image = $request->image;
+        
+        return redirect('admin/products')->with('message', "Sửa thành công");
+    }
+
+    // delete
+    public function destroyProduct($id)
+    {
+        DB::table('products')->where('id', '=', $id)->delete();
+        return back()->with('message', "Xóa thành công");
     }
 
     // Orders
@@ -110,7 +170,7 @@ class AdminController extends Controller
     {
         $orders = DB::table('order_lines')
             ->join('products', 'order_lines.product_item_id', '=', 'products.id')
-            ->select('products.name', 'order_lines.order_id', 'order_lines.qty', 'order_lines.price')
+            ->select('order_lines.id', 'products.name', 'order_lines.order_id', 'order_lines.qty', 'order_lines.price')
             ->get();
         return view('admin.orders', [
             'orders' => $orders
@@ -121,22 +181,21 @@ class AdminController extends Controller
     public function shoppings()
     {
         $shoppings = DB::table('shop_orders')
-            ->join('users', 'shop_orders.user_id', '=', 'users.id')
-            ->join('payment_types', 'shop_orders.payment_method_id', '=', 'payment_types.id')
-            ->join('shipping_methods', 'shop_orders.shipping_method', '=', 'shipping_methods.id')
-            ->join('order_statuses', 'shop_orders.order_status', '=', 'order_statuses.id')
-            ->select(
-                'users.name as name_user',
-                'payment_types.value as name_type',
-                'shop_orders.shipping_address',
-                'shipping_methods.name as name_method',
-                'order_statuses.status as name_status',
-                'shop_orders.order_date',
-                'shop_orders.order_total'
-            )
-            ->get();
+        ->join('users', 'shop_orders.user_id', '=', 'users.id')
+        ->join('payment_types', 'shop_orders.payment_method_id', '=', 'payment_types.id')
+        ->join('shipping_methods', 'shop_orders.shipping_method', '=', 'shipping_methods.id')
+        ->join('order_statuses', 'shop_orders.order_status', '=', 'order_statuses.id')
+        ->select('users.name as name_user', 'payment_types.value as name_type', 'shop_orders.shipping_address', 
+        'shipping_methods.name as name_method', 'order_statuses.status as name_status', 'shop_orders.order_date', 'shop_orders.order_total')
+        ->get();
         return view('admin.shoppings', [
             'shoppings' => $shoppings
         ]);
+    }
+    // Edit Status
+    public function editStatus($id)
+    {
+        
+        
     }
 }
