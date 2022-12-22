@@ -101,7 +101,7 @@
                             <span>Đăng ký</span>
                         </a>
                         <a href="/login"
-                            class="inline-block bg-primary rounded py-1 px-2 text-gray-200 hover:brightness-95 text-sm transition">
+                            class="inline-block bg-primary rounded py-1 px-2 text-white hover:brightness-95 text-sm transition">
                             <i class="fa-solid fa-right-to-bracket"></i>
                             <span>Đăng nhập</span>
                         </a>
