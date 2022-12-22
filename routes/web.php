@@ -106,10 +106,16 @@ Route::prefix('admin')->middleware(['isAdmin'])->group(function() {
     Route::get('/shoppings', [AdminController::class, 'shoppings'])->name('adminShop');
     Route::get('/createUser', [AdminController::class, 'createUser'])->name('createUser');
     Route::get('/editUser/{id}', [AdminController::class, 'loadEditForm'])->name('loadEditForm');
+    Route::get('/destroyUser/{id}', [AdminController::class, 'destroyUser'])->name('destroyUser');
+    Route::get('createProduct', [AdminController::class, 'createProduct'])->name('createProduct');
+    Route::get('/editProduct/{id}', [AdminController::class, 'loadEditProduct'])->name('editProduct');
+    Route::get('destroyProduct/{id}', [AdminController::class, 'destroyProduct'])->name('destroyProduuct');
+    Route::get('/editStatus{id}', [AdminController::class, 'editStatus'])->name('editStatus');
 
     Route::post('/insertUser', [AdminController::class, 'insertUser'])->name('insertUser');
-    Route::post('/destroyUser', [AdminController::class, 'destroyUser'])->name('destroyUser');
-    Route::post('editUser', [AdminController::class, 'editUser'])->name('editUser');
+    Route::post('/updateUser/{id}', [AdminController::class, 'updateUser'])->name('updateUser');
+    Route::post('/insertProduct', [AdminController::class, 'insertProduct'])->name('insertProduct');
+    Route::post('/updateProduct/{id}', [AdminController::class, 'updateProduct'])->name('updateProduct');
 });
 
 

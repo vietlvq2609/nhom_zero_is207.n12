@@ -19,70 +19,48 @@
         <a class="navbar-brand ps-3" href="index.html">Zero Food</a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-        <!-- Navbar Search-->
-        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-            <div class="input-group">
-                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-            </div>
-        </form>
-
     </nav>
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Core</div>
+                        <div class="sb-sidenav-menu-heading">Admin</div>
                         <a class="nav-link" href="{{route('admin.dashboard')}}">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Dashboard
+                            Trang chủ
                         </a>
-                        <div class="sb-sidenav-menu-heading">Management</div>
+                        <div class="sb-sidenav-menu-heading">Quản lý</div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Management
+                            Danh mục
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="{{ route('adminUser')}}">Users</a>
-                                <a class="nav-link" href="{{ route('adminProduct')}}">Products</a>
-                                <a class="nav-link" href="{{ route('adminOrder') }}">Orders</a>
-                                <a class="nav-link" href="{{ route('adminShop')}}">Shoppings</a>
+                                <a class="nav-link" href="{{ route('adminUser')}}">Người dùng</a>
+                                <a class="nav-link" href="{{ route('adminProduct')}}">Sản phẩm</a>
+                                <a class="nav-link" href="{{ route('adminOrder') }}">Đơn hàng</a>
+                                <a class="nav-link" href="{{ route('adminShop')}}">Hóa đơn</a>
                             </nav>
                         </div>
-
-                        <div class="sb-sidenav-menu-heading">Addons</div>
-                        <a class="nav-link" href="charts.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Charts
-                        </a>
-                        <a class="nav-link" href="tables.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Tables
-                        </a>
                     </div>
-                </div>
-                <div class="sb-sidenav-footer">
-                    <div class="small">Logged in as:</div>
-                    Zero Food
                 </div>
             </nav>
         </div>
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Management User</h1>
+                    <h1 class="mt-4">Quản lý người dùng</h1>
                     <div class="card mb-4">
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-md-6">
                                     <i class="fas fa-table me-1"></i>
-                                    DataTable Information User
+                                    Danh sách người dùng
                                 </div>
                                 <div class="col-md 6">
-                                    <a href="{{route('createUser')}}" class="btn btn-primary float-end">Insert</a>
+                                    <a href="{{route('createUser')}}" class="btn btn-primary float-end">Thêm</a>
                                 </div>
                             </div>
                         </div>
@@ -90,26 +68,29 @@
                             <table class="dataTable-table" id="datatablesUser">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
+                                        <th>STT</th>
+                                        <th>Tên</th>
                                         <th>Avatar</th>
                                         <th>Email</th>
-                                        <th>Phone Number</th>
-                                        <th>Action</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Thao tác</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($users as $user)
+                                    <?php
+                                    $i=0; foreach($users as $user): $i++ ?>
                                     <tr>
+                                        <td>{{ $i }}</td>
                                         <td>{{ $user->name }}</td>
                                         <td> <img width="300px" src="{{ $user->avatar }}" alt="{{ $user->name }}"></td>
                                         <td>{{ $user->email_address }}</td>
                                         <td>{{ $user->phone_number }}</td>
                                         <td>
-                                            <a href="/admin/editUser/{{$user->id}}" class="btn btn-info">Edit</a>
-                                            <a href="{{route('destroyUser')}}" class="btn btn-danger">Delete</a>
+                                            <a href="/admin/editUser/{{$user->id}}" class="btn btn-info">Sửa</a>
+                                            <a href="/admin/destroyUser/{{$user->id}}" class="btn btn-danger">Xóa</a>
                                         </td>
                                     </tr>
-                                    @endforeach
+                                    <?php endforeach ?>
                                 </tbody>
                             </table>
                         </div>
