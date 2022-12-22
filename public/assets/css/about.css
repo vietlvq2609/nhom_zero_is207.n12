@@ -32,8 +32,8 @@
     padding: 64px 0;
 }
 
-.main h2 {
-    font-size: 3rem;
+main h2 {
+    font-size: 1.2rem;
     font-weight: 300;
     margin-bottom: 32px;
     margin-top: 50px;
