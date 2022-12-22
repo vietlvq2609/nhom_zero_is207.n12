@@ -44,9 +44,9 @@
             <p class="text-xl text-primary font-semibold">{{ $min_price }}</p>
             <p class="text-xl text-primary font-semibold"> đến</p>
             <p class="text-xl text-primary font-semibold">{{ $max_price }}</p>
-            <p class="text-sm text-gray-400 line-through">$45</p>
+            {{-- <p class="text-sm text-gray-400 line-through">$45</p> --}}
         </div>
-        <div class="flex items-center">
+        {{-- <div class="flex items-center">
             <div class="flex gap-1 text-sm text-yellow-400">
                 <span><i class="fa-solid fa-star"></i></span>
                 <span><i class="fa-solid fa-star"></i></span>
@@ -55,7 +55,7 @@
                 <span><i class="fa-solid fa-star"></i></span>
             </div>
             <div class="text-xs text-gray-500 ml-3">(150)</div>
-        </div>
+        </div> --}}
     </div>
     <a href="/products/{{ $product->id }}"
         class="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition">Xem sản phẩm</a>

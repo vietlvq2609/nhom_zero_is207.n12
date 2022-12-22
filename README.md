@@ -1,8 +1,10 @@
-1. <code>git pull</code>
-2. <code>php artisan migrate</code> cho đến khi tạo thành công tất cả table (chưa fix lỗi)
-3. <code>php artisan db:seed</code> thêm dữ liệu cho database (còn thiếu)
-4. <code>php artisan serve</code> 
-5. Mở browser truy cập <code/>localhost:8000</code>
+1. <code>git clone https://github.com/vietlvq2609/nhom_zero_is207.n12.git</code>
+2. <code>copy toàn bộ file .env.example, sau đó tạo 1 file .env mới và paste toàn bộ vào .env</code> 
+3. <code>composer intall</code>
+4. <code>php artisan key:generate</code>
+5. <code>php artisan migrate --seed</code>
+6. <code>php artisan serve</code> 
+7. Mở browser truy cập <code>localhost:8000</code>
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
