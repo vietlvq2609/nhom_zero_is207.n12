@@ -60,7 +60,7 @@
                                     Danh sách người dùng
                                 </div>
                                 <div class="col-md 6">
-                                    <a href="{{route('createUser')}}" class="btn btn-primary float-end">Thêm</a>
+                                    <!-- <a href="{{route('createUser')}}" class="btn btn-primary float-end">Thêm</a> -->
                                 </div>
                             </div>
                         </div>
@@ -82,12 +82,19 @@
                                     <tr>
                                         <td>{{ $i }}</td>
                                         <td>{{ $user->name }}</td>
-                                        <td> <img width="300px" src="{{ $user->avatar }}" alt="{{ $user->name }}"></td>
+                                        <?php 
+                                            $user_avatar = '/assets/images/avatars/Avatar.jpg';
+                                            if ($user->avatar)
+                                            {
+                                                $user_avatar = $user->avatar;
+                                            }
+                                        ?>
+                                        <td class="text-center"> <img width="100px" height="100px" style="border-radius: 50%;" src="{{ $user_avatar}}" alt="{{ $user->name }}"></td>
                                         <td>{{ $user->email_address }}</td>
                                         <td>{{ $user->phone_number }}</td>
                                         <td>
                                             <a href="/admin/editUser/{{$user->id}}" class="btn btn-info">Sửa</a>
-                                            <a href="/admin/destroyUser/{{$user->id}}" class="btn btn-danger">Xóa</a>
+                                            <a href="/admin/destroyUser/{{$user->id}}" id="btnDelete" class="btn btn-danger">Xóa</a>
                                         </td>
                                     </tr>
                                     <?php endforeach ?>
@@ -99,7 +106,27 @@
             </main>
         </div>
     </div>
+    <x-flash-message />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script>
+        var btn = document.getElementsById('EX');
+        var modal = document.getElementById('ModalEX')
+            var myInput = document.getElementById('myInput')
+    
+            myModal.addEventListener('shown.bs.modal', function () {
+                myInput.focus()
+            })
+
+            btn.onclick = function() {
+                ModalEX.style.display = "block";
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modalDelete) {
+                    modalDelete.style.display = "none";
+                }
+            }
+    </script>    
 </body>
 
 </html>

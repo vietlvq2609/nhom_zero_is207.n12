@@ -18,10 +18,26 @@
                 </div>
             </div>
             <div class="card-body">
-                <form action="{{route('updateProduct', ['product' => $product])}}" method="POST">
+                <form action="/admin/updateProduct/{{$product->id}}" method="POST">
                     @csrf 
                     <div class="row">
                         <div class="col-md-12">
+                        <div class="form-group">
+                                <label for="type_id">Loại</label>
+                                <select name="type_id" id="payment_type">
+                                @foreach ($categories as $categorie)
+                                    @if($categorie->id === $product->category_id)
+                                    <option value="{{$categorie->id}}" selected >
+                                        {{$categorie->category_name}}
+                                    </option>
+                                    @else 
+                                    <option value="{{$categorie->id}}">
+                                        {{$categorie->category_name}}
+                                    </option>
+                                    @endif
+                                @endforeach
+                                </select>
+                            </div>
                             <div class="form-group">
                                 <label for="name">Tên</label>
                                 <input type="text" class="form-control" value="{{$product->name}}" name="name" id="name">

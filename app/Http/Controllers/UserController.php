@@ -46,6 +46,8 @@ class UserController extends Controller
         // Hash Password
         $formFields['password'] = bcrypt($formFields['password']);
 
+        // insert avatar
+        $formFields['avatar'] = '/assets/images/avatars/Avatar.jpg';
         // Create new user
         $user = User::create($formFields);
 

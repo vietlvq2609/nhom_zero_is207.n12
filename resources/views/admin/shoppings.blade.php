@@ -54,13 +54,19 @@
                     <h1 class="mt-4">Quản lý hóa đơn</h1>
                     
                     <div style="margin: 16px 0;" class="fill">
-                        <label for="date1">Từ ngày</label>
-                        <input style="margin-right: 20px" type="date" id="date1" name="date1">
-                        <label for="date2">Đến ngày</label>
-                        <input style="margin-right: 20px;" type="date" id="date2" name="date2">
-                        <label for="price">Giá hóa đơn</label>
-                        <input type="text" name="price" id="price">
-                        <button style="float:right; margin-top: -8px;" class="btn btn-primary">Lọc</button>
+                        <form action="">
+                            <label for="date1">Từ ngày</label>
+                            <input style="margin-right: 20px" type="date" id="date1" name="date1">
+                            <label for="date2">Đến ngày</label>
+                            <input style="margin-right: 20px;" type="date" id="date2" name="date2">
+                            <label for="price">Giá hóa đơn</label>
+                            <select name="price" id="price">
+                                <option value="1">< 100000 VND</option>
+                                <option value="2">100000 VND - 1000000 VND</option>
+                                <option value="3">> 1000000 VND</option>
+                            </select>
+                            <button style="float:right; margin-top: -8px;" class="btn btn-primary">Lọc</button>
+                        </form>
                     </div>
                     </div>
                     <div class="card mb-4">
@@ -88,9 +94,10 @@
                                     <tr>
                                         <td>{{ $i }}</td>
                                         <td>{{ $shopping->name_user }}</td>
-                                        <td>{{ $shopping->name_type }}</td>
-                                        <td>{{ $shopping->shipping_address }}</td>
-                                        <td>{{ $shopping->name_method }}</td>
+                                        <td>{{ $shopping->name_payment_type }}</td>
+                                        <td>{{ $shopping->unit }} - {{$shopping->street}} - {{$shopping->address1}} - 
+                                        {{$shopping->address2}} - {{$shopping->city}} - {{$shopping->country_name }}</td>
+                                        <td>{{ $shopping->name_ship_method }}</td>
                                         <td style="width: 150px;">{{ $shopping->name_status }} 
                                             <a href="/admin/editStatus/{id}" class="btn btn-info">Sửa</a>
                                         </td>
@@ -106,6 +113,7 @@
             </main>
         </div>
     </div>
+    <x-flash-message />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>
 

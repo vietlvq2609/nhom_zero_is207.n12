@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Product;
+use App\Models\Shopping_cart;
+use App\Models\User_role;
 use App\Models\Product_category;
 use Illuminate\Support\Facades\Redis;
 use Symfony\Component\HttpFoundation\RateLimiter\RequestRateLimiterInterface;
@@ -57,14 +59,25 @@ class AdminController extends Controller
 
     public function insertUser(Request $request)
     {
-        $value = new User();
-        $value->name = $request['name'];
-        $value->avatar = $request['avatar'];
-        $value->email_address = $request['email'];
-        $value->password = $request['password'];
-        $value->phone_number = $request['phone'];
+        $user = new User();
+        $user->name = $request['name'];
+        $user->avatar = $request['avatar'];
+        $user->email_address = $request['email'];
+        $user->password = $request['password'];
+        $user->phone_number = $request['phone'];
 
-        $value['password'] = bcrypt($value['password']);
+        // Add role "user" for user
+        User_role::create([
+            'user_id' => $user->id,
+            'role_id' => 2
+        ]);
+
+        // Add cart for user
+        Shopping_cart::create([
+            'user_id' => $user->id
+        ]);
+
+        $user['password'] = bcrypt($user['password']);
 
         // DB::table('users')->insert([
         //     'name' => $value['name'],
@@ -74,7 +87,7 @@ class AdminController extends Controller
         //     'phone_number' => $value['phone_number']
         // ]);
 
-        $value->save();
+        $user->save();
 
         return redirect('admin/user')->with('message', "Thêm thành công");
     }
@@ -83,19 +96,22 @@ class AdminController extends Controller
     public function loadEditForm(User $id)
     {
         return view('admin.editUser', [
-            "user" => $id
+            "user" => $id,
         ]);
     }
 
     public function updateUser(Request $request, $id)
     {
-        DB::table('users')->where('id', '=', $id)->delete();
-        $user = DB::table('users')->where('id', '=', $id)->get();
-        $user->name = $request->name;
-        $user->avatar = $request->avatar;
-        $user->email_address = $request->email;
-        $user->phone_number = $request->phone;
-        
+
+        DB::table('users')
+        ->where('id', '=', $id)
+        ->update( [
+            'name' => $request['name'],
+            'avatar' => $request['avatar'],
+            'email_address' => $request['email'],
+            'phone_number' => $request['phone'],
+        ]);
+
         return redirect('admin/user')->with('message', "Sửa thành công");
     }
 
@@ -140,20 +156,29 @@ class AdminController extends Controller
     }
 
     // update
-    public function loadEditProduct($id)
+    public function loadEditProduct(Product $id)
     {
+        $categories = DB::table('product_categories')
+        ->select('*')->get();
         return view('admin.editProduct', [
-            "product" => $id
+            "product" => $id,
+            'categories' => $categories
         ]);
     }
 
     public function updateProduct(Request $request, $id)
     {
-        $product = DB::table('products')->where('id', '=', $id)->get();
-        $value = new Product();
-        $value->name = $request->name;
-        $value->description = $request->description;
-        $value->product_image = $request->image;
+        
+        DB::table('products')
+        ->where('id', '=', $id)
+        ->update([
+            'category_id' => $request['type_id'],
+            'name' => $request['name'],
+            'description' => $request['description'],
+            'product_image' => $request['image']
+        ]);
+
+        
         
         return redirect('admin/products')->with('message', "Sửa thành công");
     }
@@ -183,10 +208,23 @@ class AdminController extends Controller
         $shoppings = DB::table('shop_orders')
         ->join('users', 'shop_orders.user_id', '=', 'users.id')
         ->join('payment_types', 'shop_orders.payment_method_id', '=', 'payment_types.id')
+        ->join('addresses', 'shop_orders.shipping_address', '=', 'addresses.id')
+        ->join('countries','countries.id', '=', 'addresses.country_id')
         ->join('shipping_methods', 'shop_orders.shipping_method', '=', 'shipping_methods.id')
         ->join('order_statuses', 'shop_orders.order_status', '=', 'order_statuses.id')
-        ->select('users.name as name_user', 'payment_types.value as name_type', 'shop_orders.shipping_address', 
-        'shipping_methods.name as name_method', 'order_statuses.status as name_status', 'shop_orders.order_date', 'shop_orders.order_total')
+        ->select('shop_orders.id',
+        'users.name as name_user', 
+        'payment_types.value as name_payment_type', 
+        'addresses.unit_number as unit',
+        'addresses.street_number as street',
+        'addresses.address_line1 as address1',
+        'addresses.address_line2 as address2',
+        'addresses.city',
+        'countries.country_name',
+        'shipping_methods.name as name_ship_method', 
+        'order_statuses.status as name_status', 
+        'shop_orders.order_date', 
+        'shop_orders.order_total')
         ->get();
         return view('admin.shoppings', [
             'shoppings' => $shoppings

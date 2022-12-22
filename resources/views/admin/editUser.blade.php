@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <form action="{{route('insertUser', ['user' => $user])}}" method="POST">
+                <form action="/admin/updateUser/{{$user->id}}" method="POST">
                     @csrf 
                     <div class="row">
                         <div class="col-md-12">
