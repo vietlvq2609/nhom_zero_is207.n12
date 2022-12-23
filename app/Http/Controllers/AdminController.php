@@ -194,7 +194,8 @@ class AdminController extends Controller
     public function orders()
     {
         $orders = DB::table('order_lines')
-            ->join('products', 'order_lines.product_item_id', '=', 'products.id')
+            ->join('product_items', 'order_lines.product_item_id', '=', 'product_items.id')
+            ->join('products', 'product_items.product_id', '=', 'products.id')
             ->select('order_lines.id', 'products.name', 'order_lines.order_id', 'order_lines.qty', 'order_lines.price')
             ->get();
         return view('admin.orders', [
@@ -207,7 +208,8 @@ class AdminController extends Controller
     {
         $shoppings = DB::table('shop_orders')
         ->join('users', 'shop_orders.user_id', '=', 'users.id')
-        ->join('payment_types', 'shop_orders.payment_method_id', '=', 'payment_types.id')
+        ->join('user_payment_methods','user_payment_methods.id','=','shop_orders.payment_method_id')
+        ->join('payment_types', 'user_payment_methods.payment_type_id', '=', 'payment_types.id')
         ->join('addresses', 'shop_orders.shipping_address', '=', 'addresses.id')
         ->join('countries','countries.id', '=', 'addresses.country_id')
         ->join('shipping_methods', 'shop_orders.shipping_method', '=', 'shipping_methods.id')

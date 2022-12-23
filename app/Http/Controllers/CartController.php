@@ -239,7 +239,11 @@ class CartController extends Controller
         }
         // Gửi mail xác nhận cho khách, bảo khách chuyển khoảng
         // nếu khách chọn phương thức thanh toán là "trả bằng tiền mặt thì không cần gửi mail
-        if($request->payment_method_id != 1 )
+        $payment= User_payment_method::where('user_payment_methods.id',$request->payment_method_id)
+        ->join('payment_types','payment_types.id','=','payment_type_id')
+        ->select('payment_types.id')
+        ->first();
+        if($payment->id != 1 )
         {
             $user = User::where('id', auth()->id())->first();
             $payment_method = User_payment_method::where('user_payment_methods.id',$request->payment_method_id)
@@ -456,7 +460,12 @@ class CartController extends Controller
         $shop_order = Shop_order::where('id', $request->id)->first();
 
         // Gửi mail cho user xác nhận hủy đơn và hoàn lại tiền
-        if($shop_order->payment_method_id != 1 )
+        $payment= Shop_order::where('shop_orders.id',$request->id)
+        ->join('user_payment_methods','user_payment_methods.id','=','shop_orders.payment_method_id')
+        ->join('payment_types','payment_types.id','=','user_payment_methods.payment_type_id')
+        ->select('payment_types.id')
+        ->first();
+        if($payment->id != 1 )
         {
             $user = User::where('id', auth()->id())->first();
             $payment_method = User_payment_method::where('user_payment_methods.id', $shop_order->payment_method_id)

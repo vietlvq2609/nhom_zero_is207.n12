@@ -89,7 +89,9 @@
                                         <td> <img width="200px" src="{{ $product->product_image }}" alt="{{ $product->description }}"></td>
                                         <td style="width: 130px;">
                                             <a href="/admin/editProduct/{{$product->id}}" class="btn btn-info">Sửa</a>
-                                            <a href="/admin/destroyProduct/{{$product->id}}" class="btn btn-danger">Xóa</a>
+                                            <a onclick="
+                                            if(!confirm('Bạn có muốn xóa sản phẩm này ra khỏi giỏ hàng!')) 
+                                                event.preventDefault()" href="/admin/destroyProduct/{{$product->id}}" class="btn btn-danger">Xóa</a>
                                         </td>
                                     </tr>
                                     <?php endforeach ?>
