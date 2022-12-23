@@ -560,7 +560,7 @@ class CartController extends Controller
 
         // thêm bình luận cho sản phẩm
 
-        return back()->with('message', 'Đã hủy đơn hàng!');
+        return back()->with('message', 'Đã nhận đơn hàng!');
     }
 
     public function boughtView()
