@@ -94,7 +94,9 @@
                                         <td>{{ $user->phone_number }}</td>
                                         <td>
                                             <a href="/admin/editUser/{{$user->id}}" class="btn btn-info">Sửa</a>
-                                            <a href="/admin/destroyUser/{{$user->id}}" id="btnDelete" class="btn btn-danger">Xóa</a>
+                                            <a onclick="
+                                            if(!confirm('Bạn có chắc chắn xoá người dùng này không?')) 
+                                                event.preventDefault()" href="/admin/destroyUser/{{$user->id}}" id="btnDelete" class="btn btn-danger">Xóa</a>
                                         </td>
                                     </tr>
                                     <?php endforeach ?>
